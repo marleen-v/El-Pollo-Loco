@@ -14,13 +14,13 @@ window.addEventListener('keydown', (event) => {
     if(event.key == 'ArrowLeft'){
         keyboard.LEFT = true;
     }
-    if(event.key == 'ArrowUP'){
+    if(event.key == 'ArrowUp'){
         keyboard.UP = true;
     }
-    if(event.key == 'ArrowDOWN'){
+    if(event.key == 'ArrowDown'){
         keyboard.DOWN = true;
     }
-    if(event.key == 'Space'){
+    if(event.key == ' '){
         keyboard.SPACE = true;
     }
 } ) 
@@ -32,13 +32,13 @@ window.addEventListener('keyup', (event) => {
     if(event.key == 'ArrowLeft'){
         keyboard.LEFT = false;
     }
-    if(event.key == 'ArrowUP'){
+    if(event.key == 'ArrowUp'){
         keyboard.UP = false;
     }
-    if(event.key == 'ArrowDOWN'){
+    if(event.key == 'ArrowDown'){
         keyboard.DOWN = false;
     }
-    if(event.key == 'Space'){
+    if(event.key == ' '){
         keyboard.SPACE = false;
     }
 } ) 
