@@ -48,17 +48,28 @@ class World {
 
   addToMap(mO) {
     if(mO.otherDirection){
-      this.ctx.save(); // saves the current state, including position, style and transformations.
-      this.ctx.translate(mO.width, 0);
-      this.ctx.scale(-1,1);
-      mO.x = mO.x * -1;
+      this.flipImage(mO);
+
     }
     
-    this.ctx.drawImage(mO.img, mO.x, mO.y, mO.width, mO.height);
+    mO.draw(this.ctx);
+    mO.drawFrame(this.ctx);
+   
 
     if(mO.otherDirection) {
-      mO.x = mO.x * -1;
-      this.ctx.restore(); // resets the canvas state to the last saved state, undoing any changes in between.
+      this.flipImageBack(mO);
     }
+  }
+
+  flipImage(mO){
+    this.ctx.save(); // saves the current state, including position, style and transformations.
+    this.ctx.translate(mO.width, 0);
+    this.ctx.scale(-1,1);
+    mO.x = mO.x * -1;
+  }
+
+  flipImageBack(mO){
+    mO.x = mO.x * -1;
+    this.ctx.restore(); // resets the canvas state to the last saved state, undoing any changes in between.
   }
 }
