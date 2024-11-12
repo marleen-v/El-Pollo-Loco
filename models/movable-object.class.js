@@ -19,9 +19,13 @@ class MovableObject extends DrawableObject{
     }
 
     isAboveGround(){
-        return this.y < 190;
+        if ((this instanceof ThrowableObject)){ // Throwable Objects should always fall
+            return true;
+        } else {
+        return this.y < 190; 
+        }
     }
-    
+
     playAnimation(images){
         let i = this.currentImage % images.length;  // i ist immer der Rest (hier 0 bis 5)
         let path = images[i];
