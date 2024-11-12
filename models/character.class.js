@@ -75,8 +75,10 @@ class Character extends MovableObject {
         }, 1000 / 60);
         
         setInterval(() => {
-
-            if(this.isAboveGround()){
+            if(this.isDead()){
+                this.playAnimation(this.IMAGES_DEAD);
+                
+            } else if (this.isAboveGround()){
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){ 
@@ -84,14 +86,6 @@ class Character extends MovableObject {
                 }
             }   
         }, 50); 
-
-        setInterval(() => {
-            if(this.isDead()){
-                this.playAnimation(this.IMAGES_DEAD);
-                
-            }
-        }, 50)
     }
-   
 
 }
