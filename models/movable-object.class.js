@@ -7,7 +7,6 @@ class MovableObject extends DrawableObject{
     energy = 100;
     lastHit = 0;
 
-   
 
     applyGravity(){
         setInterval(() => {
@@ -22,11 +21,7 @@ class MovableObject extends DrawableObject{
     isAboveGround(){
         return this.y < 190;
     }
-
-
-
-
-
+    
     playAnimation(images){
         let i = this.currentImage % images.length;  // i ist immer der Rest (hier 0 bis 5)
         let path = images[i];
