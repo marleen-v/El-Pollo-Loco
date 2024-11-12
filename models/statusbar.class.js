@@ -1,31 +1,69 @@
 class Statusbar extends DrawableObject {
 
-
     IMAGES = [
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
         'img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
+    ];
+
+    IMAGES_COIN = [
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
+        'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
+    ];
+
+    IMAGES_BOTTLE = [
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/20.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/40.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/60.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/80.png',
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
     ]
+
+    images = [];
 
 
     percentage = 100;
 
-    constructor(){
+    constructor(images){
+        console.log(images);
         super();
-        this.loadImages(this.IMAGES);
-        this.x = 40;
-        this.y = 0;
-        this.width = 200;
-        this.height = 50 ; 
+        this.assignImages(images);
+        this.loadImages(this.images);
+        console.log(this.images);
+        console.log(this.y);
+   
+        this.width = 150;
+        this.height = 40 ; 
         this.setPercentage(100);
+    }
+
+    assignImages(images){
+        if(images === "health"){
+            this.images = this.IMAGES;
+            this.x = 40;
+            this.y = 0;
+        } else if(images === "coin"){
+            this.images = this.IMAGES_COIN;
+            this.x = 40;
+            this.y = 40;
+        } else {
+            this.images = this.IMAGES_BOTTLE;
+            this.x = 40;
+            this.y = 80;
+        }
     }
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.IMAGES[this.resolveImageIndex()]
+        let path = this.images[this.resolveImageIndex()]
         this.img = this.imageCache[path];
     }
 

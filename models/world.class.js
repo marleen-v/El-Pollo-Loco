@@ -6,8 +6,12 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
-  statusbar =  new Statusbar();
-
+  statusbar =  [
+    new Statusbar('health'),
+    new Statusbar('coin'),
+    new Statusbar('bottle'),
+  ]
+  
 
 
   constructor(canvas, keyboard) {
@@ -29,7 +33,7 @@ class World {
         if(this.character.isColliding(enemy)){
           this.character.hit();
           this.statusbar.setPercentage(this.character.energy);
-          console.log('Collision with character', this.statusbar.percentage); 
+          console.log('Collision with   character', this.statusbar.percentage); 
         };
       });
     }, 200);
@@ -49,7 +53,7 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0); 
     // ---------- Space for fixed objects
-    this.addToMap(this.statusbar); 
+    this.addObjectsToMap(this.statusbar); 
     this.ctx.translate(this.camera_x, 0); 
 
     this.addObjectsToMap(this.level.enemies);
