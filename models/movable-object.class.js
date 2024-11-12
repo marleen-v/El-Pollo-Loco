@@ -1,11 +1,5 @@
-class MovableObject {
-    x = 120;
-    y = 190;
-    img;
-    height;
-    width;
-    imageCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject{
+   
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -13,9 +7,7 @@ class MovableObject {
     energy = 100;
     lastHit = 0;
 
-    constructor(){
-        
-    }
+   
 
     applyGravity(){
         setInterval(() => {
@@ -31,14 +23,7 @@ class MovableObject {
         return this.y < 190;
     }
 
-    loadImage(path){
-        this.img = new Image();
-        this.img.src = path;
-    }
 
-    draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
 
     drawFrame(ctx){
         if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
@@ -49,14 +34,6 @@ class MovableObject {
         ctx.stroke();
         }
     
-    }
-
-    loadImages(arr){
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
     }
 
     playAnimation(images){
@@ -108,7 +85,7 @@ class MovableObject {
     isHurt(){
         let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
         timePassed = timePassed / 1000; // difference in s
-        return timePassed < 5;
+        return timePassed < 1;
     }
 
     isDead(){
