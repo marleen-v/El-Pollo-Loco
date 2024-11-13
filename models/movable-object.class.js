@@ -6,6 +6,10 @@ class MovableObject extends DrawableObject{
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    lastActive = Date.now();
+    sleepTime = 8000; // 
+    isSleeping = false;
+
 
 
     applyGravity(){
@@ -31,6 +35,11 @@ class MovableObject extends DrawableObject{
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    resetLastAction() {
+        this.lastActive = Date.now();
+        this.isSleeping = false; // Charakter wird aufgeweckt
     }
 
     moveRight(){
@@ -81,4 +90,19 @@ class MovableObject extends DrawableObject{
     isDead(){
         return this.energy == 0;
         } 
+
+    isAsleep(){
+        let timePassed = new Date().getTime() - this.lastActive;
+
+        if (timePassed >= this.sleepTime) {
+            this.isSleeping = true; // Setze isSleeping auf true, wenn 15 Sekunden vergangen sind
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    idle(){
+        return !this.isSleeping
+    }
 }
