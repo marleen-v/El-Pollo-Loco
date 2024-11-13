@@ -3,6 +3,7 @@ class Character extends MovableObject {
     width = 120;
     speed = 20;
     y = 80;
+    hasPlayedDeadAnimation = false;
    
     
 
@@ -89,7 +90,7 @@ class Character extends MovableObject {
     animate(){
 
         setInterval(()=> {
-
+            if(!this.hasPlayedDeadAnimation){
             this.walking_sound.pause();
             if (this.world.keyboard.LEFT && this.x >= 0){
                 this.otherDirection = true;
@@ -108,13 +109,18 @@ class Character extends MovableObject {
             }
             
             this.world.camera_x = -this.x + 100;
+        }
         }, 1000 / 60);
 
          
         setInterval(() => {
             if(this.isDead()){
-                this.playAnimation(this.IMAGES_DEAD);
-                this.resetLastAction();
+                if(!this.hasPlayedDeadAnimation){
+                    this.playAnimation(this.IMAGES_DEAD);
+                    this.resetLastAction();
+                    this.hasPlayedDeadAnimation = true;
+                }
+               
             } else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_HURT);
                 this.resetLastAction();
