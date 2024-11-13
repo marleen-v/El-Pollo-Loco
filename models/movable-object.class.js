@@ -5,9 +5,10 @@ class MovableObject extends DrawableObject{
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
+    wealth = 0;
     lastHit = 0;
     lastActive = Date.now();
-    sleepTime = 8000; // 
+    sleepTime = 15000; // 
     isSleeping = false;
 
 
@@ -105,4 +106,10 @@ class MovableObject extends DrawableObject{
     idle(){
         return !this.isSleeping
     }
+
+    collectItem(){
+        if(this.wealth < 100){
+            this.wealth += 10;
+        }
+     }
 }

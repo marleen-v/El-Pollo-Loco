@@ -18,15 +18,27 @@ class DrawableObject{
     }
 
     drawFrame(ctx){
-        if(this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+        if( this instanceof Chicken || this instanceof Endboss){
         ctx.beginPath();
         ctx.lineWidth = '2';
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x, this.y, this.width, this.height);
         ctx.stroke();
-        }
-    
+        } else if(this instanceof CollectibleItem){
+        ctx.beginPath();
+        ctx.lineWidth = '2';
+        ctx.strokeStyle = 'green';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+        } else if(this instanceof Character){
+        ctx.beginPath();
+        ctx.lineWidth = '2';
+        ctx.strokeStyle = 'green';
+        ctx.rect(this.x+20, this.y+90, this.width-40, this.height-100);
+        ctx.stroke();
+            }
     }
+
 
     loadImages(arr){
         arr.forEach((path) => {

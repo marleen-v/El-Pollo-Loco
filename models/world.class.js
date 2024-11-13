@@ -28,6 +28,7 @@ class World {
     setInterval(() => {
     this.checkCollisions(); 
     this.checkThrowObjects();
+    this.checkCollectItem();
       }, 200);
   }
 
@@ -44,6 +45,18 @@ class World {
         this.character.hit();
         this.statusbar_health.setPercentage(this.character.energy);
         console.log('Collision with   character', this.statusbar_health.percentage); 
+      };
+    });
+  }
+
+  checkCollectItem(){
+    this.level.collectibleItems.forEach((item, index) => {
+      if(this.character.isColliding(item)){
+        this.character.collectItem();
+        this.level.collectibleItems.splice(index, 1);
+        console.log(this.level.collectibleItems); 
+        this.statusbar_coin.setPercentage(this.character.wealth);
+        console.log('collected', this.statusbar_coin.percentage); 
       };
     });
   }
@@ -68,7 +81,9 @@ class World {
     this.ctx.translate(this.camera_x, 0); 
 
     this.addObjectsToMap(this.level.enemies);
+   
     this.addObjectsToMap(this.level.collectibleItems);
+  
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObject);
 

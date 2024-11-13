@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     height = 240;
     width = 120;
-    speed = 20;
+    speed = 10 ;
     y = 80;
     hasPlayedDeadAnimation = false;
    
