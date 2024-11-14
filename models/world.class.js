@@ -11,8 +11,6 @@ class World {
   statusbar_bottle = new Statusbar('bottle');
   throwableObject = [];
 
-  /* coins = [];
-  bottles = []; */
     
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -31,14 +29,20 @@ class World {
     setInterval(() => {
     this.checkCollisions(); 
     this.checkThrowObjects();
-    this.checkCollectItem();
+    this.checkCollectCoin();
+    this.checkCollectBottle();
       }, 200);
   }
 
   checkThrowObjects(){
     if(this.keyboard.D){
+      if(this.character.salsa != 0){
       let bottle = new ThrowableObject((this.character.x + 10), (this.character.y + 100))
       this.throwableObject.push(bottle);
+      this.character.salsa -= 10;
+      this.statusbar_bottle.setPercentage(this.character.salsa);
+      }
+      
     }
   }
 
@@ -52,18 +56,25 @@ class World {
     });
   }
 
-  checkCollectItem(){
-    this.level.collectibleItems.forEach((item, index) => {
+  checkCollectCoin(){
+    this.level.coins.forEach((item, index) => {
       if(this.character.isColliding(item)){
-        this.character.collectItem();
-        this.level.collectibleItems.splice(index, 1);
-        console.log(this.level.collectibleItems); 
+        this.character.collectCoin();
+        this.level.coins.splice(index, 1);
         this.statusbar_coin.setPercentage(this.character.wealth);
-        console.log('collected', this.statusbar_coin.percentage); 
       };
     });
   }
 
+  checkCollectBottle(){
+    this.level.bottles.forEach((item, index) => {
+      if(this.character.isColliding(item)){
+        this.character.collectBottle();
+        this.level.bottles.splice(index, 1);
+        this.statusbar_bottle.setPercentage(this.character.salsa);
+      };
+    });
+  }
 
   draw() {
     //Clear before drawing new
@@ -83,9 +94,12 @@ class World {
     this.addToMap(this.statusbar_bottle); 
     this.ctx.translate(this.camera_x, 0); 
 
+
     this.addObjectsToMap(this.level.enemies);
    
-    this.addObjectsToMap(this.level.collectibleItems);
+    this.addObjectsToMap(this.level.bottles);
+    this.addObjectsToMap(this.level.coins);
+
   
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObject);

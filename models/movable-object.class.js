@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject{
     acceleration = 2.5;
     energy = 100;
     wealth = 0;
+    salsa = 0;
     lastHit = 0;
     lastActive = Date.now();
     sleepTime = 15000; // 
@@ -56,20 +57,20 @@ class MovableObject extends DrawableObject{
         this.speedY = 30;
     }
 
-    isColliding(mo) {
+     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
-/*     }
+    } 
 
-    isColliding (obj) {
+  /*           isColliding (obj) {
         return  (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) && 
                 (this.y + this.offsetY + this.height) >= obj.y &&
-                (this.y + this.offsetY) <= (obj.y + obj.height) && 
-                obj.onCollisionCourse; */ // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+                (this.y + this.offsetY) <= (obj.y + obj.height)  */
+                // && obj.onCollisionCourse;  // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
-    }
+   /*  } */
 
  
 
@@ -107,9 +108,16 @@ class MovableObject extends DrawableObject{
         return !this.isSleeping
     }
 
-    collectItem(){
+    collectCoin(){
         if(this.wealth < 100){
             this.wealth += 10;
         }
      }
+
+     collectBottle(){
+        if(this.salsa < 100){
+            this.salsa += 10;
+        }
+     }
+     
 }
