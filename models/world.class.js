@@ -10,6 +10,9 @@ class World {
   statusbar_coin =  new Statusbar('coin');
   statusbar_bottle = new Statusbar('bottle');
   throwableObject = [];
+
+  /* coins = [];
+  bottles = []; */
     
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
