@@ -1,5 +1,11 @@
 class Bottle extends MovableObject {
 
+    offset = { // to adjust the image dimensions
+        top: 0,
+        left: 20,
+        right: 20,
+        bottom: 0
+    }
  
        constructor(){
         super()

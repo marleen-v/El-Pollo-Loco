@@ -5,14 +5,12 @@ class Character extends MovableObject {
     y = 80;
     hasPlayedDeadAnimation = false;
    
-    offset = {
+    offset = { // to adjust the image dimensions
         top: 120,
         left: 25,
-        right: 30,
+        right: 35,
         bottom: 30
     }
-
-    // Offset Frame anzeigen lassen!!
 
 
     IMAGES_WALKING = [
