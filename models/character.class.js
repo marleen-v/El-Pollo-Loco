@@ -5,7 +5,15 @@ class Character extends MovableObject {
     y = 80;
     hasPlayedDeadAnimation = false;
    
-    
+    offset = {
+        top: 120,
+        left: 25,
+        right: 30,
+        bottom: 30
+    }
+
+    // Offset Frame anzeigen lassen!!
+
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',

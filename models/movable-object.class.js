@@ -12,6 +12,15 @@ class MovableObject extends DrawableObject{
     sleepTime = 15000; // 
     isSleeping = false;
 
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
+
+/*     ctx.rect(this.x+20, this.y+90, this.width-40, this.height-100); */
+
 
 
     applyGravity(){
@@ -31,6 +40,7 @@ class MovableObject extends DrawableObject{
         return this.y < 190; 
         }
     }
+
 
     playAnimation(images){
         let i = this.currentImage % images.length;  // i ist immer der Rest (hier 0 bis 5)
@@ -57,20 +67,21 @@ class MovableObject extends DrawableObject{
         this.speedY = 30;
     }
 
-     isColliding(mo) {
+/*      isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
+    }  */
+
+
+    isColliding(mo){
+     return  this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+                this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+                this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+                this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+              //  && obj.onCollisionCourse;  // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.;
     } 
-
-  /*           isColliding (obj) {
-        return  (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) && 
-                (this.y + this.offsetY + this.height) >= obj.y &&
-                (this.y + this.offsetY) <= (obj.y + obj.height)  */
-                // && obj.onCollisionCourse;  // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-
-   /*  } */
 
  
 
