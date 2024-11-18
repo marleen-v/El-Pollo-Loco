@@ -1,5 +1,12 @@
 class Coin extends MovableObject {
 
+    offset = { // to adjust the image dimensions
+        top:8,
+        left: 8,
+        right: 8,
+        bottom: 8
+    }
+
     IMAGES_COIN = [
         'img/8_coin/coin_1.png',
         'img/8_coin/coin_2.png'
@@ -14,10 +21,12 @@ class Coin extends MovableObject {
         this.width = 70;
         this.height = 70;
         this.animate();
+    
     }
 
     animate(){
         setInterval(() => {
+         this.hitbox = this.getHitBox();
         this.playAnimation(this.IMAGES_COIN);
     }, 200);
     } 

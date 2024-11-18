@@ -3,12 +3,13 @@ class Character extends MovableObject {
     width = 120;
     speed = 10 ;
     y = 80;
+    energy = 100;
     hasPlayedDeadAnimation = false;
    
     offset = { // to adjust the image dimensions
         top: 120,
-        left: 25,
-        right: 35,
+        left: 40,
+        right: 40,
         bottom: 30
     }
 
@@ -96,11 +97,14 @@ class Character extends MovableObject {
     animate(){
 
         setInterval(()=> {
+            this.hitbox = this.getHitBox();
             if(!this.hasPlayedDeadAnimation){
             this.walking_sound.pause();
             if (this.world.keyboard.LEFT && this.x >= 0){
                 this.otherDirection = true;
                 this.moveLeft();
+                  console.log("x", this.x);
+                  console.log("hitBox x", this.hitbox.x); 
                 this.walking_sound.play();
             }
             if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){

@@ -1,10 +1,11 @@
 class Bottle extends MovableObject {
 
+
     offset = { // to adjust the image dimensions
-        top: 0,
-        left: 20,
-        right: 20,
-        bottom: 0
+        top: 10,
+        left: 30,
+        right: 30,
+        bottom: 10
     }
  
        constructor(){
@@ -13,9 +14,10 @@ class Bottle extends MovableObject {
 
         this.x = 200 + Math.random() * 1800; // last number is for total width
         this.y = 320 + Math.random() * (-200);
-        this.width = 70;
-        this.height = 70;
-       /*  this.animate(); */
+        this.width = 80;
+        this.height = 80;
+        this.hitbox = this.getHitBox();
+        /*  this.animate(); */
     }
 
 /*     animate(){

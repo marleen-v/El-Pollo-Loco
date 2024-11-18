@@ -4,30 +4,34 @@ class MovableObject extends DrawableObject{
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
-    energy = 100;
+    energy;
     wealth = 0;
     salsa = 0;
     lastHit = 0;
     lastActive = Date.now();
-    sleepTime = 15000; // 
+    sleepTime = 15000; 
     isSleeping = false;
-
+    countForBounce = 0;
+  
     offset = {
         top: 0,
         left: 0,
         right: 0,
         bottom: 0
     }
+    hitbox = {};
 
-/*     ctx.rect(this.x+20, this.y+90, this.width-40, this.height-100); */
-
-
+    constructor() {
+        super()
+        this.hitbox = this.getHitBox();
+    }
 
     applyGravity(){
         setInterval(() => {
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+    
             }
             
         }, 1000 / 25);
@@ -56,6 +60,7 @@ class MovableObject extends DrawableObject{
 
     moveRight(){
         this.x += this.speed;
+      
     }
 
     moveLeft(){
@@ -65,34 +70,81 @@ class MovableObject extends DrawableObject{
         
     jump(){
         this.speedY = 30;
+    
     }
 
-/*      isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
-    }  */
+    getHitBox(){
+     /*  const newX = this.otherDirection ? this.x * -1 : this.x  */
+        return {
+            x: this.x + this.offset.left,
+            y: this.y + this.offset.top,
+            width: this.width - this.offset.left - this.offset.right,
+            height: this.height - this.offset.bottom - this.offset.top,
+            left: this.x + this.offset.left,
+            top: this.y + this.offset.top,
+            right:  this.x + this.width - this.offset.right,
+            bottom: this.height - this.offset.bottom + this.y
+        };
+     }
 
-
-    isColliding(mo){
+/*     isColliding(mo){
      return  this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-                this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+                this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && 
                 this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-                this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
-              //  && obj.onCollisionCourse;  // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.;
-    } 
+                this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom */
+              //  && mo.onCollisionCourse;  // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.;
+  
 
- 
+   
+/*       isColliding(mo){
+        const hitboxRight = this.hitbox.right < 0 ? this.hitbox.right *(-1) : this.hitbox.right
+        const hitboxLeft = this.hitbox.left < 0 ? this.hitbox.left *(-1) : this.hitbox.left
+        return  hitboxRight > mo.hitbox.left &&
+        hitboxLeft < mo.hitbox.right &&
+                this.hitbox.top < mo.hitbox.bottom &&
+                this.hitbox.bottom > mo.hitbox.top 
+       }   */
+
+                isColliding(mo){
+            
+                    return  this.hitbox.right > mo.hitbox.left &&
+                            this.hitbox.left < mo.hitbox.right &&
+                            this.hitbox.top < mo.hitbox.bottom &&
+                            this.hitbox.bottom > mo.hitbox.top 
+                   }  
+
+/*     isJumpingOn(mo) {
+        
+        return this.y + this.height - this.offset.bottom <= mo.y + mo.offset.top && 
+               this.y + this.height - this.offset.bottom > mo.y + mo.offset.top  && 
+               this.x + this.width - this.offset.right > mo.x + mo.offset.left && 
+               this.x + this.offset.left < mo.x + mo.width - mo.offset.right;   
+    }
+ */
 
     hit(){
         this.energy -= 5;
+        this.bounceBack();
+        this.countForBounce = 0;
         if(this.energy < 0){
         this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
     }
+
+    bounceBack(){
+     
+        setInterval(() => {
+            console.log(this.countForBounce)
+            if(this.countForBounce <= 10 ){ 
+            this.otherDirection ? this.moveRight() : this.moveLeft();
+            this.countForBounce += 1;
+            } 
+    
+        }, 30);
+        
+    } 
 
     isHurt(){
         let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
@@ -130,5 +182,7 @@ class MovableObject extends DrawableObject{
             this.salsa += 10;
         }
      }
+
+
      
 }
