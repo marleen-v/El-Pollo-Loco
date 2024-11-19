@@ -79,7 +79,7 @@ class Character extends MovableObject {
 
     world;
     walking_sound = new Audio('audio/running.mp3');
-    
+  
     
    constructor(){
     super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -104,19 +104,29 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.moveLeft();
                 this.walking_sound.play();
+                this.world.camera_x = -this.x + 100; 
+                /* for (let index = 0; this.world.level.backgroundObjects.length; index++) {
+                    const bgImage = this.world.level.backgroundObjects[index];
+                    console.log(this.world.level.backgroundObjects[2].moveRight())
+                    bgImage[index].moveRight(); 
+                } */
+                
             }
+           
             if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){
                 this.otherDirection = false;
                 this.moveRight();
                 this.walking_sound.play();
             }
+            this.world.camera_x = -this.x + 100;
 
             if(this.world.keyboard.SPACE && !this.isAboveGround()){  
                 this.jump();
                 
             }
-            
             this.world.camera_x = -this.x + 100;
+            
+           
         }
         }, 1000 / 60);
 

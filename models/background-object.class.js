@@ -25,9 +25,12 @@ class BackgroundObject extends MovableObject {
         "nextX": this.nextX
         } */
 
+    speeds = [
+        0, 0.05, 0.1, 0.15 // für doe Bewegung des Hintergrunds
+    ]
     
     startX = -1439;
-
+    speed;
 
     height = 480;
     width = 1440; // 720 for single pictures
@@ -42,8 +45,12 @@ class BackgroundObject extends MovableObject {
 
         this.x = this.startX + ((this.width-1)* imageCounterX); 
         this.y = 480 - this.height;
-        console.log(this.x)
+        this.speed = this.speeds[i];
+        
    
         }
+
+    
+    
        
 }
