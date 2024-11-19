@@ -1,6 +1,8 @@
 class World {
   character = new Character();
   level = level1;
+
+
   
   canvas;
   ctx;
@@ -28,13 +30,14 @@ class World {
 
   run(){
     setInterval(() => {
-     
     this.checkCollisions(); 
-    this.checkThrowObjects();
     this.checkCollectCoin();
     this.checkCollectBottle();
-    
-      }, 1000 / 60);
+     }, 1000 / 60);
+
+    setInterval(() => {
+    this.checkThrowObjects();
+     }, 100);
   }
 
   checkThrowObjects(){
@@ -58,7 +61,7 @@ class World {
           if (this.character.isJumpingOn(enemy)) {
             enemy.takeDamage(); 
             if(enemy.isDead()){ 
-              this.level.enemies.splice(index, 1); 
+             this.level.enemies.splice(index, 1); 
             }
            this.character.bounceUp(); 
         } else {

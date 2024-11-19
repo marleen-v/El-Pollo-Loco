@@ -1,43 +1,45 @@
 const level1 = new Level(
     [
-       /*  new ChickenSmall(),
+        /* new ChickenSmall(),
         new ChickenSmall(),
         new ChickenSmall(),
           
         new Chicken(), 
         new Chicken(),  
-           */
+           
        new ChickenSmall(),
        new Chicken(),  
-        new Endboss() 
+       new Endboss()   */
     ],
     [   
         new Cloud("1"), 
         new Cloud("2")
     ],
     [
-        new BackgroundObject("img/5_background/layers/air.png", -719),
-        new BackgroundObject("img/5_background/layers/3_third_layer/2.png", -719),
-        new BackgroundObject("img/5_background/layers/2_second_layer/2.png", -719 ),
-        new BackgroundObject("img/5_background/layers/1_first_layer/2.png", -719),
-    
-        new BackgroundObject("img/5_background/layers/air.png", 0),
-        new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 0),
-        new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 0 ),
-        new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 0),
-        new BackgroundObject("img/5_background/layers/air.png", 719),
-        new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 719),
-        new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 719 ),
-        new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 719),
-    
-        new BackgroundObject("img/5_background/layers/air.png", 719*2),
-        new BackgroundObject("img/5_background/layers/3_third_layer/1.png",719*2),
-        new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 719*2 ),
-        new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 719*2),
-        new BackgroundObject("img/5_background/layers/air.png", 719*3),
-        new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 719*3),
-        new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 719*3),
-        new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 719*3),
+        new BackgroundObject(0),
+        new BackgroundObject(1),
+        new BackgroundObject(2),
+        new BackgroundObject(3), 
+
+        new BackgroundObject(4),
+        new BackgroundObject(5),
+        new BackgroundObject(6),
+        new BackgroundObject(7), 
+
+        new BackgroundObject(8),
+        new BackgroundObject(9),
+        new BackgroundObject(10),
+        new BackgroundObject(11), 
+
+        new BackgroundObject(12),
+        new BackgroundObject(13),
+        new BackgroundObject(14),
+        new BackgroundObject(15), 
+
+        new BackgroundObject(16),
+        new BackgroundObject(17),
+        new BackgroundObject(18),
+        new BackgroundObject(19), 
     ],
     [
         new Coin(),
