@@ -7,50 +7,54 @@ class BackgroundObject extends MovableObject {
         "img/5_background/layers/1_first_layer/full.png"
     ]
 
-/*     IMAGES = [
-        {
-        "image":"img/5_background/layers/air.png",
-        "nextX": this.nextX
-        }, 
-        {
-        "image":"img/5_background/layers/3_third_layer/1.png",
-        "nextX": this.nextX
-        },
-        {
-        "image":"img/5_background/layers/2_second_layer/1.png",
-        "nextX": this.nextX
-        },
-        {
-        "image":"img/5_background/layers/1_first_layer/1.png",
-        "nextX": this.nextX
-        } */
 
     speeds = [
-        0, 0.05, 0.1, 0.15 // für doe Bewegung des Hintergrunds
+        0, 0.5, 0.3, 0 // für doe Bewegung des Hintergrunds
     ]
+
+
     
     startX = -1439;
+
     speed;
+    i; //Rest
 
     height = 480;
     width = 1440; // 720 for single pictures
 
+    constructor(index, x){ 
+        super();
+        this.x = x;
+        this.loadImage(this.IMAGES[index])
+        this.y = 480 - this.height;
+        this.speed = this.speeds[index];
+   
+        } 
 
+        moveLeft(){
+            this.x += this.speed;
+          }
 
-    constructor(index){ 
+          moveRight(){
+             this.x -= this.speed;
+          }
+   
+    
+
+ /*    constructor(index){ 
         super();
         let imageCounterX = Math.floor(index / this.IMAGES.length); 
-        let i = index  % this.IMAGES.length; 
-        this.loadImage(this.IMAGES[i]);
+        this.i = index  % this.IMAGES.length; 
+        this.loadImage(this.IMAGES[this.i]);
 
         this.x = this.startX + ((this.width-1)* imageCounterX); 
         this.y = 480 - this.height;
-        this.speed = this.speeds[i];
-        
+        this.speed = this.speeds[this.i];
+ 
    
-        }
+        } */
 
-    
-    
+
+           
        
 }

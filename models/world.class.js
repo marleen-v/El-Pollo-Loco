@@ -25,6 +25,8 @@ class World {
 
   setWorld(){
     this.character.world = this;
+    this.level.backgroundObjects.world = this;
+
   }
 
   run(){
@@ -50,6 +52,8 @@ class World {
       
     }
   }
+
+
 
 
     checkCollisions() {

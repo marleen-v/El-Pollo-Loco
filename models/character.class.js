@@ -104,12 +104,12 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.moveLeft();
                 this.walking_sound.play();
+                
+                this.world.level.backgroundObjects.forEach(bg => {
+                    bg.moveRight();
+                });
                 this.world.camera_x = -this.x + 100; 
-                /* for (let index = 0; this.world.level.backgroundObjects.length; index++) {
-                    const bgImage = this.world.level.backgroundObjects[index];
-                    console.log(this.world.level.backgroundObjects[2].moveRight())
-                    bgImage[index].moveRight(); 
-                } */
+                
                 
             }
            
@@ -117,6 +117,9 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 this.moveRight();
                 this.walking_sound.play();
+                this.world.level.backgroundObjects.forEach(bg => {
+                    bg.moveLeft();
+                });
             }
             this.world.camera_x = -this.x + 100;
 
@@ -154,6 +157,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_IDLE);
             }
         }, 90); 
+
  
     }
 
