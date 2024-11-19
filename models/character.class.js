@@ -10,7 +10,7 @@ class Character extends MovableObject {
         top: 120,
         left: 40,
         right: 40,
-        bottom: 30
+        bottom: 20
     }
 
 
@@ -103,8 +103,6 @@ class Character extends MovableObject {
             if (this.world.keyboard.LEFT && this.x >= 0){
                 this.otherDirection = true;
                 this.moveLeft();
-                  console.log("x", this.x);
-                  console.log("hitBox x", this.hitbox.x); 
                 this.walking_sound.play();
             }
             if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x){

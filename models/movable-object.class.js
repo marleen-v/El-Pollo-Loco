@@ -31,7 +31,6 @@ class MovableObject extends DrawableObject{
             if(this.isAboveGround() || this.speedY > 0){
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-    
             }
             
         }, 1000 / 25);
@@ -70,7 +69,6 @@ class MovableObject extends DrawableObject{
         
     jump(){
         this.speedY = 30;
-    
     }
 
     getHitBox(){
@@ -113,14 +111,16 @@ class MovableObject extends DrawableObject{
                             this.hitbox.bottom > mo.hitbox.top 
                    }  
 
-/*     isJumpingOn(mo) {
+     isJumpingOn(mo) {
         
-        return this.y + this.height - this.offset.bottom <= mo.y + mo.offset.top && 
-               this.y + this.height - this.offset.bottom > mo.y + mo.offset.top  && 
-               this.x + this.width - this.offset.right > mo.x + mo.offset.left && 
-               this.x + this.offset.left < mo.x + mo.width - mo.offset.right;   
+        return this.hitbox.right - mo.hitbox.left > this.hitbox.bottom - mo.hitbox.top && 
+               this.isAboveGround() 
     }
- */
+
+    bounceUp(){
+        this.speedY = 25;
+    }
+
 
     hit(){
         this.energy -= 5;
@@ -136,7 +136,7 @@ class MovableObject extends DrawableObject{
     bounceBack(){
      
         setInterval(() => {
-            console.log(this.countForBounce)
+           
             if(this.countForBounce <= 10 ){ 
             this.otherDirection ? this.moveRight() : this.moveLeft();
             this.countForBounce += 1;
@@ -183,6 +183,11 @@ class MovableObject extends DrawableObject{
         }
      }
 
-
+     takeDamage(){
+        if(!this.isDead()){
+            this.energy -= 1;
+        }
+      
+     }
      
 }

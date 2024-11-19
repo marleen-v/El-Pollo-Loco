@@ -34,7 +34,7 @@ class World {
     this.checkCollectCoin();
     this.checkCollectBottle();
     
-      }, 50);
+      }, 1000 / 60);
   }
 
   checkThrowObjects(){
@@ -49,46 +49,25 @@ class World {
     }
   }
 
-/*   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if(this.character.isColliding(enemy)){
-        this.character.hit();
-        this.statusbar_health.setPercentage(this.character.energy);
-        console.log('Collision with   character', this.statusbar_health.percentage); 
-      };
-    });
-  } */
 
     checkCollisions() {
     
       this.level.enemies.forEach((enemy, index) => {
-      /*   if (this.isAboveGround() || this.speedY > 0) */
-       /*  if(this.character.isJumpingOn(enemy) ){
-          enemy.energy -= 1;
-          console.log(enemy.energy)
-          if(enemy.isDead()){ 
-            this.level.enemies.splice(index, 1); 
-          }  
-        } else */ 
          if(this.character.isColliding(enemy)){
+          
+          if (this.character.isJumpingOn(enemy)) {
+            enemy.takeDamage(); 
+            if(enemy.isDead()){ 
+              this.level.enemies.splice(index, 1); 
+            }
+           this.character.bounceUp(); 
+        } else {
           this.character.hit();
           this.statusbar_health.setPercentage(this.character.energy);
-          console.log('Collision with', enemy, this.character.hitbox, enemy.hitbox, this.character.hitbox)
         };
-      });
-    } 
-
-
-/*  checkifJumpedOnEnemy(){
-  this.level.enemies.forEach((enemy, index) => {
-    if(this.character.isJumpingOn(enemy)){
-      enemy.energy -= 1;
-    } else if(enemy.isDead()){ 
-      this.level.enemies.splice(index, 1);
-    }
-        // Dead Animation
+      }
     });
-} */
+    } 
    
 
   checkCollectCoin(){

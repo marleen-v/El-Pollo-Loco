@@ -5,7 +5,7 @@ class ChickenSmall extends MovableObject {
     energy = 1;
     
     offset = { 
-        top: 7,
+        top: 0,
         left: 10,
         right: 10,
         bottom: 10

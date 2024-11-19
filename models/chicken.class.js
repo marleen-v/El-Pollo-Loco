@@ -2,7 +2,7 @@ class Chicken extends MovableObject {
     y = 350;
     width = 80;
     height = 90;
-    energy = 1  ;
+    energy = 1;
     
     offset = { 
         top: 20,
@@ -28,10 +28,10 @@ class Chicken extends MovableObject {
         this.x = 200 + Math.random() * 500;
         this.hitbox = this.getHitBox()
         this.speed = 0.15 + Math.random() * 0.25;
-        /* this.animate(); */
+       /*  this.animate(); */
     }
     
-   /* animate(){
+   animate(){
          setInterval(() => {
             this.hitbox = this.getHitBox();
             if(this.isDead()){
@@ -48,5 +48,5 @@ class Chicken extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
     }
     }, 200); 
-    } */
+    }
 }
