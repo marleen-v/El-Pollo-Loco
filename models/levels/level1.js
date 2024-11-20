@@ -30,21 +30,25 @@ const level1 = new Level(
         new BackgroundObject(0, 0),
         new BackgroundObject(0, 1439),
         new BackgroundObject(0, 1439*2), 
+        new BackgroundObject(0, 1439*3), 
 
         new BackgroundObject(1, -1439),
         new BackgroundObject(1, 0),
         new BackgroundObject(1, 1439),
         new BackgroundObject(1, 1439 * 2), 
+        new BackgroundObject(1, 1439 * 3), 
 
         new BackgroundObject(2, -1439),
         new BackgroundObject(2, 0),
         new BackgroundObject(2, 1439),
         new BackgroundObject(2, 1439 * 2), 
+        new BackgroundObject(2, 1439 * 3),
 
         new BackgroundObject(3, -1439),
         new BackgroundObject(3, 0),
         new BackgroundObject(3, 1439),
         new BackgroundObject(3, 1439 * 2), 
+        new BackgroundObject(3, 1439 * 3),
 
      
         /* new BackgroundObject(0),
