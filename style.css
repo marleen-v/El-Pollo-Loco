@@ -31,6 +31,52 @@ canvas {
     display: block;
 }
 
+.canvas-container{
+    display: flex;
+    justify-content: center;
+    gap:20px;
+
+}
+
+.keyboard-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    width:100%;
+    justify-content: center;
+    gap:30px;
+    margin: 20px 0;
+    align-items: center;
+}
+
+
+
+.arrows-container{
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+
+}
+
+img {
+    width:100%;
+    max-width:50px;
+    min-width:20px;
+    height:auto;
+}
+
+.img-throw {
+    max-width:70px;
+}
+
+
+.img-up {
+    max-width:150px;
+}
+
+
+
 @media only screen and (max-width:720px) {
     canvas {
         width:100%;

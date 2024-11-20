@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./assets.css">
     <link rel="icon" type="image/png" href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png">
     <title>El pollo loco</title>
     <script src="./models/keyboard.class.js" defer></script>
@@ -30,7 +31,34 @@
 
     <h1>El pollo loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div class="canvas-container">
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+    <div class="keyboard-container">
+        <div class="arrows-container">
+            <div class="arrows">
+                <img class="key img-up" src="img/SVG/arrow-up-big.svg" alt="">
+                <img class="d_none key img-up"  src="img/SVG/arrow-up-big-active.svg" alt="">
+            </div>
+            <div class="arrows">
+                <img class="key" src="img/SVG/arrow-left.svg" alt="">
+                <img class ="d_none key" src="img/SVG/arrow-left-active.svg" alt="">
+                <img class="key" src="img/SVG/arrow-down.svg" alt="">
+                <img class="key"src="img/SVG/arrow-right.svg" alt="">
+                <img class ="d_none key" src="img/SVG/arrow-right-active.svg" alt="">
+            </div>
+            
+        </div>
+        <div class="jump">
+            <img class="key img-throw" src="img/SVG/key-d.svg" alt="">
+            <img class ="d_none key img-throw" src="img/SVG/key-d-active.svg" alt="">
+        </div>
+       
+    </div>
+
+    </div>   
+
+    
     
 </body>
 </html>
