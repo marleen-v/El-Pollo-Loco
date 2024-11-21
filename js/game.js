@@ -1,13 +1,20 @@
 const imgRef = document.querySelectorAll(".key");
+const startScreenRef = document.getElementById("start");
 
 let canvas;
 let world;
 let keyboard = new Keyboard();
 
 
-function init() {
+function startGame() {
     canvas = document.getElementById("canvas");
+    toggleVisibility(startScreenRef);
+    toggleVisibility(canvas);
     world = new World(canvas, keyboard);
+}
+
+function toggleVisibility(element){
+    element.classList.toggle("d_none");
 }
 
 window.addEventListener('keydown', (event) => {
@@ -39,18 +46,18 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
     if(event.key == 'ArrowRight'){
         keyboard.RIGHT = false;
-        toggleDisplay(5, 6);
+        toggleDisplay(6, 5);
        
 
     };
     if(event.key == 'ArrowLeft'){
         keyboard.LEFT = false;
-        toggleDisplay(2, 3);
+        toggleDisplay(3, 2);
         
     };
     if(event.key == 'ArrowUp'){
         keyboard.UP = false;
-        toggleDisplay(0, 1);
+        toggleDisplay(1, 0);
     };
     if(event.key == 'ArrowDown'){
         keyboard.DOWN = false;
@@ -60,12 +67,12 @@ window.addEventListener('keyup', (event) => {
     };
     if(event.key == 'd'){
         keyboard.D = false;
-        toggleDisplay(7, 8);
+        toggleDisplay(8, 7);
     };
 } ) 
 
 function toggleDisplay(img, img_active) {
-    imgRef[img].classList.toggle("d_none");
-    imgRef[img_active].classList.toggle("d_none");
+    imgRef[img].classList.add("d_none");
+    imgRef[img_active].classList.remove("d_none");
 }
   

@@ -1,4 +1,14 @@
-const level1 = new Level(
+let level1; 
+
+
+/* function initLevel(){
+hideStartScreen();  
+canvas = document.getElementById("canvas");
+world = new World(canvas, keyboard);
+canvas.classList.toggle("d_none");  */
+
+
+level1 = new Level(
     [
         /* new ChickenSmall(),
         new ChickenSmall(),
@@ -88,3 +98,5 @@ const level1 = new Level(
         new Bottle()
      ]
 );
+
+/* } */

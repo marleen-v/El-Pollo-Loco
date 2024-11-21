@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,16 +23,21 @@
     <script src="./models/level.class.js" defer></script>
     <script src="./models/throwable-object.class.js" defer></script>
     <script src="./models/endboss.class.js" defer></script>
-    <script src="./models/levels/level1.js" defer></script>
+    <script src="./js/levels/level1.js" defer></script>
     <script src="./js/game.js" defer></script>
     
 </head>
-<body onload="init()">
+<body> <!-- onload="init()" -->
 
-    <h1>El pollo loco</h1>
+    <h1 >El pollo loco</h1>
 
     <div class="canvas-container">
-        <canvas id="canvas" width="720" height="480"></canvas>
+        <div class="start" id="start">
+            <div class="start-container">
+                <button onclick="startGame()">Start</button>
+            </div>
+        </div> 
+        <canvas class ="d_none" id="canvas" width="720" height="480"></canvas> 
 
     <div class="keyboard-container">
         <div class="arrows-container">

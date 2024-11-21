@@ -7,7 +7,11 @@
 
 button {
     cursor:pointer;
-    font-family: 'zabars', Arial, Helvetica, sans-serif !important;
+    font-family: 'zabars', Arial, Helvetica, sans-serif;
+    border: none;
+    width: 300px;
+    height: 50px;
+    font-size: 40px;
 }
 
 body {
@@ -26,6 +30,23 @@ h1{
     letter-spacing: 3px;
 }
 
+.start{
+    background-image: url('img/10_BG/startscreen_1.jpg');
+    background-size: cover;
+    top:0;
+    left:0;
+    width: 720px;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+} 
+
+.end{
+    background-image: url('img/10_BG/startscreen_1.jpg');
+    background-size: cover;
+} 
+
 canvas {
     background-color: #000;
     display: block;
@@ -35,14 +56,13 @@ canvas {
     display: flex;
     justify-content: center;
     gap:20px;
-
 }
 
 .keyboard-container{
     display: flex;
     flex-direction: column;
     max-width: 720px;
-    width:100%;
+    /* width:100%; */
     justify-content: center;
     gap:30px;
     margin: 20px 0;
@@ -78,13 +98,13 @@ img {
 
 
 @media only screen and (max-width:720px) {
-    canvas {
+    canvas, .start, .end {
         width:100%;
     }
 }
 
 @media only screen and (max-height:480px) {
-    canvas {
+    canvas,.start, .end {
         height:100vh;
     }
 }
