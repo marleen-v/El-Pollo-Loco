@@ -28,22 +28,23 @@ class Chicken extends MovableObject {
         this.x = 200 + Math.random() * 500;
         this.hitbox = this.getHitBox()
         this.speed = 0.15 + Math.random() * 0.25;
-       /*  this.animate(); */
+       this.animate(); 
     }
     
    animate(){
          setInterval(() => {
-            this.hitbox = this.getHitBox();
+            
             if(this.isDead()){
                this.playAnimation(this.IMAGES_DEAD);
             } else {
+                this.hitbox = this.getHitBox();
                this.moveLeft();
-            
+             
             }
         }, 1000 / 60);
     
        setInterval(() => {
-        this.hitbox = this.getHitBox();
+        
         if(!this.isDead()){
         this.playAnimation(this.IMAGES_WALKING);
     }
