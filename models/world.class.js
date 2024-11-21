@@ -25,7 +25,8 @@ class World {
 
   setWorld(){
     this.character.world = this;
-    this.level.backgroundObjects.world = this;
+ /*    this.level.backgroundObjects.world = this;*/
+    this.level.enemies[0].world = this; 
 
   }
 

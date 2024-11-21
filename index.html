@@ -30,20 +30,21 @@
     <script src="./js/levels/level1.js" defer></script>
     <script src="./js/game.js" defer></script>
   </head>
-  <body>
+  <body onload="startGame()">
     <!-- onload="init()" -->
 
     <div class="canvas-container">
         <div class="flex flex-column align-center">
             <h1>El pollo loco</h1>
             <div class="start position-relative" id="start">
-              <div class="start-container">
-                <button onclick="startGame()">Start</button>
-              </div>
-              <dialog open class="position-absolute">
+<!--               <div class="start-container">
+                <button onclick="startGame()">Start</button> 
+                <button onclick="openDialog()">Need help?</button>
+              </div> -->
+              <dialog class="position-absolute">
                 <div class="dialog-container flex align-center position-relative flex-column">
                     <h2>Your task</h2>
-                    <!-- <p>Defeat all enemies and collect all coins to win! - Let's go! </p> -->
+
                     <button id="close-btn" class="close-btn position-absolute" onclick="dialogClose()">X</button>
                     <div class="flex" style="gap:15px; padding:20px 50px 20px 20px; ">
                     <table class="custom-table">

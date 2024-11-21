@@ -61,6 +61,7 @@ p{
 canvas {
     background-color: #000;
     display: block;
+
 }
 
 .canvas-container{
@@ -135,7 +136,7 @@ dialog::backdrop {
   }
 
 dialog.bg::backdrop {
-    background-color: #191b1d4a; 
+    background-color: #191b1d6e; 
   } 
   
   .dialog-container {

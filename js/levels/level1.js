@@ -9,8 +9,8 @@ canvas.classList.toggle("d_none");  */
 
 
 level1 = new Level(
-    [
-        /* new ChickenSmall(),
+    [   new Endboss(),  
+       /*  new ChickenSmall(),
         new ChickenSmall(),
         new ChickenSmall(),
           
@@ -18,8 +18,8 @@ level1 = new Level(
         new Chicken(),  
            
        new ChickenSmall(),
-       new Chicken(),  
-       new Endboss()   */
+       new Chicken(), */ 
+        
     ],
     [   
         new Cloud("1"), 
@@ -32,8 +32,7 @@ level1 = new Level(
         new Cloud("2"),
         new Cloud("1"), 
         new Cloud("2"),
-        
-        
+
     ],
     [
         new BackgroundObject(0, -1439),

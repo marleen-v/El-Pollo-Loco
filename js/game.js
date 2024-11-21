@@ -22,7 +22,7 @@ function toggleVisibility(element){
 
 function openDialog(){
     dialog.classList.add("bg");
-    dialog.open();
+    dialog.showModal();
 }
 
 function dialogClose(){
