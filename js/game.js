@@ -1,5 +1,7 @@
 const imgRef = document.querySelectorAll(".key");
 const startScreenRef = document.getElementById("start");
+const dialog = document.querySelector("dialog");
+const closeBtn = document.getElementById("close-btn");
 
 let canvas;
 let world;
@@ -7,6 +9,7 @@ let keyboard = new Keyboard();
 
 
 function startGame() {
+
     canvas = document.getElementById("canvas");
     toggleVisibility(startScreenRef);
     toggleVisibility(canvas);
@@ -15,6 +18,16 @@ function startGame() {
 
 function toggleVisibility(element){
     element.classList.toggle("d_none");
+}
+
+function openDialog(){
+    dialog.classList.add("bg");
+    dialog.open();
+}
+
+function dialogClose(){
+    dialog.close();
+    dialog.classList.remove("bg");
 }
 
 window.addEventListener('keydown', (event) => {

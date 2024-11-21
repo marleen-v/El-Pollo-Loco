@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./assets.css">
-    <link rel="icon" type="image/png" href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./assets.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png"
+    />
     <title>El pollo loco</title>
     <script src="./models/keyboard.class.js" defer></script>
     <script src="./models/drawable-object.class.js" defer></script>
@@ -25,45 +29,109 @@
     <script src="./models/endboss.class.js" defer></script>
     <script src="./js/levels/level1.js" defer></script>
     <script src="./js/game.js" defer></script>
-    
-</head>
-<body> <!-- onload="init()" -->
-
-    <h1 >El pollo loco</h1>
+  </head>
+  <body>
+    <!-- onload="init()" -->
 
     <div class="canvas-container">
-        <div class="start" id="start">
-            <div class="start-container">
+        <div class="flex flex-column align-center">
+            <h1>El pollo loco</h1>
+            <div class="start position-relative" id="start">
+              <div class="start-container">
                 <button onclick="startGame()">Start</button>
+              </div>
+              <dialog open class="position-absolute">
+                <div class="dialog-container flex align-center position-relative flex-column">
+                    <h2>Your task</h2>
+                    <!-- <p>Defeat all enemies and collect all coins to win! - Let's go! </p> -->
+                    <button id="close-btn" class="close-btn position-absolute" onclick="dialogClose()">X</button>
+                    <div class="flex" style="gap:15px; padding:20px 50px 20px 20px; ">
+                    <table class="custom-table">
+                        <tr>
+                            <td class="icons-column">
+                                
+                            </td>
+                            <td class="text-column"><b>Defeat all enemies and collect all coins to win! - Let's go! </b></td>
+                        </tr>
+                        <tr>
+                            <td class="icons-column">
+                                <img src="./img/8_coin/coin_1.png" alt="coin">
+                            </td>
+                            <td class="text-column"><b>Collect</b> <u>all</u> coins</td>
+                        </tr>
+                        <tr>
+                            <td class="icons-column">
+                                <img src="./img/6_salsa_bottle/1_salsa_bottle_on_ground.png" style="width:60px; height:60px" alt="Icon 1">
+                            </td>
+                            <td class="text-column"><b>Collect</b> tabasco bottles to defeat your enemies</td>
+                        </tr>
+                        
+                    </table>
+                    <table class="custom-table">
+             
+                        <tr>
+                            <td class="icons-column">
+                                <img src="./img/3_enemies_chicken/chicken_small/1_walk/1_w.png" alt="Icon 1">
+                            </td>
+                            <td class="text-column"><b>ENEMY 1:</b> Defeated by <b>1 hit </b> (jumping or tabasco bottle)</td>
+                        </tr>
+                        <tr>
+                            <td class="icons-column">
+                                <img src="./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png" style="width:50px; height:50px" alt="Icon 1">
+                            </td>
+                            <td class="text-column"><b>ENEMY 2:</b> Defeated by <b>2 hits </b> (jumping or tabasco bottle)</td>
+                        </tr>
+                        <tr>
+                            <td class="icons-column">
+                                <img src="./img/4_enemie_boss_chicken/1_walk/G1.png" style="width:60px; height:70px" alt="Icon 1">
+                            </td>
+                            <td class="text-column"><b>ENEMY 3: Endboss - </b> Defeated by <b>5 hits </b> with tabasco bottle</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                </div>
+              </dialog>
             </div>
-        </div> 
-        <canvas class ="d_none" id="canvas" width="720" height="480"></canvas> 
+            <canvas class="d_none" id="canvas" width="720" height="480"></canvas>
 
-    <div class="keyboard-container">
+        </div>
+     
+      <div class="keyboard-container">
         <div class="arrows-container">
-            <div class="arrows">
-                <img class="key img-up" src="img/SVG/arrow-up-big.svg" alt="">
-                <img class="d_none key img-up"  src="img/SVG/arrow-up-big-active.svg" alt="">
-            </div>
-            <div class="arrows">
-                <img class="key" src="img/SVG/arrow-left.svg" alt="">
-                <img class ="d_none key" src="img/SVG/arrow-left-active.svg" alt="">
-                <img class="key" src="img/SVG/arrow-down.svg" alt="">
-                <img class="key"src="img/SVG/arrow-right.svg" alt="">
-                <img class ="d_none key" src="img/SVG/arrow-right-active.svg" alt="">
-            </div>
-            
+          <div class="arrows">
+            <img class="key-img key img-up" src="img/SVG/arrow-up-big.svg" alt="" />
+            <img
+              class=" key-img d_none key img-up"
+              src="img/SVG/arrow-up-big-active.svg"
+              alt=""
+            />
+          </div>
+          <div class="arrows">
+            <img class=" key-img key" src="img/SVG/arrow-left.svg" alt="" />
+            <img
+              class="key-img d_none key"
+              src="img/SVG/arrow-left-active.svg"
+              alt=""
+            />
+            <img class="key key-img" src="img/SVG/arrow-down.svg" alt="" />
+            <img class="key key-img" src="img/SVG/arrow-right.svg" alt="" />
+            <img
+              class="d_none key key-img"
+              src="img/SVG/arrow-right-active.svg"
+              alt=""
+            />
+          </div>
         </div>
         <div class="jump">
-            <img class="key img-throw" src="img/SVG/key-d.svg" alt="">
-            <img class ="d_none key img-throw" src="img/SVG/key-d-active.svg" alt="">
+          <img class="key img-throw key-img" src="img/SVG/key-d.svg" alt="" />
+          <img
+            class="d_none key img-throw key-img"
+            src="img/SVG/key-d-active.svg"
+            alt=""
+          />
         </div>
-       
+      </div>
     </div>
-
-    </div>   
-
-    
-    
-</body>
+  </body>
 </html>
