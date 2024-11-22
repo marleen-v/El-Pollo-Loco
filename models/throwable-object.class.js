@@ -17,6 +17,7 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
     ]
 
+
    
     
    constructor(x, y){
@@ -41,9 +42,17 @@ class ThrowableObject extends MovableObject {
 
     
     animate(){
+        let i = 0
         setInterval(() => {
-          this.playAnimation(this.IMAGES_THROWING);
+            if(this.isColliding(enemy) && i != 1){
+                i = 1;
+                this.playAnimation(this.IMAGES_SPLASH);
+               
+            } else {
+                this.playAnimation(this.IMAGES_THROWING);
+            }
         }, 80);
+    
     } 
     
 

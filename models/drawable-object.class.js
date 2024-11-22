@@ -30,7 +30,7 @@ class DrawableObject{
         ctx.strokeStyle = 'blue';
         ctx.rect((this.x + this.offset.left), (this.y + this.offset.top), (this.width - this.offset.left -this.offset.right), (this.height - this.offset.top - this.offset.bottom));
         ctx.stroke();
-        } else if(this instanceof Coin || this instanceof Bottle){
+        } else if(this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject){
         ctx.beginPath();
         ctx.lineWidth = '2';
         ctx.strokeStyle = 'yellow';

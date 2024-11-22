@@ -107,10 +107,15 @@ class Endboss extends MovableObject {
       }
     }, 200);
 
+    
 /*     setInterval(() => {
-      if (!this.isDead()) {
+      if (!this.isDead() && ) {
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 200); */
   }
+
+  
+
+
 }
