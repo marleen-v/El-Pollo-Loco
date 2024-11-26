@@ -9,8 +9,8 @@ class World {
   camera_x = 0;
 
   buttons = [];
-  soundManager;
-  background_music;
+ /*  soundManager; */
+  /* background_music; */
 
   statusbar_health = new Statusbar("health");
   statusbar_coin = new Statusbar("coin");
@@ -22,10 +22,22 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+/*     //------------------
+    this.soundManager = new SoundManager();
+    // Hintergrundmusik hinzufügen
+    const backgroundMusic = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3");
+    backgroundMusic.loop = true; // Schleife aktivieren
+    this.soundManager.addSound(backgroundMusic);
 
+    // Charakter-Sound hinzufügen
+    const walking_sound = new Audio("audio/running.mp3");
+    const runningSound = new Audio('path/to/running.mp3');
+    this.soundManager.addSound(runningSound);
+
+    //----------------- */
     this.createButtons();
-    this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3");
-    this.background_music.loop = true;
+this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3");
+    this.background_music.loop = true; 
     this.draw();
     this.setWorld();
     this.run();
@@ -41,6 +53,7 @@ class World {
     this.buttons.push(new Button("volume", () => {
       const button = this.buttons[0];
       button.toggleImage();
+      /* this.soundManager.toggleMute(); */
       this.toggleMusic(button);
       }
     ));
