@@ -2,20 +2,25 @@ class Bottle extends MovableObject {
 
 
     offset = { // to adjust the image dimensions
-        top: 10,
-        left: 30,
-        right: 30,
-        bottom: 10
+        top: 0,
+        left: 10,
+        right: 10,
+        bottom: 0
     }
- 
-       constructor(){
-        super()
-        this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
 
-        this.x = 200 + Math.random() * 1800; // last number is for total width
-        this.y = 320 + Math.random() * (-200);
-        this.width = 80;
-        this.height = 80;
+    IMAGES = [
+        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+        'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
+    ]
+ 
+       constructor(index, x){
+        super()
+        this.loadImage(this.IMAGES[index]);
+
+        this.x = x
+        this.y = 365;
+        this.width = 40;
+        this.height = 60;
         this.hitbox = this.getHitBox();
         /*  this.animate(); */
     }

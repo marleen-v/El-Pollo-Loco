@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
   y = 20;
   width = 350;
   height = 450;
+  energy = 50;
 
   hadFirstContact = false;
 
@@ -88,6 +89,7 @@ class Endboss extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+      
 
       } else if (i < 10) {
         this.moveLeft();
@@ -99,18 +101,24 @@ class Endboss extends MovableObject {
       }
       i++;
 
-      if (this.world.character.x > 2200 && !this.hadFirstContact) {
+/*       if (this.world.character.x > 2200 && !this.hadFirstContact) {
         i = 0;
         this.hadFirstContact = true;
             this.moveLeft();
    
-      }
+      } */
     }, 200);
+    
 
+    
 /*     setInterval(() => {
-      if (!this.isDead()) {
+      if (!this.isDead() && ) {
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 200); */
   }
+
+  
+
+
 }

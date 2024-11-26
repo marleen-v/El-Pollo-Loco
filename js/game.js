@@ -14,6 +14,8 @@ function startGame() {
     toggleVisibility(startScreenRef);
     toggleVisibility(canvas);
     world = new World(canvas, keyboard);
+
+    eventListeners();
 }
 
 function toggleVisibility(element){
@@ -89,3 +91,22 @@ function toggleDisplay(img, img_active) {
     imgRef[img_active].classList.remove("d_none");
 }
   
+
+function eventListeners() {
+    canvas.addEventListener('click', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+
+        world.handleClick(mouseX, mouseY);
+    });
+
+    canvas.addEventListener('mousemove', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+
+        const isOverButton = world.isMouseOverButton(mouseX, mouseY);
+        canvas.style.cursor = isOverButton ? 'pointer' : 'default';
+    });
+}

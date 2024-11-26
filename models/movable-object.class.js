@@ -102,7 +102,7 @@ class MovableObject extends DrawableObject {
   }
 
   hit() {
-    this.energy -= 5;
+    this.energy -= 10;
     this.bounceBack();
     this.countForBounce = 0;
     if (this.energy < 0) {
@@ -160,7 +160,7 @@ class MovableObject extends DrawableObject {
 
   takeDamage() {
     if (!this.isDead()) {
-      this.energy -= 1;
+      this.energy -= 10;
     }
   }
 }
