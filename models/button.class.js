@@ -14,6 +14,8 @@ class Button extends DrawableObject {
 
     index = 0;
 
+    
+
     constructor(icon, onClick){
         super();
         this.setImages(icon);
@@ -28,6 +30,8 @@ class Button extends DrawableObject {
         this.loadImage(this.images[this.index]); // Aktualisiert das Bild
     }
 
+
+
     setImages(icon) {
         if(icon === "volume"){
             this.images = this.IMAGES_VOLUME;
@@ -38,6 +42,10 @@ class Button extends DrawableObject {
             this.x = 600;
             this.y = 10;
         } 
+    }
+
+    togglePlayState() {
+        this.isPlaying = !this.isPlaying; // Umschalten des Zustands
     }
 
 

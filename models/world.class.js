@@ -9,6 +9,8 @@ class World {
   camera_x = 0;
 
   buttons = [];
+  soundManager;
+  background_music;
 
   statusbar_health = new Statusbar("health");
   statusbar_coin = new Statusbar("coin");
@@ -20,7 +22,10 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+
     this.createButtons();
+    this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3");
+    this.background_music.loop = true;
     this.draw();
     this.setWorld();
     this.run();
@@ -34,7 +39,9 @@ class World {
 
   createButtons() {
     this.buttons.push(new Button("volume", () => {
-      this.buttons[0].toggleImage();
+      const button = this.buttons[0];
+      button.toggleImage();
+      this.toggleMusic(button);
       }
     ));
     this.buttons.push(new Button("resize", () => {
@@ -42,6 +49,17 @@ class World {
       }
     ));
   }
+
+  toggleMusic(button) {
+    if (button.isPlaying) {
+        this.background_music.pause(); 
+    } else {
+        this.background_music.play(); 
+    }
+    button.togglePlayState();
+}
+
+
 
   run() {
     setInterval(() => {
@@ -105,7 +123,7 @@ class World {
               if (enemy.isDead()) {
                 setTimeout(() => {
                   this.level.enemies.splice(enemyIndex, 1)
-                }, 600);
+                }, 500);
               }
               setTimeout(() => {
                 this.throwableObject.splice(objectIndex, 1);
@@ -127,7 +145,9 @@ class World {
         if (this.character.isJumpingOn(enemy)) {
           enemy.takeDamage();
           if (enemy.isDead()) {
-            this.level.enemies.splice(index, 1);
+            setTimeout(() => {
+              this.level.enemies.splice(index, 1)
+            }, 600);
           }
           this.character.bounceUp();
         } else {

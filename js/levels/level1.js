@@ -68,7 +68,8 @@ level1 = new Level(
         new Bottle(0, 150),
         new Bottle(1, 1000),
         new Bottle(1, 1550),
-        new Bottle(0, 1900)
+        new Bottle(0, 1900),
+        new Bottle(0, 1990),
      ]
 );
 
