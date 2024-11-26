@@ -9,8 +9,8 @@ level1 = new Level(
         new Chicken(), 
         new Chicken(),  
            
-        new ChickenSmall(),
-        new Chicken(), */ 
+        new ChickenSmall(),*/
+        new Chicken(),  
     ],
     [   
         new Cloud("1"), 
@@ -63,10 +63,9 @@ level1 = new Level(
         new Coin(1780, 150),
         new Coin(1860, 210),
 
-    
      ],
      [
-        new Bottle(0, 700),
+        new Bottle(0, 150),
         new Bottle(1, 1000),
         new Bottle(1, 1550),
         new Bottle(0, 1900)

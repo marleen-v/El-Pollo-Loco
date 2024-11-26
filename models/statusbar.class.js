@@ -27,6 +27,15 @@ class Statusbar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png'
     ]
 
+    IMAGES_ENDBOSS = [
+        'img/7_statusbars/2_statusbar_endboss/blue/blue0.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue40.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue60.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue80.png',
+        'img/7_statusbars/2_statusbar_endboss/blue/blue100.png'
+    ]
+
     images = [];
     percentage;
 
@@ -43,16 +52,20 @@ class Statusbar extends DrawableObject {
     assignImages(images){
         if(images === "health"){
             this.images = this.IMAGES;
-            this.x = 40;
+            this.x = 10;
             this.y = 0;
         } else if(images === "coin"){
             this.images = this.IMAGES_COIN;
-            this.x = 40;
+            this.x = 10;
             this.y = 40;
-        } else {
+        } else if(images === "bottle"){
             this.images = this.IMAGES_BOTTLE;
-            this.x = 40;
+            this.x = 10;
             this.y = 80;
+        } else {
+            this.images = this.IMAGES_ENDBOSS;
+            this.x = 550;
+            this.y = 46;
         }
     }
 
