@@ -23,7 +23,7 @@ class ThrowableObject extends MovableObject {
     bottom: 0,
   };
 
-  hitsEnemy = false;
+  hitEnemy = false;
   world;
 
   constructor(x, y) {
@@ -45,7 +45,7 @@ class ThrowableObject extends MovableObject {
     this.hitbox = this.getHitBox();
     this.applyGravity();
     setInterval(() => {
-      if (this.hitsEnemy == false) {
+      if (this.hitEnemy == false) {
         this.x += 8;
         this.hitbox = this.getHitBox();
       } else {
@@ -57,9 +57,9 @@ class ThrowableObject extends MovableObject {
   animate() {
     let i = 0;
     setInterval(() => {
-      if (this.hitsEnemy == false && i == 0) {
+      if (this.hitEnemy == false && i == 0) {
         this.playAnimation(this.IMAGES_THROWING);
-      } else if (this.hitsEnemy == true && i < 1) {
+      } else if (this.hitEnemy == true && i < 1) {
         this.playAnimation(this.IMAGES_SPLASH);
         i += 0.17;
       }

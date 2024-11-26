@@ -2,8 +2,8 @@ let level1;
 
 level1 = new Level(
     [   new Endboss(),  
-        /* new ChickenSmall(),
         new ChickenSmall(),
+       /*  new ChickenSmall(),
         new ChickenSmall(),
           
         new Chicken(), 

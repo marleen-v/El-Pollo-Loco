@@ -2,10 +2,14 @@ class World {
   character = new Character();
   level = level1;
 
+ 
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
+
+  buttons = [];
+
   statusbar_health = new Statusbar("health");
   statusbar_coin = new Statusbar("coin");
   statusbar_bottle = new Statusbar("bottle");
@@ -16,6 +20,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.createButtons();
     this.draw();
     this.setWorld();
     this.run();
@@ -25,6 +30,17 @@ class World {
     this.character.world = this;
     this.level.enemies[0].world = this; //endboss
     this.throwableObject.world = this;
+  }
+
+  createButtons() {
+    this.buttons.push(new Button("volume", () => {
+      this.buttons[0].toggleImage();
+      }
+    ));
+    this.buttons.push(new Button("resize", () => {
+      this.buttons[1].toggleImage();
+      }
+    ));
   }
 
   run() {
@@ -39,6 +55,11 @@ class World {
       this.checkThrowObjects();
     }, 80);
   }
+
+  isMouseOverButton(mouseX, mouseY) {
+    // Prüfen, ob die Maus über einem der Buttons ist
+    return this.buttons.some((button) => button.isClicked(mouseX, mouseY));
+}
 
   checkThrowObjects() {
     
@@ -64,8 +85,6 @@ class World {
               
               this.level.enemies.splice(enemyIndex, 1);
             }
-           Optional: Wenn ein Objekt nach einer Kollision "verbraucht" wird, entferne es.
-            this.throwableObject.splice(objectIndex, 1);
           }
         });
       });
@@ -79,13 +98,14 @@ class World {
           // Collision with enemy
           for (let enemyIndex = this.level.enemies.length - 1; enemyIndex >= 0; enemyIndex--) {
             const enemy = this.level.enemies[enemyIndex];
-            if (bottle.isColliding(enemy)) {
-              bottle.hitsEnemy = true;
+            if (bottle.isColliding(enemy) && !bottle.hitEnemy) {
+              bottle.hitEnemy = true;
               enemy.takeDamage();
+              this.statusbar_endboss.setPercentage(this.level.enemies[0].energy);
               if (enemy.isDead()) {
                 setTimeout(() => {
                   this.level.enemies.splice(enemyIndex, 1)
-                }, 400);
+                }, 600);
               }
               setTimeout(() => {
                 this.throwableObject.splice(objectIndex, 1);
@@ -150,8 +170,9 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
     // ---------- Space for fixed objects
+    this.addObjectsToMap(this.buttons);
     this.addToMap(this.statusbar_health);
-    this.addToMap(this.statusbar_coin);
+   this.addToMap(this.statusbar_coin);
     this.addToMap(this.statusbar_bottle);
     this.addToMap(this.statusbar_endboss);
     this.ctx.translate(this.camera_x, 0);
@@ -202,5 +223,14 @@ class World {
   flipImageBack(mO) {
     mO.x = mO.x * -1;
     this.ctx.restore(); // resets the canvas state to the last saved state, undoing any changes in between.
+  }
+
+
+  handleClick(mouseX, mouseY) {
+    this.buttons.forEach((button) => {
+        if (button.isClicked(mouseX, mouseY)) {
+            button.onClick(); // Führe Button-Aktion aus
+        }
+    });
   }
 }

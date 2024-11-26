@@ -2,7 +2,7 @@ class Chicken extends MovableObject {
   y = 350;
   width = 80;
   height = 90;
-  energy = 1;
+  energy = 20;
 
   offset = {
     top: 20,
@@ -30,12 +30,12 @@ class Chicken extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
+/*     setInterval(() => {
       if (!this.isDead()) {
         this.hitbox = this.getHitBox();
         this.moveLeft();
       }
-    }, 1000 / 60);
+    }, 1000 / 60); */
 
     setInterval(() => {
       if (!this.isDead()) {

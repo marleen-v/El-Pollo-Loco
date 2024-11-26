@@ -37,8 +37,9 @@ class ChickenSmall extends MovableObject {
             this.hitbox = this.getHitBox();
             if(this.isDead()){
                 this.playAnimation(this.IMAGES_DEAD);
-            } else {
-               this.moveLeft();
+            } else if(!this.isAboveGround()){
+              // this.moveLeft();
+              this.jump();
             }
         }, 1000 / 60);
 
