@@ -54,6 +54,8 @@ class ThrowableObject extends MovableObject {
     }, 1000 / 60);
   }
 
+
+
   animate() {
     let i = 0;
     setInterval(() => {
@@ -64,5 +66,9 @@ class ThrowableObject extends MovableObject {
         i += 0.17;
       }
     }, 80);
+  }
+
+  isAboveGround() {
+      return true;
   }
 }

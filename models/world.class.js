@@ -17,6 +17,8 @@ class World {
   statusbar_endboss = new Statusbar("endboss");
   throwableObject = [];
 
+  endscreen = new Endscreen(); 
+
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -158,7 +160,7 @@ class World {
   }
   
   checkCollisions() {
-    const enemiesSnapshot = [...this.level.enemies]; // copy of array
+    const enemiesSnapshot = [...this.level.enemies]; // copy of enemies
   
     enemiesSnapshot.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
@@ -225,6 +227,14 @@ class World {
     this.addObjectsToMap(this.throwableObject);
 
     this.ctx.translate(-this.camera_x, 0);
+
+
+    // ---------- game-over
+    if(this.character.isDead()){
+      this.addToMap(this.endscreen);
+    }
+   
+ 
 
     //Draw() is called again and again
     let self = this;
