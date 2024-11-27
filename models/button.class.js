@@ -62,16 +62,20 @@ class Button extends DrawableObject {
         } 
     } */
 
-    isClicked(mouseX, mouseY) {
-        return (
-            mouseX >= this.x &&
-            mouseX <= this.x + this.width &&
-            mouseY >= this.y &&
-            mouseY <= this.y + this.height
-        );
-    }
-
-    
+        isClicked(mouseX, mouseY) {
+            // Button-Positionen und Größen skalieren
+            const scaledX = this.x * world.scaleX; // Skaliere die X-Position des Buttons
+            const scaledY = this.y * world.scaleY; // Skaliere die Y-Position des Buttons
+            const scaledWidth = this.width * world.scaleX; // Skaliere die Breite des Buttons
+            const scaledHeight = this.height * world.scaleY; // Skaliere die Höhe des Buttons
+          
+            return (
+              mouseX >= scaledX &&
+              mouseX <= scaledX + scaledWidth &&
+              mouseY >= scaledY &&
+              mouseY <= scaledY + scaledHeight
+            );
+          }
 
 }
 

@@ -7,6 +7,8 @@ class World {
   keyboard;
   camera_x = 0;
 
+ 
+
   buttons = [];
   /*  soundManager; */
   /* background_music; */
@@ -23,6 +25,10 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+
+    this.scaleX = 1; // Skalierungsfaktor für X
+    this.scaleY = 1; // Skalierungsfaktor für Y
+    this.updateScaleFactors(); // Initiale Skalierungsberechnung
     /*     //------------------
     this.soundManager = new SoundManager();
     // Hintergrundmusik hinzufügen
@@ -44,6 +50,14 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+
+    window.addEventListener("resize", () => this.updateScaleFactors());
+  }
+
+  updateScaleFactors() {
+    const rect = this.canvas.getBoundingClientRect();
+    this.scaleX = this.canvas.width / rect.width; // Skalierungsfaktor X
+    this.scaleY = this.canvas.height / rect.height; // Skalierungsfaktor Y
   }
 
   setWorld() {
@@ -92,7 +106,6 @@ class World {
   }
 
   isMouseOverButton(mouseX, mouseY) {
-    // Prüfen, ob die Maus über einem der Buttons ist
     return this.buttons.some((button) => button.isClicked(mouseX, mouseY));
   }
 
@@ -277,7 +290,7 @@ class World {
   handleClick(mouseX, mouseY) {
     this.buttons.forEach((button) => {
       if (button.isClicked(mouseX, mouseY)) {
-        button.onClick(); // Führe Button-Aktion aus
+        button.onClick(); // Führt die Button-Aktion aus
       }
     });
   }

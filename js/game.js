@@ -91,18 +91,26 @@ function toggleDisplay(img, img_active) {
 function eventListeners() {
   canvas.addEventListener("click", (event) => {
     const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
+    const scaleX = canvas.width / rect.width; // Skalierungsfaktor X
+    const scaleY = canvas.height / rect.height; // Skalierungsfaktor Y
 
-    world.handleClick(mouseX, mouseY);
+    // Skaliere die Mauskoordinaten entsprechend der Canvas
+    const mouseX = (event.clientX - rect.left) * scaleX;
+    const mouseY = (event.clientY - rect.top) * scaleY;
+
+    world.handleClick(mouseX, mouseY); // Übergabe der skalieren Koordinaten
   });
 
   canvas.addEventListener("mousemove", (event) => {
     const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
+    const scaleX = canvas.width / rect.width; // Skalierungsfaktor X
+    const scaleY = canvas.height / rect.height; // Skalierungsfaktor Y
 
-    const isOverButton = world.isMouseOverButton(mouseX, mouseY);
+    // Skaliere die Mauskoordinaten entsprechend der Canvas
+    const mouseX = (event.clientX - rect.left) * scaleX;
+    const mouseY = (event.clientY - rect.top) * scaleY;
+
+    const isOverButton = world.isMouseOverButton(mouseX, mouseY); // Prüfen, ob Maus über einem Button
     canvas.style.cursor = isOverButton ? "pointer" : "default";
   });
 }
@@ -143,10 +151,11 @@ function exitFullscreen() {
 }
 
 
-/* function resizeCanvas(fullscreen, scaleFactor) {
-    canvas.width = fullscreen.clientWidth * scaleFactor;
-    canvas.height = fullscreen.clientHeight * scaleFactor;
-  
-    const context = world.ctx;
-    context.scale(scaleFactor, scaleFactor);
-  } */
+/* function resizeCanvas() {
+  const canvasContainer = document.getElementById("fullscreen"); 
+  canvas.width = canvasContainer.clientWidth;
+  canvas.height = canvasContainer.clientHeight;
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // Initiale Größenanpassung */
