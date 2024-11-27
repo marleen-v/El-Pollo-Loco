@@ -2,14 +2,13 @@ class World {
   character = new Character();
   level = level1;
 
- 
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
 
   buttons = [];
- /*  soundManager; */
+  /*  soundManager; */
   /* background_music; */
 
   statusbar_health = new Statusbar("health");
@@ -22,7 +21,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-/*     //------------------
+    /*     //------------------
     this.soundManager = new SoundManager();
     // Hintergrundmusik hinzufügen
     const backgroundMusic = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3");
@@ -36,8 +35,10 @@ class World {
 
     //----------------- */
     this.createButtons();
-this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3");
-    this.background_music.loop = true; 
+    this.background_music = new Audio(
+      "audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3"
+    );
+    this.background_music.loop = true;
     this.draw();
     this.setWorld();
     this.run();
@@ -50,29 +51,30 @@ this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.Fes
   }
 
   createButtons() {
-    this.buttons.push(new Button("volume", () => {
-      const button = this.buttons[0];
-      button.toggleImage();
-      /* this.soundManager.toggleMute(); */
-      this.toggleMusic(button);
-      }
-    ));
-    this.buttons.push(new Button("resize", () => {
-      this.buttons[1].toggleImage();
-      }
-    ));
+    this.buttons.push(
+      new Button("volume", () => {
+        const button = this.buttons[0];
+        button.toggleImage();
+        /* this.soundManager.toggleMute(); */
+        this.toggleMusic(button);
+      })
+    );
+    this.buttons.push(
+      new Button("resize", () => {
+        this.buttons[1].toggleImage();
+        toggleFullscreen();
+      })
+    );
   }
 
   toggleMusic(button) {
     if (button.isPlaying) {
-        this.background_music.pause(); 
+      this.background_music.pause();
     } else {
-        this.background_music.play(); 
+      this.background_music.play();
     }
     button.togglePlayState();
-}
-
-
+  }
 
   run() {
     setInterval(() => {
@@ -90,16 +92,14 @@ this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.Fes
   isMouseOverButton(mouseX, mouseY) {
     // Prüfen, ob die Maus über einem der Buttons ist
     return this.buttons.some((button) => button.isClicked(mouseX, mouseY));
-}
+  }
 
   checkThrowObjects() {
-    
     if (this.keyboard.D) {
       if (this.character.salsa != 0) {
-          this.throwableObject.push(new ThrowableObject(
-          this.character.x + 10,
-          this.character.y + 100
-        ));
+        this.throwableObject.push(
+          new ThrowableObject(this.character.x + 10, this.character.y + 100)
+        );
         /* this.throwableObject.push(bottle); */
         this.character.salsa -= 10;
         this.statusbar_bottle.setPercentage(this.character.salsa);
@@ -107,60 +107,66 @@ this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.Fes
     }
   }
 
-/*   checkThrowObjectsCollision() {
-      this.level.enemies.forEach((enemy, enemyIndex) => {
-        this.throwableObject.forEach((object, objectIndex) => {
-          if (object.isColliding(enemy)) {
-            enemy.takeDamage();
-            if (enemy.isDead()) {
-              
-              this.level.enemies.splice(enemyIndex, 1);
-            }
+  checkThrowObjectsCollision() {
+    const throwableObjectsSnapshot = [...this.throwableObject]; // copy of throwableObject
+    const enemiesSnapshot = [...this.level.enemies]; // Copy of enemeies
+  
+    throwableObjectsSnapshot.forEach((bottle) => {
+      let bottleRemoved = false;
+      // check collision with enemy
+      enemiesSnapshot.forEach((enemy) => {
+        if (bottle.isColliding(enemy) && !bottle.hitEnemy) {
+          bottle.hitEnemy = true;
+          enemy.takeDamage();
+          this.updateEndbossHealth(enemiesSnapshot, enemy);
+          if (enemy.isDead()) {
+          this.removeEnemy(enemy);
           }
-        });
-      });
-    } */
-
-      checkThrowObjectsCollision() {
-        for (let objectIndex = this.throwableObject.length - 1; objectIndex >= 0; objectIndex--) {
-          const bottle = this.throwableObject[objectIndex];
-          let bottleRemoved = false;
-      
-          // Collision with enemy
-          for (let enemyIndex = this.level.enemies.length - 1; enemyIndex >= 0; enemyIndex--) {
-            const enemy = this.level.enemies[enemyIndex];
-            if (bottle.isColliding(enemy) && !bottle.hitEnemy) {
-              bottle.hitEnemy = true;
-              enemy.takeDamage();
-              this.statusbar_endboss.setPercentage(this.level.enemies[0].energy);
-              if (enemy.isDead()) {
-                setTimeout(() => {
-                  this.level.enemies.splice(enemyIndex, 1)
-                }, 500);
-              }
-              setTimeout(() => {
-                this.throwableObject.splice(objectIndex, 1);
-                bottleRemoved = true; 
-              }, 300);
-              break; 
-            }
-          }
-          // remove Object if its not seen anymore
-          if (!bottleRemoved && bottle.y >= 400) {
-            this.throwableObject.splice(objectIndex, 1);
-          } 
+          this.removeBottle(bottle, bottleRemoved);
         }
+      });
+      // remove bottle, if it did not collide with enemy
+      if (!bottleRemoved && bottle.y >= 400) {
+        this.removeBottle(bottle, bottleRemoved);
       }
+    });
+  }
 
+  removeBottle(bottle, bottleRemoved){
+    setTimeout(() => {
+      const bottleIndex = this.throwableObject.indexOf(bottle);
+      if (bottleIndex !== -1) {
+        this.throwableObject.splice(bottleIndex, 1); // Flasche aus Originalarray entfernen
+        bottleRemoved = true;
+      }
+    }, 300);
+  }    
+
+  removeEnemy(enemy) {
+    setTimeout(() => {
+      const originalIndex = this.level.enemies.indexOf(enemy);
+      if (originalIndex !== -1) {
+        this.level.enemies.splice(originalIndex, 1); // remove from original array
+      }
+    }, 500); 
+  }
+
+  updateEndbossHealth(enemiesSnapshot, enemy) {
+    if(enemy === enemiesSnapshot[1]){
+      this.statusbar_endboss.setPercentage(this.level.enemies[0].energy);
+    }
+  }
+  
   checkCollisions() {
-    this.level.enemies.forEach((enemy, index) => {
+    const enemiesSnapshot = [...this.level.enemies]; // copy of array
+  
+    enemiesSnapshot.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         if (this.character.isJumpingOn(enemy)) {
           enemy.takeDamage();
+          this.updateEndbossHealth(enemiesSnapshot, enemy);
           if (enemy.isDead()) {
-            setTimeout(() => {
-              this.level.enemies.splice(index, 1)
-            }, 600);
+             this.removeEnemy(enemy); 
           }
           this.character.bounceUp();
         } else {
@@ -205,7 +211,7 @@ this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.Fes
     // ---------- Space for fixed objects
     this.addObjectsToMap(this.buttons);
     this.addToMap(this.statusbar_health);
-   this.addToMap(this.statusbar_coin);
+    this.addToMap(this.statusbar_coin);
     this.addToMap(this.statusbar_bottle);
     this.addToMap(this.statusbar_endboss);
     this.ctx.translate(this.camera_x, 0);
@@ -258,12 +264,11 @@ this.background_music = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.Fes
     this.ctx.restore(); // resets the canvas state to the last saved state, undoing any changes in between.
   }
 
-
   handleClick(mouseX, mouseY) {
     this.buttons.forEach((button) => {
-        if (button.isClicked(mouseX, mouseY)) {
-            button.onClick(); // Führe Button-Aktion aus
-        }
+      if (button.isClicked(mouseX, mouseY)) {
+        button.onClick(); // Führe Button-Aktion aus
+      }
     });
   }
 }

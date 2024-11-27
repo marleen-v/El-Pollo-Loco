@@ -2,12 +2,12 @@ class ChickenSmall extends MovableObject {
     y = 380;
     width = 50;
     height = 50;
-    energy = 1;
+    energy = 10;
     
     offset = { 
         top: 0,
-        left: 10,
-        right: 10,
+        left: 5,
+        right: 5,
         bottom: 10
     }
 
