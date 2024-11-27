@@ -28,12 +28,12 @@ class Statusbar extends DrawableObject {
     ]
 
     IMAGES_ENDBOSS = [
-        'img/7_statusbars/2_statusbar_endboss/blue/blue0.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue40.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue60.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue80.png',
-        'img/7_statusbars/2_statusbar_endboss/blue/blue100.png'
+        'img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange40.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange60.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange80.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange100.png'
     ]
 
     images = [];
@@ -61,7 +61,7 @@ class Statusbar extends DrawableObject {
         if(images === "health"){
             this.images = this.IMAGES;
             this.x = 10;
-            this.y = 0;
+            this.y = 80;
         } else if(images === "coin"){
             this.images = this.IMAGES_COIN;
             this.x = 10;
@@ -69,11 +69,11 @@ class Statusbar extends DrawableObject {
         } else if(images === "bottle"){
             this.images = this.IMAGES_BOTTLE;
             this.x = 10;
-            this.y = 80;
+            this.y = 0;
         } else {
             this.images = this.IMAGES_ENDBOSS;
             this.x = 550;
-            this.y = 46;
+            this.y = 86;
         }
     }
 

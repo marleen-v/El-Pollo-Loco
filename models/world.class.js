@@ -118,7 +118,7 @@ class World {
         if (bottle.isColliding(enemy) && !bottle.hitEnemy) {
           bottle.hitEnemy = true;
           enemy.takeDamage();
-          this.updateEndbossHealth(enemiesSnapshot, enemy);
+          this.updateEndbossHealth(enemy);
           if (enemy.isDead()) {
           this.removeEnemy(enemy);
           }
@@ -151,8 +151,8 @@ class World {
     }, 500); 
   }
 
-  updateEndbossHealth(enemiesSnapshot, enemy) {
-    if(enemy === enemiesSnapshot[1]){
+  updateEndbossHealth(enemy) {
+    if(enemy === this.level.enemies[0]){
       this.statusbar_endboss.setPercentage(this.level.enemies[0].energy);
     }
   }
@@ -164,7 +164,7 @@ class World {
       if (this.character.isColliding(enemy)) {
         if (this.character.isJumpingOn(enemy)) {
           enemy.takeDamage();
-          this.updateEndbossHealth(enemiesSnapshot, enemy);
+          this.updateEndbossHealth(enemy);
           if (enemy.isDead()) {
              this.removeEnemy(enemy); 
           }

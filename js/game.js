@@ -112,11 +112,13 @@ function eventListeners() {
 function toggleFullscreen(){
     const fullscreen = document.getElementById('fullscreen');
     if(!fullscreen_on){
+       /*  resizeCanvas(fullscreen, 1.5); */
         enterFullscreen(fullscreen);
         fullscreen_on = true;
     } else {
         exitFullscreen(fullscreen);
         fullscreen_on = false; 
+       /*  resizeCanvas(fullscreen, 1); */
     }
 };
 
@@ -139,3 +141,12 @@ function exitFullscreen() {
     document.webkitExitFullscreen();
   }
 }
+
+
+/* function resizeCanvas(fullscreen, scaleFactor) {
+    canvas.width = fullscreen.clientWidth * scaleFactor;
+    canvas.height = fullscreen.clientHeight * scaleFactor;
+  
+    const context = world.ctx;
+    context.scale(scaleFactor, scaleFactor);
+  } */
