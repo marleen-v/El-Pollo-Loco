@@ -12,8 +12,6 @@ class MovableObject extends DrawableObject {
   isSleeping = false;
   countForBounce = 0;
 
-/*   soundManager = new SoundManager(); */
-
   offset = {
     top: 0,
     left: 0,
@@ -24,6 +22,7 @@ class MovableObject extends DrawableObject {
 
   constructor() {
     super();
+    this.soundManager = SoundManager.instance;
     this.hitbox = this.getHitBox();
     
   }
@@ -63,10 +62,13 @@ class MovableObject extends DrawableObject {
 
   jump() {
     this.speedY = 30;
+    this.soundManager.play('jump');
+    /* SoundManager.instance.setVolume('jump', 0.5); */
+  
+ 
   }
 
   getHitBox() {
-    /*  const newX = this.otherDirection ? this.x * -1 : this.x  */
     return {
       x: this.x + this.offset.left,
       y: this.y + this.offset.top,

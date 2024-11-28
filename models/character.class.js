@@ -78,7 +78,6 @@ class Character extends MovableObject {
   ];
 
   world;
-  walking_sound = new Audio("audio/running.mp3"); 
   endbossModus = false;
   endBossX = 0
 
@@ -92,7 +91,6 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDLE);
     this.applyGravity();
     this.animate();
-  /*   this.soundManager.play('background'); */
   }
 
   animate() {
@@ -135,11 +133,11 @@ class Character extends MovableObject {
   characterMoves(){
     this.hitbox = this.getHitBox();
       if (!this.hasPlayedDeadAnimation) {
-        this.walking_sound.pause();
+        SoundManager.instance.pause('running');
         if(this.canMoveLeft()) {
           this.otherDirection = true;
           this.moveLeft();
-          this.walking_sound.play();
+          SoundManager.instance.play('running');
 
           this.world.level.backgroundObjects.forEach((bg) => {
             bg.moveRight();
@@ -150,7 +148,7 @@ class Character extends MovableObject {
         if (this.canMoveRight()) {
           this.otherDirection = false;
           this.moveRight();
-          this.walking_sound.play();
+          SoundManager.instance.play('running');
           this.world.level.backgroundObjects.forEach((bg) => {
             bg.moveLeft();
           });
