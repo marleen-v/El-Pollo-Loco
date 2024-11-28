@@ -92,6 +92,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDLE);
     this.applyGravity();
     this.animate();
+  /*   this.soundManager.play('background'); */
   }
 
   animate() {

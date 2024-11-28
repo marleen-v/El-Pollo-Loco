@@ -8,15 +8,23 @@ let fullscreen_on = false;
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let soundManager;
 
 function startGame() {
   canvas = document.getElementById("canvas");
   toggleVisibility(startScreenRef);
   toggleVisibility(canvas);
-  world = new World(canvas, keyboard);
-
-  eventListeners();
+  soundManager = new SoundManager();
+  world = new World(canvas, keyboard); 
+  toggleSounds(); 
 }
+
+function toggleSounds(){
+  document.getElementById('toggleSounds').onclick = () => {
+    soundManager.toggleMute();
+};
+}
+
 
 function toggleVisibility(element) {
   element.classList.toggle("d_none");
@@ -88,47 +96,33 @@ function toggleDisplay(img, img_active) {
 }
 
 // for buttons on canvas
-function eventListeners() {
+/* function eventListeners() {
   canvas.addEventListener("click", (event) => {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width; // Skalierungsfaktor X
-    const scaleY = canvas.height / rect.height; // Skalierungsfaktor Y
-
-    // Skaliere die Mauskoordinaten entsprechend der Canvas
-    const mouseX = (event.clientX - rect.left) * scaleX;
-    const mouseY = (event.clientY - rect.top) * scaleY;
-
-    world.handleClick(mouseX, mouseY); // Übergabe der skalieren Koordinaten
+    
   });
+} */
 
-  canvas.addEventListener("mousemove", (event) => {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width; // Skalierungsfaktor X
-    const scaleY = canvas.height / rect.height; // Skalierungsfaktor Y
-
-    // Skaliere die Mauskoordinaten entsprechend der Canvas
-    const mouseX = (event.clientX - rect.left) * scaleX;
-    const mouseY = (event.clientY - rect.top) * scaleY;
-
-    const isOverButton = world.isMouseOverButton(mouseX, mouseY); // Prüfen, ob Maus über einem Button
-    canvas.style.cursor = isOverButton ? "pointer" : "default";
-  });
-}
+ 
 
 //fullscreen
 
 function toggleFullscreen(){
+    const button = document.getElementById('resize-btn')
     const fullscreen = document.getElementById('fullscreen');
-    if(!fullscreen_on){
-       /*  resizeCanvas(fullscreen, 1.5); */
-        enterFullscreen(fullscreen);
-        fullscreen_on = true;
-    } else {
-        exitFullscreen(fullscreen);
-        fullscreen_on = false; 
-       /*  resizeCanvas(fullscreen, 1); */
-    }
+      if(!fullscreen_on){
+    /*  resizeCanvas(fullscreen, 1.5);  */
+      enterFullscreen(fullscreen);
+      this.src = 'img/SVG/resize-1.svg'
+      fullscreen_on = true;
+  } else {
+      exitFullscreen(fullscreen);
+      this.src = 'img/SVG/resize-2.svg'
+      fullscreen_on = false; 
+     /*  resizeCanvas(fullscreen, 1); */
+  }
 };
+
+
 
 function enterFullscreen(element) {
   if (element.requestFullscreen) {
@@ -151,11 +145,11 @@ function exitFullscreen() {
 }
 
 
-/* function resizeCanvas() {
-  const canvasContainer = document.getElementById("fullscreen"); 
-  canvas.width = canvasContainer.clientWidth;
-  canvas.height = canvasContainer.clientHeight;
-}
+function resizeCanvas(fullscreen, scaleFactor) {
+  canvas.width = fullscreen.clientWidth * scaleFactor;
+  canvas.height = fullscreen.clientHeight * scaleFactor;
 
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas(); // Initiale Größenanpassung */
+  const context = world.ctx;
+  context.scale(scaleFactor, scaleFactor);
+} 
+

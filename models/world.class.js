@@ -7,10 +7,8 @@ class World {
   keyboard;
   camera_x = 0;
 
- 
-
   buttons = [];
-  /*  soundManager; */
+ /*  soundManager = new SoundManager (); */
   /* background_music; */
 
   statusbar_health = new Statusbar("health");
@@ -18,47 +16,21 @@ class World {
   statusbar_bottle = new Statusbar("bottle");
   statusbar_endboss = new Statusbar("endboss");
   throwableObject = [];
+  
 
-  endscreen = new Endscreen(); 
+  endscreen = new Endscreen(0); 
+  endscreen_win = new Endscreen(1);
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
 
-    this.scaleX = 1; // Skalierungsfaktor für X
-    this.scaleY = 1; // Skalierungsfaktor für Y
-    this.updateScaleFactors(); // Initiale Skalierungsberechnung
-    /*     //------------------
-    this.soundManager = new SoundManager();
-    // Hintergrundmusik hinzufügen
-    const backgroundMusic = new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3");
-    backgroundMusic.loop = true; // Schleife aktivieren
-    this.soundManager.addSound(backgroundMusic);
-
-    // Charakter-Sound hinzufügen
-    const walking_sound = new Audio("audio/running.mp3");
-    const runningSound = new Audio('path/to/running.mp3');
-    this.soundManager.addSound(runningSound);
-
-    //----------------- */
-    this.createButtons();
-    this.background_music = new Audio(
-      "audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3"
-    );
-    this.background_music.loop = true;
     this.draw();
     this.setWorld();
     this.run();
-
-    window.addEventListener("resize", () => this.updateScaleFactors());
   }
 
-  updateScaleFactors() {
-    const rect = this.canvas.getBoundingClientRect();
-    this.scaleX = this.canvas.width / rect.width; // Skalierungsfaktor X
-    this.scaleY = this.canvas.height / rect.height; // Skalierungsfaktor Y
-  }
 
   setWorld() {
     this.character.world = this;
@@ -66,12 +38,12 @@ class World {
     this.throwableObject.world = this;
   }
 
-  createButtons() {
+/*   createButtons() {
     this.buttons.push(
       new Button("volume", () => {
         const button = this.buttons[0];
         button.toggleImage();
-        /* this.soundManager.toggleMute(); */
+        //this.soundManager.toggleMute();
         this.toggleMusic(button);
       })
     );
@@ -81,16 +53,16 @@ class World {
         toggleFullscreen();
       })
     );
-  }
+  } */
 
-  toggleMusic(button) {
+/*   toggleMusic(button) {
     if (button.isPlaying) {
       this.background_music.pause();
     } else {
       this.background_music.play();
     }
     button.togglePlayState();
-  }
+  } */
 
   run() {
     setInterval(() => {
@@ -103,10 +75,6 @@ class World {
     setInterval(() => {
       this.checkThrowObjects();
     }, 80);
-  }
-
-  isMouseOverButton(mouseX, mouseY) {
-    return this.buttons.some((button) => button.isClicked(mouseX, mouseY));
   }
 
   checkThrowObjects() {
@@ -246,6 +214,9 @@ class World {
     if(this.character.isDead()){
       this.addToMap(this.endscreen);
     }
+    if(this.character.isDead()){
+      this.addToMap(this.endscreen);
+    }
    
  
 
@@ -287,11 +258,4 @@ class World {
     this.ctx.restore(); // resets the canvas state to the last saved state, undoing any changes in between.
   }
 
-  handleClick(mouseX, mouseY) {
-    this.buttons.forEach((button) => {
-      if (button.isClicked(mouseX, mouseY)) {
-        button.onClick(); // Führt die Button-Aktion aus
-      }
-    });
-  }
 }
