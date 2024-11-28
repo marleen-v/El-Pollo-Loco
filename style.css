@@ -6,6 +6,9 @@
 
 
 button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor:pointer;
     font-family: 'zabars', Arial, Helvetica, sans-serif;
     border: none;
