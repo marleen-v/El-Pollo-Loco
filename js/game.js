@@ -2,8 +2,11 @@ const imgRef = document.querySelectorAll(".key");
 const startScreenRef = document.getElementById("start");
 const dialog = document.querySelector("dialog");
 const closeBtn = document.getElementById("close-btn");
+const btnContainer = document.getElementById('btn-container')
+const btnContainerMobile = document.getElementById('mobileBtn-container')
 
 let fullscreen_on = false;
+let gameStarted = false;
 
 let canvas;
 let world;
@@ -11,19 +14,67 @@ let keyboard = new Keyboard();
 let soundManager;
 
 function startGame() {
+  
   canvas = document.getElementById("canvas");
   toggleVisibility(startScreenRef);
   toggleVisibility(canvas);
   soundManager = new SoundManager();
-  world = new World(canvas, keyboard); 
-  toggleSounds(); 
+  world = new World(canvas, keyboard);
+
+  
+  btnContainer.classList.remove("d_none"); // button for sounds and fullscreen
+  gameStarted = true; // for button mobile eventlistener
+  checkWindowSize(); 
+
+} 
+
+window.addEventListener('resize', checkWindowSize);
+
+function checkWindowSize() {
+  if (!gameStarted) return;
+
+  if (window.innerWidth <= 400) {
+    btnContainerMobile.classList.remove('d_none');
+  } else {
+    btnContainerMobile.classList.add('d_none');
+  }
 }
 
+// onclick fuctions for buttons
+
 function toggleSounds(){
-  document.getElementById('toggleSounds').onclick = () => {
     soundManager.toggleMute();
 };
+
+
+//mobile Buttons
+function jumping() {
+  world.keyboard.jumpButtonPressed = true;
 }
+function throwingBottle() {
+  world.keyboard.throwButtonPressed = true;
+}
+
+function startMovingLeft() {
+  world.keyboard.leftButtonPressed = true;
+}
+
+function stopMovingLeft() {
+  world.keyboard.leftButtonPressed = false;
+}
+
+function startMovingRight() {
+  world.keyboard.rightButtonPressed = true;
+}
+
+function stopMovingRight() {
+  world.keyboard.rightButtonPressed = false;
+}
+
+
+
+
+
 
 
 function toggleVisibility(element) {
@@ -152,4 +203,5 @@ function resizeCanvas(fullscreen, scaleFactor) {
   const context = world.ctx;
   context.scale(scaleFactor, scaleFactor);
 } 
+
 

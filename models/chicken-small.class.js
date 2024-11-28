@@ -37,6 +37,7 @@ class ChickenSmall extends MovableObject {
       this.hitbox = this.getHitBox();
       if (this.isDead() && !this.isAboveGround()) {
         this.speedY = 0
+        this.hitbox = this.getHitBox();
       } else if (!this.isAboveGround()) {
         this.jump();
         this.hitbox = this.getHitBox();

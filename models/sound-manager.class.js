@@ -18,17 +18,22 @@ class SoundManager {
         ),
         volume: 1.0,
       },
-      coin: { audio: new Audio("audio/collect-coin.mp3"), volume: 0.1 },
+      coin: { audio: new Audio("audio/collect-coin-2.mp3"), volume: 0.03 },
       running: { audio: new Audio("audio/running.mp3"), volume: 1.0 },
-      jump: { audio: new Audio("audio/jump-1.mp3"), volume: 0.1 },
+      hit:{ audio: new Audio("audio/hit.mp3"), volume: 0.2},
+      damage:{ audio: new Audio("audio/damage-2.mp3"), volume: 0.1},
+      jump: { audio: new Audio("audio/jump-2.mp3"), volume: 0.03 },
+      throw: { audio: new Audio("audio/throw.mp3"), volume: 0.03 },
+      bottle: { audio: new Audio("audio/collect-bottle-1.mp3"), volume: 0.05 },
+      bottle_break: { audio: new Audio("audio/bottle-break.mp3"), volume: 0.05 },
       gameOver: { audio: new Audio("audio/game-over-1.mp3"), volume: 1.0 },
       win: { audio: new Audio("audio/win-1.mp3"), volume: 1.0 },
     };
 
     // background music
     this.sounds.background.audio.loop = true;
-    this.sounds.background.audio.volume = this.sounds.background.volume;
-    this.sounds.background.audio.play();
+    /* this.sounds.background.audio.volume = this.sounds.background.volume;
+    this.sounds.background.audio.play(); */
   }
 
   play(soundName) {

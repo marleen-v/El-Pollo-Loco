@@ -1,6 +1,7 @@
 class World {
   character = new Character();
   level = level1;
+  coinAmount = 10;
 
   canvas;
   ctx;
@@ -8,9 +9,7 @@ class World {
   camera_x = 0;
 
   buttons = [];
- /*  soundManager = new SoundManager (); */
-  /* background_music; */
-
+ 
   statusbar_health = new Statusbar("health");
   statusbar_coin = new Statusbar("coin");
   statusbar_bottle = new Statusbar("bottle");
@@ -25,6 +24,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.soundManager = SoundManager.instance;
 
     this.draw();
     this.setWorld();
@@ -37,32 +37,6 @@ class World {
     this.level.enemies[0].world = this; //endboss
     this.throwableObject.world = this;
   }
-
-/*   createButtons() {
-    this.buttons.push(
-      new Button("volume", () => {
-        const button = this.buttons[0];
-        button.toggleImage();
-        //this.soundManager.toggleMute();
-        this.toggleMusic(button);
-      })
-    );
-    this.buttons.push(
-      new Button("resize", () => {
-        this.buttons[1].toggleImage();
-        toggleFullscreen();
-      })
-    );
-  } */
-
-/*   toggleMusic(button) {
-    if (button.isPlaying) {
-      this.background_music.pause();
-    } else {
-      this.background_music.play();
-    }
-    button.togglePlayState();
-  } */
 
   run() {
     setInterval(() => {
@@ -78,15 +52,16 @@ class World {
   }
 
   checkThrowObjects() {
-    if (this.keyboard.D) {
+    if (this.keyboard.D || this.keyboard.throwButtonPressed) {
       if (this.character.salsa != 0) {
         this.throwableObject.push(
           new ThrowableObject(this.character.x + 10, this.character.y + 100)
         );
-        /* this.throwableObject.push(bottle); */
+        this.soundManager.play('throw');
         this.character.salsa -= 10;
         this.statusbar_bottle.setPercentage(this.character.salsa);
       }
+      this.keyboard.throwButtonPressed = false;
     }
   }
 
@@ -103,7 +78,7 @@ class World {
           enemy.takeDamage();
           this.updateEndbossHealth(enemy);
           if (enemy.isDead()) {
-          this.removeEnemy(enemy);
+          this.removeEnemy(enemy, bottle);
           }
           this.removeBottle(bottle, bottleRemoved);
         }
@@ -119,13 +94,17 @@ class World {
     setTimeout(() => {
       const bottleIndex = this.throwableObject.indexOf(bottle);
       if (bottleIndex !== -1) {
-        this.throwableObject.splice(bottleIndex, 1); // Flasche aus Originalarray entfernen
+        this.throwableObject.splice(bottleIndex, 1); // remove bottle from original array
         bottleRemoved = true;
       }
     }, 300);
   }    
 
-  removeEnemy(enemy) {
+  removeEnemy(enemy, bottle) {
+   /*  if(bottle != undefined){ */
+      this.soundManager.play('bottle_break');
+   /*  } */
+    this.soundManager.play('damage');
     setTimeout(() => {
       const originalIndex = this.level.enemies.indexOf(enemy);
       if (originalIndex !== -1) {
@@ -214,8 +193,9 @@ class World {
     if(this.character.isDead()){
       this.addToMap(this.endscreen);
     }
-    if(this.character.isDead()){
-      this.addToMap(this.endscreen);
+    if(this.character.wealth == (this.coinAmount*10) && this.level.enemies.length == 0){
+      this.addToMap(this.endscreen_win);
+      /* this.soundManager.play("win"); */
     }
    
  

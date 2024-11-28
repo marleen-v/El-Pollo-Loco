@@ -102,6 +102,7 @@ class MovableObject extends DrawableObject {
   }
 
   hit() {
+    this.soundManager.play('hit');
     this.energy -= 10;
     this.bounceBack();
     this.countForBounce = 0;
@@ -157,11 +158,13 @@ class MovableObject extends DrawableObject {
     if (this.salsa < 100) {
       this.salsa += 10;
     }
+    SoundManager.instance.play('bottle');
   }
 
   takeDamage() {
     if (!this.isDead()) {
       this.energy -= 10;
+      
     }
   }
 }

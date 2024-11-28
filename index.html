@@ -132,9 +132,9 @@
           </dialog>
         </div>
         <div id="fullscreen" class="position-relative flex justify-center align-center">
-          <div class="btn-container flex position-absolute">
+          <div class="btn-container flex d_none position-absolute" id="btn-container">
            
-              <button id="toggleSounds">
+              <button id="toggleSounds" onclick="toggleSounds()">
                 <img src="img/SVG/volume-on.svg" alt="volume-switcher" />
               </button>
          
@@ -148,18 +148,22 @@
         </div>
         <div id="mobileBtn-container" class="flex justify-space-between">
           <div class="mobile-btns-left flex">
-            <button>
+            <button 
+            onmousedown="startMovingLeft()" 
+            onmouseup="stopMovingLeft()">
               <img src="img/SVG/arrow-left.svg" alt="">
             </button>
-            <button>
+            <button 
+            onmousedown="startMovingRight()" 
+            onmouseup="stopMovingRight()">
               <img src="img/SVG/arrow-right.svg" alt="">
             </button>
           </div>
           <div class="mobile-btns-right flex">
-            <button>
+            <button onclick="throwingBottle()">
               <img src="img/SVG/throw-mobile.svg" alt="">
             </button>
-            <button>
+            <button onclick="jumping()">
               <img src="img/SVG/jump-mobile.svg" alt="">
             </button>
           </div>

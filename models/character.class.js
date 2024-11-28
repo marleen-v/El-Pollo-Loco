@@ -109,7 +109,7 @@ class Character extends MovableObject {
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
         this.resetLastAction();
-      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      } else if ((this.world.keyboard.RIGHT || this.world.keyboard.rightButtonPressed) || (this.world.keyboard.LEFT || this.world.keyboard.leftButtonPressed)) {
         this.playAnimation(this.IMAGES_WALKING);
         this.resetLastAction();
       } else if (this.isAsleep()) {
@@ -121,24 +121,25 @@ class Character extends MovableObject {
   }
 
   canMoveRight(){
-    return this.world.keyboard.RIGHT &&
+    return (this.world.keyboard.RIGHT || this.world.keyboard.rightButtonPressed) &&
     this.x <= this.world.level.level_end_x
   }
   
 
   canMoveLeft(){
-    return this.world.keyboard.LEFT && this.x >= 0
+    return (this.world.keyboard.LEFT || this.world.keyboard.leftButtonPressed) && this.x >= 0
   }
 
   characterMoves(){
-    this.hitbox = this.getHitBox();
+ 
+     this.hitbox = this.getHitBox();
       if (!this.hasPlayedDeadAnimation) {
         SoundManager.instance.pause('running');
         if(this.canMoveLeft()) {
           this.otherDirection = true;
           this.moveLeft();
           SoundManager.instance.play('running');
-
+          
           this.world.level.backgroundObjects.forEach((bg) => {
             bg.moveRight();
           });
@@ -149,6 +150,8 @@ class Character extends MovableObject {
           this.otherDirection = false;
           this.moveRight();
           SoundManager.instance.play('running');
+          
+
           this.world.level.backgroundObjects.forEach((bg) => {
             bg.moveLeft();
           });
@@ -156,9 +159,10 @@ class Character extends MovableObject {
         }
        
 
-        if (this.world.keyboard.UP && !this.isAboveGround()) {
+        if ((this.world.keyboard.UP || this.world.keyboard.jumpButtonPressed)&& !this.isAboveGround()) {
           this.jump();
           this.world.camera_x = -this.x + 100;
+          this.world.keyboard.jumpButtonPressed = false;
         }
         this.world.camera_x = -this.x + 100;
       }
