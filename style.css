@@ -15,6 +15,10 @@ button {
     background-color: transparent;
 }
 
+#toggleSounds img {
+    transition: opacity 0.3s ease-in-out;
+}
+
 #mobileBtn-container{
     width:100%;
     max-width:720px;

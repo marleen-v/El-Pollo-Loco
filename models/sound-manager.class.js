@@ -9,7 +9,7 @@ class SoundManager {
 
     constructor(){
         if (SoundManager.instance) {
-            return SoundManager.instance; // Existierende Instanz zurückgeben
+            return SoundManager.instance; // Returns existing instance
         }
         SoundManager.instance = this;
 
@@ -22,6 +22,7 @@ class SoundManager {
         };
 
         this.sounds.background.loop = true;
+        this.sounds.background.play();
 
         
     }
@@ -29,7 +30,7 @@ class SoundManager {
     play(soundName) {
         const sound = this.sounds[soundName];
         if (sound && !this.isMuted) {
-            sound.currentTime = 0; // Zurücksetzen
+            sound.currentTime = 0;
             sound.play();
         } 
     }
@@ -41,7 +42,7 @@ class SoundManager {
 
     setVolume(volume) {
         Object.values(this.sounds).forEach(sound => {
-            sound.volume = volume; // Wert zwischen 0 und 1
+            sound.volume = volume;
         });
     }
         
@@ -59,13 +60,21 @@ class SoundManager {
         Object.values(this.sounds).forEach(sound => sound.pause());
     }
 
-    // Mute/Unmute umschalten
+
     toggleMute() {
-        this.isMuted = !this.isMuted;
+        this.isMuted = !this.isMuted; // Toggle mute status
+    
+        const toggleButton = document.getElementById('toggleSounds');
+        const imgElement = toggleButton.querySelector('img'); 
+    
+        // change img when button is clicked
+        imgElement.src = this.isMuted ? 'img/SVG/volume-off.svg' : 'img/SVG/volume-on.svg';
+    
         if (this.isMuted) {
-            this.pauseAll();
+            this.pauseAll(); 
         } else {
             console.log('Sounds sind nicht mehr gemutet.');
+           /*  this.sounds.background.play();  */
         }
     }
 

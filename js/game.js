@@ -14,14 +14,14 @@ function startGame() {
   canvas = document.getElementById("canvas");
   toggleVisibility(startScreenRef);
   toggleVisibility(canvas);
-  const soundManager = new SoundManager();
+  soundManager = new SoundManager();
   world = new World(canvas, keyboard); 
-  /* toggleSounds(); */
+  toggleSounds(); 
 }
 
 function toggleSounds(){
   document.getElementById('toggleSounds').onclick = () => {
-    world.toggleSound();
+    soundManager.toggleMute();
 };
 }
 
