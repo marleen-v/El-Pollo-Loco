@@ -12,6 +12,8 @@ class MovableObject extends DrawableObject {
   isSleeping = false;
   countForBounce = 0;
 
+/*   soundManager = new SoundManager(); */
+
   offset = {
     top: 0,
     left: 0,
@@ -23,6 +25,7 @@ class MovableObject extends DrawableObject {
   constructor() {
     super();
     this.hitbox = this.getHitBox();
+    
   }
 
   applyGravity() {
@@ -145,6 +148,7 @@ class MovableObject extends DrawableObject {
     if (this.wealth < 100) {
       this.wealth += 10;
     }
+    SoundManager.instance.play('coin');
   }
 
   collectBottle() {

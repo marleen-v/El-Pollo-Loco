@@ -17,9 +17,8 @@
     <script src="./models/collectible-item.js" defer></script>
     <script src="./models/background-object.class.js" defer></script>
     <script src="./models/cloud.class.js" defer></script>
-    <!-- <script src="./models/sounds.class.js" defer></script> -->
+    <script src="./models/sound-manager.class.js" defer></script>
     <script src="./models/statusbar.class.js" defer></script>
-    <script src="./models/button.class.js" defer></script>
     <script src="./models/character.class.js" defer></script>
     <script src="./models/chicken.class.js" defer></script>
     <script src="./models/chicken-small.class.js" defer></script>
@@ -38,7 +37,7 @@
     <!-- onload="init()" -->
 
     <div class="canvas-container">
-      <div id="fullscreen" class="flex flex-column align-center">
+      <div class="flex flex-column align-center">
         <h1>El pollo loco</h1>
         <div class="start position-relative" id="start">
           <!--               <div class="start-container">
@@ -132,7 +131,40 @@
             </div>
           </dialog>
         </div>
-        <canvas class="d_none" id="canvas" width="720" height="480"></canvas>
+        <div id="fullscreen" class="position-relative flex justify-center align-center">
+          <div class="btn-container flex position-absolute">
+           
+              <button id="toggleSounds">
+                <img src="img/SVG/volume-on.svg" alt="volume-switcher" />
+              </button>
+         
+            
+              <button onclick="toggleFullscreen()">
+                <img id="resize-btn" src="img/SVG/resize-1.svg" alt="resize Screen" />
+              </button>
+           
+          </div>
+          <canvas class="d_none" id="canvas" width="720" height="480"></canvas>
+        </div>
+        <div id="mobileBtn-container" class="flex justify-space-between">
+          <div class="mobile-btns-left flex">
+            <button>
+              <img src="img/SVG/arrow-left.svg" alt="">
+            </button>
+            <button>
+              <img src="img/SVG/arrow-right.svg" alt="">
+            </button>
+          </div>
+          <div class="mobile-btns-right flex">
+            <button>
+              <img src="img/SVG/throw-mobile.svg" alt="">
+            </button>
+            <button>
+              <img src="img/SVG/jump-mobile.svg" alt="">
+            </button>
+          </div>
+
+        </div>
       </div>
 
       <div class="keyboard-container">

@@ -71,5 +71,6 @@ level1 = new Level(
         new Bottle(0, 1900),
         new Bottle(0, 1990),
      ]
+ 
 );
 

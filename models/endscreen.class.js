@@ -1,11 +1,14 @@
 class Endscreen extends DrawableObject  {
 
     IMAGES = [
-        'img/9_intro_outro_screens/game_over/game-over-1.png'
+        'img/9_intro_outro_screens/game_over/game-over-1.png', //game over
+        'img/9_intro_outro_screens/win/win-1.png' // you win
     ]
 
-    constructor (){
-        super().loadImage('img/9_intro_outro_screens/game_over/game-over-1.png');
+    constructor (index){
+        super();
+
+        this.loadImage(this.IMAGES[index]);
   /*       this.loadImages(this.IMAGES_ALERT); */
         this.x = 0;
         this.y = 0;

@@ -9,9 +9,25 @@ button {
     cursor:pointer;
     font-family: 'zabars', Arial, Helvetica, sans-serif;
     border: none;
-    width: 300px;
+    width: 50px;
     height: 50px;
     font-size: 40px;
+    background-color: transparent;
+}
+
+#mobileBtn-container{
+    width:100%;
+    max-width:720px;
+}
+
+#mobileBtn-container button{
+    width:80px;
+    height:80px;
+}
+
+.btn-container{
+    right:10px;
+    top:10px;
 }
 
 body {
