@@ -9,7 +9,7 @@ class BackgroundObject extends MovableObject {
 
 
     speeds = [
-        0, 0.5, 0.3, 0 // speed for single layers when character moves 
+        0, 0.8, 0.4, 0 // speed for single layers when character moves 
     ]
 
     

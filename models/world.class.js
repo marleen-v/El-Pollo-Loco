@@ -101,9 +101,9 @@ class World {
   }    
 
   removeEnemy(enemy, bottle) {
-   /*  if(bottle != undefined){ */
+   /*  if(bottle != undefined){ 
       this.soundManager.play('bottle_break');
-   /*  } */
+     }  */
     this.soundManager.play('damage');
     setTimeout(() => {
       const originalIndex = this.level.enemies.indexOf(enemy);

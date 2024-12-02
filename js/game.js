@@ -4,6 +4,14 @@ const dialog = document.querySelector("dialog");
 const closeBtn = document.getElementById("close-btn");
 const btnContainer = document.getElementById('btn-container')
 const btnContainerMobile = document.getElementById('mobileBtn-container')
+const buttons = document.querySelectorAll('button');
+
+const actions = {
+  sayHello: () => console.log("Hallo, Welt!"),
+  sayGoodbye: () => console.log("Tschüss, bis bald!"),
+  showDate: () => console.log(`Das aktuelle Datum ist: ${new Date().toLocaleDateString()}`),
+  showAlert: () => alert("Achtung! Das ist eine Warnung."),
+};
 
 let fullscreen_on = false;
 let gameStarted = false;
@@ -24,21 +32,30 @@ function startGame() {
   
   btnContainer.classList.remove("d_none"); // button for sounds and fullscreen
   gameStarted = true; // for button mobile eventlistener
-  checkWindowSize(); 
+ /*  checkWindowSize();  */
 
 } 
 
-window.addEventListener('resize', checkWindowSize);
+/*  button.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // Prevents double triggering
+  console.log('Button touched!');
+}); */ 
 
-function checkWindowSize() {
+/* window.addEventListener('resize', checkWindowSize); */
+
+
+
+/* function checkWindowSize() {
   if (!gameStarted) return;
+
+  mobileBtn-container.style.display
 
   if (window.innerWidth <= 400) {
     btnContainerMobile.classList.remove('d_none');
   } else {
     btnContainerMobile.classList.add('d_none');
   }
-}
+} */
 
 // onclick fuctions for buttons
 
@@ -48,10 +65,16 @@ function toggleSounds(){
 
 
 //mobile Buttons
-function jumping() {
+function startJumping() {
   world.keyboard.jumpButtonPressed = true;
 }
-function throwingBottle() {
+function stopJumping() {
+  world.keyboard.jumpButtonPressed = false;
+}
+function stopThrowing() {
+  world.keyboard.throwButtonPressed = false;
+}
+function startThrowing() {
   world.keyboard.throwButtonPressed = true;
 }
 
@@ -71,6 +94,46 @@ function stopMovingRight() {
   world.keyboard.rightButtonPressed = false;
 }
 
+
+// Funktion zum Hinzufügen von Touch-EventListenern
+function addTouchListeners(button) {
+  const startAction = button.dataset.start; // `data-start` auslesen
+  const stopAction = button.dataset.stop; // `data-stop` auslesen
+
+  // `touchstart` Event
+  button.addEventListener("touchstart", event => {
+    event.preventDefault(); // Verhindert Scrollen oder Zoomen
+    if (startAction && typeof window[startAction] === "function") {
+      window[startAction](); // Start-Funktion ausführen
+    }
+  });
+
+  // `touchend` Event
+  button.addEventListener("touchend", event => {
+    event.preventDefault();
+    if (stopAction && typeof window[stopAction] === "function") {
+      window[stopAction](); // Stop-Funktion ausführen
+    }
+  });
+}
+
+// Show/Hide Container for movements
+function toggleButtonContainer() {
+  const container = document.getElementById("mobileBtn-container");
+
+  if (!gameStarted) return;
+  
+  container.style.display = window.innerWidth < 600 ? "flex" : "none";
+}
+
+// touch-Listener for mobile-Container
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll("#mobileBtn-container button");
+  buttons.forEach(button => addTouchListeners(button));
+
+  toggleButtonContainer(); // checks while loading
+  window.addEventListener("resize", toggleButtonContainer); // checks when resized
+});
 
 
 
@@ -140,6 +203,8 @@ window.addEventListener("keyup", (event) => {
     toggleDisplay(8, 7);
   }
 });
+
+// change Icons when clicked (sounds and fullscreen)
 
 function toggleDisplay(img, img_active) {
   imgRef[img].classList.add("d_none");

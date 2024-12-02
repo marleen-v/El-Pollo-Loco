@@ -18,13 +18,18 @@ button {
     background-color: transparent;
 }
 
-#toggleSounds img {
+/* #toggleSounds img {
     transition: opacity 0.3s ease-in-out;
+} */
+
+.start-container{
+    gap:80px
 }
 
 #mobileBtn-container{
     width:100%;
     max-width:720px;
+    display:none;
 }
 
 #mobileBtn-container button{

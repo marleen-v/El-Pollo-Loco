@@ -33,17 +33,17 @@
     <script src="./js/levels/level1.js" defer></script>
     <script src="./js/game.js" defer></script>
   </head>
-  <body onload="startGame()">
-    <!-- onload="init()" -->
+  <body >
+    <!-- onload="init()" --><!-- onload="startGame()" -->
 
     <div class="canvas-container">
       <div class="flex flex-column align-center">
         <h1>El pollo loco</h1>
         <div class="start position-relative" id="start">
-          <!--               <div class="start-container">
+                    <div class="start-container flex ">
                 <button onclick="startGame()">Start</button> 
                 <button onclick="openDialog()">Need help?</button>
-              </div> -->
+              </div> 
           <dialog class="position-absolute">
             <div
               class="dialog-container flex align-center position-relative flex-column"
@@ -148,22 +148,18 @@
         </div>
         <div id="mobileBtn-container" class="flex justify-space-between">
           <div class="mobile-btns-left flex">
-            <button 
-            onmousedown="startMovingLeft()" 
-            onmouseup="stopMovingLeft()">
+            <button data-start="startMovingLeft" data-stop="stopMovingLeft">
               <img src="img/SVG/arrow-left.svg" alt="">
             </button>
-            <button 
-            onmousedown="startMovingRight()" 
-            onmouseup="stopMovingRight()">
+            <button data-start="startMovingRight" data-stop="stopMovingRight">
               <img src="img/SVG/arrow-right.svg" alt="">
             </button>
           </div>
           <div class="mobile-btns-right flex">
-            <button onclick="throwingBottle()">
+            <button data-start="startThrowing" data-stop="stopThrowing">
               <img src="img/SVG/throw-mobile.svg" alt="">
             </button>
-            <button onclick="jumping()">
+            <button data-start="startJumping" data-stop="stopJumping">
               <img src="img/SVG/jump-mobile.svg" alt="">
             </button>
           </div>

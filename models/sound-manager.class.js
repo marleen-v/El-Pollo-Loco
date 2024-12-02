@@ -21,7 +21,7 @@ class SoundManager {
       coin: { audio: new Audio("audio/collect-coin-2.mp3"), volume: 0.03 },
       running: { audio: new Audio("audio/running.mp3"), volume: 1.0 },
       hit:{ audio: new Audio("audio/hit.mp3"), volume: 0.2},
-      damage:{ audio: new Audio("audio/damage-2.mp3"), volume: 0.1},
+      damage:{ audio: new Audio("audio/damage-2.mp3"), volume: 0.02},
       jump: { audio: new Audio("audio/jump-2.mp3"), volume: 0.03 },
       throw: { audio: new Audio("audio/throw.mp3"), volume: 0.03 },
       bottle: { audio: new Audio("audio/collect-bottle-1.mp3"), volume: 0.05 },
