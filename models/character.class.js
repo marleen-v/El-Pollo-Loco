@@ -102,6 +102,7 @@ class Character extends MovableObject {
           this.playAnimation(this.IMAGES_DEAD);
           this.resetLastAction();
           this.hasPlayedDeadAnimation = true;
+          showGameoverScreen();
         }
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
