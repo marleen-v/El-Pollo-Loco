@@ -33,20 +33,20 @@
     <script src="./js/levels/level1.js" defer></script>
     <script src="./js/game.js" defer></script>
   </head>
-  <body >
+  <body>
     <!-- onload="init()" --><!-- onload="startGame()" -->
-    <div id="orientationMessage" style="display: none;">
-      <p>Please rotate your phone to play the game.</p>
+    <div id="orientationMessage" style="display: none">
+      <p>Please rotate your device to play the game.</p>
     </div>
-    <div id="canvas-container" class="canvas-container" style="display: flex;">
+    <div id="canvas-container" class="canvas-container" style="display: flex">
       <div class="flex flex-column align-center">
         <h1>El pollo loco</h1>
-        <div class="start position-relative" id="start" >
-          <img src="img/10_BG/startscreen_1.jpg" alt="">
-              <div class="start-container flex position-absolute">
-                <button onclick="startGame()">Start</button> 
-                <button onclick="openDialog()">Need help?</button>
-              </div> 
+        <div class="start position-relative" id="start">
+          <img src="img/10_BG/startscreen_1.jpg" alt="" />
+          <div class="start-container flex position-absolute">
+            <button class="menu-btn" onclick="startGame()">Start</button>
+            <button class="menu-btn" onclick="openDialog()">Need help?</button>
+          </div>
           <dialog class="position-absolute">
             <div
               class="dialog-container flex align-center position-relative flex-column"
@@ -134,49 +134,68 @@
             </div>
           </dialog>
         </div>
-        <div class="endscreen position-relative" id="endscreen" style="display:none">
-          <img src="img/9_intro_outro_screens/game_over/game-over-1.png" alt="">
-              <div class="start-container flex position-absolute">
-                <button onclick="startGame()">Try Again</button> 
-                <button onclick="openDialog()">Menu</button>
-              </div> 
 
-        </div>
-        <div id="fullscreen" class="position-relative justify-center align-center">
+        <div
+          id="fullscreen"
+          class="position-relative justify-center align-center"
+        >
+        
           <div class="btn-container flex position-absolute" id="btn-container">
-           
-              <button id="toggleSounds" onclick="toggleSounds()">
-                <img src="img/SVG/volume-on.svg" alt="volume-switcher" />
-              </button>
-         
-            
-              <button onclick="toggleFullscreen()">
-                <img id="resize-btn" src="img/SVG/resize-1.svg" alt="resize Screen" />
-              </button>
-           
+            <button id="toggleSounds" onclick="toggleSounds()">
+              <img src="img/SVG/volume-on.svg" alt="volume-switcher" />
+            </button>
+
+            <button onclick="toggleFullscreen()">
+              <img
+                id="resize-btn"
+                src="img/SVG/resize-1.svg"
+                alt="resize Screen"
+              />
+            </button>
+          </div>
+          <div class="endscreen position-absolute" id="game-over-screen"  style="display: none">
+            <img
+              src="img/9_intro_outro_screens/game_over/game-over-1.png"
+              alt=""
+            />
+            <div class="endscreen-btns flex position-absolute" >
+              <button class="menu-btn" onclick="startGame()">Try Again</button>
+              <button class="menu-btn" onclick="">Menu</button>
+            </div>
+          </div>
+          <div class="endscreen position-absolute" id="win-screen" style="display: none"> 
+            <img
+              src="img/9_intro_outro_screens/win/win-1.png"
+              alt=""
+            />
+            <div class="endscreen-btns flex position-absolute" >
+              <button class="menu-btn" onclick="">Menu</button>
+            </div>
           </div>
           <canvas id="canvas" width="720" height="480"></canvas>
-          <div id="mobileBtn-container" class="flex justify-space-between position-absolute">
+          <div
+            id="mobileBtn-container"
+            class="flex justify-space-between position-absolute"
+          >
             <div class="mobile-btns-left flex">
               <button data-start="startMovingLeft" data-stop="stopMovingLeft">
-                <img src="img/SVG/arrow-left.svg" alt="">
+                <img src="img/SVG/arrow-left.svg" alt="" />
               </button>
               <button data-start="startMovingRight" data-stop="stopMovingRight">
-                <img src="img/SVG/arrow-right.svg" alt="">
+                <img src="img/SVG/arrow-right.svg" alt="" />
               </button>
             </div>
-            <div class="mobile-btns-right flex ">
+            <div class="mobile-btns-right flex">
               <button data-start="startThrowing">
-                <img src="img/SVG/throw-mobile.svg" alt="">
+                <img src="img/SVG/throw-mobile.svg" alt="" />
               </button>
-              <button data-start="startJumping" >
-                <img src="img/SVG/jump-mobile.svg" alt="">
+              <button data-start="startJumping">
+                <img src="img/SVG/jump-mobile.svg" alt="" />
               </button>
             </div>
-  
           </div>
+          
         </div>
-
       </div>
 
       <div class="keyboard-container">

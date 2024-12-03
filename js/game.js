@@ -6,6 +6,8 @@ const btnContainer = document.getElementById('btn-container')
 const btnContainerMobile = document.getElementById('mobileBtn-container')
 const buttons = document.querySelectorAll('button');
 
+let intervalIds = [];
+
 
 let fullscreen_on = false;
 let gameStarted = false;
@@ -37,6 +39,8 @@ function startGame() {
 
   showGameScreen();
   gameStarted = true; // for button mobile eventlistener
+
+
 } 
 
 
@@ -164,6 +168,11 @@ function resizeCanvas(fullscreen, scaleFactor) {
   context.scale(scaleFactor, scaleFactor);
 } 
 
+function resizeCanvasS() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
 
 //-----------------------------------------mobile movements
 
@@ -219,6 +228,14 @@ function showGameScreen(){ //Beginn game
   toggleVisibility("start", false);
 }
 
+function showGameoverScreen(){ //Beginn game
+  toggleVisibility("game-over-screen", true);
+}
+
+function stopGame() {
+  intervalIds.forEach()
+}
+
 //------------------------------------------ Check Orientaion------------------------
 
 // controls the visibility of an element
@@ -244,15 +261,12 @@ function showMainContent() {
 
 // checks orientation
 function checkOrientation() {
-  if (window.innerHeight > window.innerWidth) {
-    showRotateMessage();
-  } else {
-    showMainContent();
-  }
+  window.innerHeight > window.innerWidth ? showRotateMessage() : showMainContent();
 }
 
 function addOrientationListeners() {
-  checkOrientation(); // Initiale Prüfung der Orientierung
+  checkOrientation(); 
   window.addEventListener("resize", checkOrientation);
   window.addEventListener("orientationchange", checkOrientation);
 }
+

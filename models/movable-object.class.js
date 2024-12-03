@@ -49,7 +49,7 @@ class MovableObject extends DrawableObject {
 
   resetLastAction() {
     this.lastActive = Date.now();
-    this.isSleeping = false; // Charakter wird aufgeweckt
+    this.isSleeping = false; // Charakter wakes up
   }
 
   moveRight() {
@@ -63,9 +63,6 @@ class MovableObject extends DrawableObject {
   jump() {
     this.speedY = 30;
     this.soundManager.play('jump');
-    /* SoundManager.instance.setVolume('jump', 0.5); */
-  
- 
   }
 
   getHitBox() {
@@ -150,6 +147,7 @@ class MovableObject extends DrawableObject {
   collectCoin() {
     if (this.wealth < 100) {
       this.wealth += 10;
+  
     }
     SoundManager.instance.play('coin');
   }
