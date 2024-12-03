@@ -30,6 +30,14 @@ button {
     z-index:100;
 }
 
+.endscreen-btns{
+    gap:80px;
+   bottom: 10px; 
+   left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index:100;
+}
+
 #mobileBtn-container{
     width:100%;
     max-width:720px;
@@ -81,9 +89,7 @@ p{
 }
 
 #orientationMessage {
-    /* position: fixed; */
-    /* top: 0;
-    left: 0; */
+
     width: 100%;
     height: 100vh;
     display:flex;
@@ -96,7 +102,7 @@ p{
     padding: 40px
   }
 
-.start, .endscreen{
+.start{
     width: 100%;
     border-radius: 10px;
     box-sizing: border-box;
@@ -110,7 +116,19 @@ p{
     display: block;
 }
 
+.endscreen {
+    top:0;
+    right:0;
+   
+    z-index:500;
+}
 
+.menu-btn {
+    padding: 10px 20px;
+    background-color: #ffcc1b;
+    border-radius: 20px;
+    width:150px;
+}
 
 
 
