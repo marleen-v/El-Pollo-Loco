@@ -32,26 +32,29 @@ class ChickenSmall extends MovableObject {
   }
 
   animate() {
-    let i = 0; // for switching: moveLeft and jumping
-    setInterval(() => {
-      this.hitbox = this.getHitBox();
-      if (this.isDead() && !this.isAboveGround()) {
+
+    setStoppableInterval(() =>  this.chickenSmallMoves() , 1000 / 60);
+    setStoppableInterval(() =>  this.chickenAnimation() , 200);
+
+  }
+
+  chickenAnimation(){
+    if (!this.isDead()) {
+      this.playAnimation(this.IMAGES_WALKING);
+    } else {
+      this.playAnimation(this.IMAGES_DEAD);
+    }
+  } 
+
+chickenSmallMoves(){
+  /* if (this.isDead() && !this.isAboveGround()) {
         this.speedY = 0
         this.hitbox = this.getHitBox();
-      } else if (!this.isAboveGround()) {
+      } else */ if (!this.isAboveGround()) {
         this.jump();
         this.hitbox = this.getHitBox();
       }
-    }, 1000 / 60);
-
-    setInterval(() => {
-      if (!this.isDead()) {
-        this.playAnimation(this.IMAGES_WALKING);
-      } else {
-        this.playAnimation(this.IMAGES_DEAD);
-      }
-    }, 200);
-  }
+}
 
   jump() {
     this.speedY = 20;

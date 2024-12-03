@@ -29,9 +29,49 @@ function initializeApp() {
   addOrientationListeners();
 }
 
+function setStoppableInterval(fn, time) {
+  let id = setInterval(fn, time);
+  intervalIds.push(id);
+}
+
+function stopGame() {
+  showGameoverScreen();
+  gameStarted = false;
+  resetIntervals();
+}
 
 
-function startGame() {
+
+function resetIntervals(){
+  intervalIds.forEach(clearInterval);
+  intervalIds = [];
+}
+
+function restartGame(){
+  hideGameOverScreen();
+  resetIntervals();
+  startGame();
+}
+
+function showLoadingSpinner() {
+  toggleVisibility("spinner", true);
+}
+
+function hideLoadingSpinner() {
+  toggleVisibility("spinner", false);
+}
+
+
+
+async function startGame() {
+ 
+ 
+  toggleVisibility("start", false);
+ /*  showLoadingSpinner();  */
+
+  initLevel(); 
+  
+  /* hideLoadingSpinner(); */
   canvas = document.getElementById("canvas");
 
   soundManager = new SoundManager();
@@ -39,84 +79,41 @@ function startGame() {
 
   showGameScreen();
   gameStarted = true; // for button mobile eventlistener
-
-
 } 
 
 
 
 
+/**
+ * opens dialog of button "need help" on the startscreen
+ */
 function openDialog() {
   dialog.classList.add("bg");
   dialog.showModal();
 }
 
+/**
+ * closes dialog of button "need help" on the startscreen
+ */
 function dialogClose() {
   dialog.close();
   dialog.classList.remove("bg");
 }
 
-function initializeKeyboardControls() {
-  window.addEventListener("keydown", handleKeyDown);
-  window.addEventListener("keyup", handleKeyUp);
-}
 
-function handleKeyDown(event) {
-  if (event.key == "ArrowRight") {
-    keyboard.RIGHT = true;
-    toggleDisplay(5, 6);
-  }
-  if (event.key == "ArrowLeft") {
-    keyboard.LEFT = true;
-    toggleDisplay(2, 3);
-  }
-  if (event.key == "ArrowUp") {
-    keyboard.UP = true;
-    toggleDisplay(0, 1);
-  }
-  if (event.key == "ArrowDown") {
-    keyboard.DOWN = true;
-  }
-  if (event.key == " ") {
-    keyboard.SPACE = true;
-  }
-  if (event.key == "d") {
-    keyboard.D = true;
-    toggleDisplay(7, 8);
-  }
-};
-
-function handleKeyUp(event){
-  if (event.key == "ArrowRight") {
-    keyboard.RIGHT = false;
-    toggleDisplay(6, 5);
-  }
-  if (event.key == "ArrowLeft") {
-    keyboard.LEFT = false;
-    toggleDisplay(3, 2);
-  }
-  if (event.key == "ArrowUp") {
-    keyboard.UP = false;
-    toggleDisplay(1, 0);
-  }
-  if (event.key == "ArrowDown") {
-    keyboard.DOWN = false;
-  }
-  if (event.key == " ") {
-    keyboard.SPACE = false;
-  }
-  if (event.key == "d") {
-    keyboard.D = false;
-    toggleDisplay(8, 7);
-  }
-};
-
+/**
+ * mutes or unmutes  all sounds
+ */
 function toggleSounds(){
   soundManager.toggleMute();
 };
 
-// change Icons when clicked (sounds and fullscreen)
 
+/**
+ * changes images of keyboard keys, if clicked
+ * @param {String} img - default image src of key
+ * @param {String} img_active - image src when key is clicked
+ */
 function toggleDisplay(img, img_active) {
   imgRef[img].classList.add("d_none");
   imgRef[img_active].classList.remove("d_none");
@@ -174,67 +171,32 @@ function resizeCanvasS() {
 }
 
 
-//-----------------------------------------mobile movements
-
-
-// Funktionen für mobile Steuerung
-const mobileControls = {
-  startJumping: () => (world.keyboard.jumpButtonPressed = true),
- /*  stopJumping: () => (world.keyboard.jumpButtonPressed = false), */
-  startThrowing: () => (world.keyboard.throwButtonPressed = true),
- /*  stopThrowing: () => (world.keyboard.throwButtonPressed = false), */
-  startMovingLeft: () => (world.keyboard.leftButtonPressed = true),
-  stopMovingLeft: () => (world.keyboard.leftButtonPressed = false),
-  startMovingRight: () => (world.keyboard.rightButtonPressed = true),
-  stopMovingRight: () => (world.keyboard.rightButtonPressed = false),
-};
-
-function addTouchListeners(button) {
-  const startAction = button.dataset.start;
-  const stopAction = button.dataset.stop;
-
-  button.addEventListener("touchstart", event => handleTouch(event, startAction));
-  button.addEventListener("touchend", event => handleTouch(event, stopAction));
-}
-
-function handleTouch(event, actionName) {
-  event.preventDefault(); 
-  if (actionName && typeof mobileControls[actionName] === "function") {
-    mobileControls[actionName](); 
-  }
-}
-
-function toggleButtonContainer() {
-  const container = document.getElementById("mobileBtn-container");
-
-  if (!gameStarted) return;
-  container.style.display = window.innerWidth < 1000 ? "flex" : "none";
-}
-
-function initializeMobileControls() {
-  const buttons = document.querySelectorAll("#mobileBtn-container button");
-  buttons.forEach(button => addTouchListeners(button)); // Touch-Listener für Buttons hinzufügen
-
-  toggleButtonContainer(); // Initiale Überprüfung beim Laden
-  window.addEventListener("resize", toggleButtonContainer); // Überprüfung bei Fensteränderung
-}
-
 
 
 //------------------------------------------ StartGame------------------------
 
-function showGameScreen(){ //Beginn game
+function showGameScreen(){ 
   toggleVisibility("fullscreen", true);
-  toggleVisibility("start", false);
+ 
 }
 
-function showGameoverScreen(){ //Beginn game
+function showGameoverScreen(){ 
   toggleVisibility("game-over-screen", true);
 }
 
-function stopGame() {
-  intervalIds.forEach()
+function hideGameOverScreen(){
+  toggleVisibility("game-over-screen", false);
 }
+
+function showWinningScreen(){ 
+  toggleVisibility("win-screen", true);
+}
+function hideWinningScreen(){ 
+  toggleVisibility("win-screen", false);
+}
+
+
+
 
 //------------------------------------------ Check Orientaion------------------------
 

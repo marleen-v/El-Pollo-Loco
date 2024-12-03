@@ -21,6 +21,7 @@ class World {
   endscreen_win = new Endscreen(1);
 
   constructor(canvas, keyboard) {
+    this.intervalIds = [];
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
@@ -36,6 +37,16 @@ class World {
     this.character.world = this;
     this.level.enemies[0].world = this; //endboss
     this.throwableObject.world = this;
+  }
+
+  setStoppableInterval(fn, time) {
+    let id = setInterval(fn, time);
+    this.intervalIds.push(id);
+  }
+
+  stopAllIntervals() {
+    this.intervalIds.forEach(clearInterval);
+    this.intervalIds = [];
   }
 
   run() {

@@ -12,6 +12,8 @@
     />
     <title>El pollo loco</title>
     <script src="./models/keyboard.class.js" defer></script>
+    <script src="./js/keyboard.js" defer></script>
+    <script src="./js/game.js" defer></script>
     <script src="./models/drawable-object.class.js" defer></script>
     <script src="./models/movable-object.class.js" defer></script>
     <script src="./models/collectible-item.js" defer></script>
@@ -24,14 +26,14 @@
     <script src="./models/chicken-small.class.js" defer></script>
     <script src="./models/coin.class.js" defer></script>
     <script src="./models/bottle.class.js" defer></script>
+    <script src="./js/levels/level1.js" defer></script>
     <script src="./models/world.class.js" defer></script>
     <script src="./models/level.class.js" defer></script>
     <script src="./models/endscreen.class.js" defer></script>
     <script src="./models/throwable-object.class.js" defer></script>
     <script src="./models/endboss.class.js" defer></script>
-    <!-- <script src="./js/sounds.js" defer></script> -->
-    <script src="./js/levels/level1.js" defer></script>
-    <script src="./js/game.js" defer></script>
+    
+    
   </head>
   <body>
     <!-- onload="init()" --><!-- onload="startGame()" -->
@@ -159,7 +161,7 @@
               alt=""
             />
             <div class="endscreen-btns flex position-absolute" >
-              <button class="menu-btn" onclick="startGame()">Try Again</button>
+              <button class="menu-btn" onclick="restartGame()">Try Again</button>
               <button class="menu-btn" onclick="">Menu</button>
             </div>
           </div>
@@ -195,6 +197,9 @@
             </div>
           </div>
           
+        </div>
+        <div class="spinner" id="spinner">
+          <img src="./img/6_salsa_bottle/salsa_bottle.png" alt="Loading Spinner" class="spinner-img">
         </div>
       </div>
 
