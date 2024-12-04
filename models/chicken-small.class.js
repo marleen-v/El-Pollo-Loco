@@ -47,10 +47,10 @@ class ChickenSmall extends MovableObject {
   } 
 
 chickenSmallMoves(){
-  /* if (this.isDead() && !this.isAboveGround()) {
+  if (this.isDead() && !this.isAboveGround()) {
         this.speedY = 0
         this.hitbox = this.getHitBox();
-      } else */ if (!this.isAboveGround()) {
+      } else if (!this.isAboveGround()) {
         this.jump();
         this.hitbox = this.getHitBox();
       }

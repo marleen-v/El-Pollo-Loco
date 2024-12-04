@@ -3,9 +3,9 @@ class Endboss extends MovableObject {
   width = 350;
   height = 450;
   energy = 50;
+  gotHurt = false;
 
-  hadFirstContact = false;
-
+  i = 0
   world;
 
   offset = {
@@ -63,64 +63,53 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_WALKING);
-    this.x = 2500;
+    this.x = 2800;
     this.hitbox = this.getHitBox();
     this.speed = 4;
     this.animate();
   }
 
   animate() {
-    let i = 0;
-   /*  setInterval(() => {
-      if (i < 10) {
-        this.moveLeft();
-        this.playAnimation(this.IMAGES_WALKING);
-      }  else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }; 
-      i++;
 
-      if (this.world.character.x > 2200 && !this.hadFirstContact) {
-        i = 0;
-        this.hadFirstContact = true;
-      }
-    }, 200); */
+    setStoppableInterval(() => this.endbossAnimation() ,200);
+    setStoppableInterval(() => this.endbossMoves() ,1000 / 60);
 
-    setInterval(() => {
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (i < 10) {
-        this.moveLeft();
-        this.playAnimation(this.IMAGES_WALKING);
-        this.hitbox = this.getHitBox();
-        
-      } /* else if (this.takeDamage()){
-        this.playAnimation(this.IMAGES_HURT);
-      } */
-      
-      else {
-        this.playAnimation(this.IMAGES_ALERT);
-      }
-      i++;
-
-/*       if (this.world.character.x > 2200 && !this.hadFirstContact) {
-        i = 0;
-        this.hadFirstContact = true;
-            this.moveLeft();
-   
-      } */
-    }, 200);
-    
-
-    
-/*     setInterval(() => {
-      if (!this.isDead() && ) {
-        this.playAnimation(this.IMAGES_WALKING);
-      }
-    }, 200); */
   }
 
-  
+  endbossAnimation(){
+    if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+      }else
+    if(this.isHurt()){
+      this.playAnimation(this.IMAGES_HURT);
+      this.gotHurt = true
+    } else
+    if (this.i < 10) {
+      this.moveLeft();
+      this.hitbox = this.getHitBox(); 
+      this.playAnimation(this.IMAGES_WALKING);
+    } else {
+      this.playAnimation(this.IMAGES_ALERT);
+    };
+    this.i++
+
+}
+
+endbossMoves(){
+  if (this.world.character.x > 2200 && !characterMetEndboss) {
+    this.i = 0;
+    characterMetEndboss = true;
+    this.otherDirection = false;
+    this.moveLeft();
+  } /*  else if (this.isHurt && this.world.character.x <= this.x){
+    this.otherDirection = false;
+    this.moveLeft();
+  } */else if(this.gotHurt && this.world.character.x > this.x){
+    this.otherDirection = true;
+    this.moveRight();
+  } 
+}
+
 
 
 }

@@ -111,7 +111,7 @@ class MovableObject extends DrawableObject {
   }
 
   bounceBack() {
-    setInterval(() => {
+    setStoppableInterval(() => {
       if (this.countForBounce <= 10) {
         this.otherDirection ? this.moveRight() : this.moveLeft();
         this.countForBounce += 1;
@@ -122,8 +122,10 @@ class MovableObject extends DrawableObject {
   isHurt() {
     let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
     timePassed = timePassed / 1000; // difference in s
-    return timePassed < 1;
+    return timePassed < 1; // animation is shown for 1 sec if character gets hurt
   }
+
+
 
   isDead() {
     return this.energy == 0;
@@ -162,7 +164,11 @@ class MovableObject extends DrawableObject {
   takeDamage() {
     if (!this.isDead()) {
       this.energy -= 10;
-      
+    if (this.energy < 0) {
+      this.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime();
     }
+    } 
   }
 }

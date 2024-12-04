@@ -8,7 +8,7 @@ const buttons = document.querySelectorAll('button');
 
 let intervalIds = [];
 
-
+let characterMetEndboss = false;
 let fullscreen_on = false;
 let gameStarted = false;
 

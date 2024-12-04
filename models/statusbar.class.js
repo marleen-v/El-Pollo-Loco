@@ -38,6 +38,7 @@ class Statusbar extends DrawableObject {
 
     images = [];
     percentage;
+    speed = 3;
 
     constructor(images){
         super();
@@ -72,8 +73,9 @@ class Statusbar extends DrawableObject {
             this.y = 0;
         } else {
             this.images = this.IMAGES_ENDBOSS;
-            this.x = 550;
-            this.y = 86;
+            this.x = 770;
+            this.y = 46;
+            this.animateEndbossStatusbar()
         }
     }
 
@@ -101,5 +103,24 @@ class Statusbar extends DrawableObject {
             return 0;
         }
     }
+
+
+    animateEndbossStatusbar(){
+        setStoppableInterval(() => this.moveToPosition(), 1000/60);
+       
+    }
+
+    moveToPosition(){
+        if(characterMetEndboss && this.x >= 550){
+            this.moveLeft(); 
+            if(this.x >= 550){
+                this.moveLeft(); 
+             }
+        }  
+    }
+
+    moveLeft() {
+        this.x -= this.speed;
+      }
 
 };
