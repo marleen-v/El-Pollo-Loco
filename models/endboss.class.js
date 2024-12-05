@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
   height = 450;
   energy = 50;
   gotHurt = false;
+  speed = 10;
 
   i = 0
   world;
@@ -65,7 +66,6 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.x = 2800;
     this.hitbox = this.getHitBox();
-    this.speed = 4;
     this.animate();
   }
 
@@ -79,8 +79,7 @@ class Endboss extends MovableObject {
   endbossAnimation(){
     if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-      }else
-    if(this.isHurt()){
+    } else if(this.isHurt()){
       this.playAnimation(this.IMAGES_HURT);
       this.gotHurt = true
     } else
@@ -88,8 +87,12 @@ class Endboss extends MovableObject {
       this.moveLeft();
       this.hitbox = this.getHitBox(); 
       this.playAnimation(this.IMAGES_WALKING);
-    } else {
+    } else if (characterMetEndboss && !this.gotHurt){
       this.playAnimation(this.IMAGES_ALERT);
+    }else if (this.isAboveGround()) {
+      this.playAnimation(this.IMAGES_ATTACK);
+    } else {
+      this.playAnimation(this.IMAGES_WALKING);
     };
     this.i++
 
@@ -100,16 +103,38 @@ endbossMoves(){
     this.i = 0;
     characterMetEndboss = true;
     this.otherDirection = false;
+    this.speed = 2;
     this.moveLeft();
-  } /*  else if (this.isHurt && this.world.character.x <= this.x){
+  }  else if(this.attacks()){
+     this.jump();
+     this.hitbox = this.getHitBox();
+  }
+    else if (this.gotHurt && this.world.character.x <= this.x){
     this.otherDirection = false;
     this.moveLeft();
-  } */else if(this.gotHurt && this.world.character.x > this.x){
+    this.hitbox = this.getHitBox();
+  } /* else if(this.gotHurt && this.world.character.x > this.x){
     this.otherDirection = true;
     this.moveRight();
-  } 
+  }  */
 }
 
+ jump() {
+  this.speedY = 50;
+}
+
+isAboveGround() {
+  return this.y < 470;
+}
+
+applyGravity() {
+  setStoppableInterval(() => {
+    if (this.isAboveGround() || this.speedY > 0) {
+      this.y -= this.speedY;
+      this.speedY -= this.acceleration;
+    }
+  }, 1000 / 25);
+} 
 
 
 }

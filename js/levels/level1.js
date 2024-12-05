@@ -10,8 +10,8 @@ function initLevel(){
             new Chicken(), 
             new Chicken(),  
                
-            new ChickenSmall(),
-            new Chicken(),   */
+            new ChickenSmall(),*/
+            new Chicken(),   
         ],
         [   
             new Cloud("1"), 

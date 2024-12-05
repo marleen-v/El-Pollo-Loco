@@ -35,12 +35,10 @@ function setStoppableInterval(fn, time) {
 }
 
 function stopGame() {
-  showGameoverScreen();
   gameStarted = false;
   resetIntervals();
+  soundManager.pauseAll();
 }
-
-
 
 function resetIntervals(){
   intervalIds.forEach(clearInterval);
@@ -48,9 +46,9 @@ function resetIntervals(){
 }
 
 function restartGame(){
-  hideGameOverScreen();
   resetIntervals();
   startGame();
+  
 }
 
 function showLoadingSpinner() {
@@ -65,13 +63,11 @@ function hideLoadingSpinner() {
 
 async function startGame() {
  
- 
-  toggleVisibility("start", false);
- /*  showLoadingSpinner();  */
+  showLoadingSpinner(); 
 
   initLevel(); 
   
-  /* hideLoadingSpinner(); */
+  hideLoadingSpinner();
   canvas = document.getElementById("canvas");
 
   soundManager = new SoundManager();
@@ -177,11 +173,21 @@ function resizeCanvasS() {
 
 function showGameScreen(){ 
   toggleVisibility("fullscreen", true);
- 
+  toggleVisibility("start", false);
+  toggleVisibility("game-over-screen", false);
+  toggleVisibility("win-screen", false);
+}
+
+function showStartScreen(){
+  toggleVisibility("start", true);
+  toggleVisibility("fullscreen", false);
+  toggleVisibility("game-over-screen", false);
+  toggleVisibility("win-screen", false);
 }
 
 function showGameoverScreen(){ 
   toggleVisibility("game-over-screen", true);
+  soundManager.play("gameOver");
 }
 
 function hideGameOverScreen(){
@@ -190,6 +196,7 @@ function hideGameOverScreen(){
 
 function showWinningScreen(){ 
   toggleVisibility("win-screen", true);
+  soundManager.play("win");
 }
 function hideWinningScreen(){ 
   toggleVisibility("win-screen", false);

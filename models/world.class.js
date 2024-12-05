@@ -39,27 +39,24 @@ class World {
     this.throwableObject.world = this;
   }
 
-  setStoppableInterval(fn, time) {
-    let id = setInterval(fn, time);
-    this.intervalIds.push(id);
-  }
-
-  stopAllIntervals() {
-    this.intervalIds.forEach(clearInterval);
-    this.intervalIds = [];
-  }
-
   run() {
-    setInterval(() => {
+    setStoppableInterval(() => {
       this.checkCollisions();
       this.checkCollectCoin();
       this.checkCollectBottle();
       this.checkThrowObjectsCollision();
     }, 1000 / 60);
 
-    setInterval(() => {
+    setStoppableInterval(() => {
       this.checkThrowObjects();
     }, 80);
+  }
+
+  checkIfYouWon(){
+    if(this.level.enemies.length == 0 && this.level.coins.length == 0) {
+      stopGame();
+      showWinningScreen();
+    }
   }
 
   checkThrowObjects() {
@@ -88,6 +85,7 @@ class World {
           bottle.hitEnemy = true;
           enemy.takeDamage();
           this.updateEndbossHealth(enemy);
+          
           if (enemy.isDead()) {
           this.removeEnemy(enemy, bottle);
           }
@@ -120,7 +118,9 @@ class World {
       const originalIndex = this.level.enemies.indexOf(enemy);
       if (originalIndex !== -1) {
         this.level.enemies.splice(originalIndex, 1); // remove from original array
+        this.checkIfYouWon();
       }
+      
     }, 500); 
   }
 
@@ -156,6 +156,7 @@ class World {
         this.character.collectCoin();
         this.level.coins.splice(index, 1);
         this.statusbar_coin.setPercentage(this.character.wealth);
+        this.checkIfYouWon();
       }
     });
   }
@@ -230,7 +231,7 @@ class World {
     }
 
     mO.draw(this.ctx);
-    mO.drawFrame(this.ctx);
+   /*  mO.drawFrame(this.ctx); */
 
     if (mO.otherDirection) {
       this.flipImageBack(mO);

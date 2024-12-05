@@ -4,6 +4,7 @@ class Chicken extends MovableObject {
   height = 90;
   energy = 10;
 
+
   offset = {
     top: 20,
     left: 15,
@@ -31,19 +32,27 @@ class Chicken extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      if (!this.isDead()) {
+    setStoppableInterval(() => {
+      if (this.x <= 500) {
+        this.otherDirection = true; 
+      } else if (this.x >= 900) {
+        this.otherDirection = false; 
+      }
+
+      if (this.otherDirection) {
+        this.moveRight();
         this.hitbox = this.getHitBox();
+      } else {
         this.moveLeft();
+        this.hitbox = this.getHitBox();
       }
     }, 1000 / 60);
 
-    setInterval(() => {
-      if (!this.isDead()) {
-        this.playAnimation(this.IMAGES_WALKING);
-      
-      } else {
+    setStoppableInterval(() => {
+      if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+      } else {
+        this.playAnimation(this.IMAGES_WALKING);
       }
     }, 80);
 

@@ -2,6 +2,7 @@ class Cloud extends MovableObject {
     y = 20;
     height = 300; 
     width = 500;
+    cameraSpeed = 8.5;
   
 
 
@@ -13,11 +14,18 @@ class Cloud extends MovableObject {
     }
 
  animate(){
-    setInterval(() => {
+    setStoppableInterval(() => {
            this.moveLeft();
         
     }, 1000 / 60);
 
+ }
+
+ moveLeftWithCamera(){
+    this.x -= this.cameraSpeed;
+ }
+ moveRightWithCamera(){
+    this.x += this.cameraSpeed;
  }
 
 

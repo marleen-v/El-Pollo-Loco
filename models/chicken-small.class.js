@@ -24,7 +24,7 @@ class ChickenSmall extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
 
-    this.x = 200 + Math.random() * 500;
+    this.x = 250 + Math.random() * 500;
     this.hitbox = this.getHitBox();
     this.speed = 0.15 + Math.random() * 0.25;
     this.applyGravity();
@@ -39,10 +39,10 @@ class ChickenSmall extends MovableObject {
   }
 
   chickenAnimation(){
-    if (!this.isDead()) {
-      this.playAnimation(this.IMAGES_WALKING);
-    } else {
+    if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
+    } else {
+      this.playAnimation(this.IMAGES_WALKING);
     }
   } 
 
@@ -65,7 +65,7 @@ chickenSmallMoves(){
   }
 
   applyGravity() {
-    setInterval(() => {
+    setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;

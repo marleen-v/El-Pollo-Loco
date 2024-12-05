@@ -104,8 +104,8 @@ class Character extends MovableObject {
       if (!this.hasPlayedDeadAnimation) {
         this.playAnimation(this.IMAGES_DEAD);
         this.hasPlayedDeadAnimation = true;
-        showGameoverScreen();
         stopGame();
+        showGameoverScreen();  
       }
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
@@ -146,9 +146,8 @@ class Character extends MovableObject {
           this.otherDirection = true;
           this.moveLeft();
           SoundManager.instance.play('running');
-          this.world.level.backgroundObjects.forEach((bg) => {
-            bg.moveRight();
-          });
+          this.world.level.backgroundObjects.forEach((bg) => bg.moveRight());
+          this.world.level.clouds.forEach((cloud) => cloud.moveLeftWithCamera());
           this.world.camera_x = -this.x + 100;
         }
 
@@ -158,9 +157,8 @@ class Character extends MovableObject {
           SoundManager.instance.play('running');
           
 
-          this.world.level.backgroundObjects.forEach((bg) => {
-            bg.moveLeft();
-          });
+          this.world.level.backgroundObjects.forEach((bg) =>bg.moveLeft());
+          this.world.level.clouds.forEach((cloud) => cloud.moveRightWithCamera());
           this.world.camera_x = -this.x + 100;
         }
        

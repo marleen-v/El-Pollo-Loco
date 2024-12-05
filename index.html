@@ -157,12 +157,12 @@
           </div>
           <div class="endscreen position-absolute" id="game-over-screen"  style="display: none">
             <img
-              src="img/9_intro_outro_screens/game_over/game-over-1.png"
+              src="img/9_intro_outro_screens/game_over/game-over-2.png"
               alt=""
             />
             <div class="endscreen-btns flex position-absolute" >
               <button class="menu-btn" onclick="restartGame()">Try Again</button>
-              <button class="menu-btn" onclick="">Menu</button>
+              <button class="menu-btn" onclick="showStartScreen()">Menu</button>
             </div>
           </div>
           <div class="endscreen position-absolute" id="win-screen" style="display: none"> 
@@ -171,7 +171,7 @@
               alt=""
             />
             <div class="endscreen-btns flex position-absolute" >
-              <button class="menu-btn" onclick="">Menu</button>
+              <button class="menu-btn" onclick="showStartScreen()">Menu</button>
             </div>
           </div>
           <canvas id="canvas" width="720" height="480"></canvas>

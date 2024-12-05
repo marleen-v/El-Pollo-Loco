@@ -28,7 +28,7 @@ class MovableObject extends DrawableObject {
   }
 
   applyGravity() {
-    setInterval(() => {
+    setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
@@ -125,7 +125,11 @@ class MovableObject extends DrawableObject {
     return timePassed < 1; // animation is shown for 1 sec if character gets hurt
   }
 
-
+  attacks(){
+    let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
+    timePassed = timePassed / 1000; // difference in s
+    return timePassed > 1 && timePassed <= 3; // animation is shown for 1 sec if endboss gets hurt
+  }
 
   isDead() {
     return this.energy == 0;

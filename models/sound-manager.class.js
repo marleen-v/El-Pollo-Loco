@@ -26,8 +26,8 @@ class SoundManager {
       throw: { audio: new Audio("audio/throw.mp3"), volume: 0.03 },
       bottle: { audio: new Audio("audio/collect-bottle-1.mp3"), volume: 0.05 },
       bottle_break: { audio: new Audio("audio/bottle-break.mp3"), volume: 0.05 },
-      gameOver: { audio: new Audio("audio/game-over-1.mp3"), volume: 1.0 },
-      win: { audio: new Audio("audio/win-1.mp3"), volume: 1.0 },
+      gameOver: { audio: new Audio("audio/game-over.mp3"), volume: 1.0 },
+      win: { audio: new Audio("audio/winning.mp3"), volume: 1.0 },
     };
 
     // background music

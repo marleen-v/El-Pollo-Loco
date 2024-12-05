@@ -58,7 +58,7 @@ class ThrowableObject extends MovableObject {
 
   animate() {
     let i = 0;
-    setInterval(() => {
+    setStoppableInterval(() => {
       if (this.hitEnemy == false && i == 0) {
         this.playAnimation(this.IMAGES_THROWING);
       } else if (this.hitEnemy == true && i < 1) {
