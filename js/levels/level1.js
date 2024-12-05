@@ -19,11 +19,7 @@ function initLevel(){
             new Cloud("1"), 
             new Cloud("2"),
             new Cloud("1"), 
-            new Cloud("2"),
-            new Cloud("1"), 
-            new Cloud("2"),
-            new Cloud("1"), 
-            new Cloud("2"),
+        
         ],
         [
             new BackgroundObject(0, -1439),
