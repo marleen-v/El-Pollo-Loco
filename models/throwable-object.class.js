@@ -44,9 +44,12 @@ class ThrowableObject extends MovableObject {
     this.speedY = 30;
     this.hitbox = this.getHitBox();
     this.applyGravity();
-    setInterval(() => {
-      if (this.hitEnemy == false) {
+    setStoppableInterval(() => {
+      if (this.hitEnemy == false && !otherDirectionCharacter) {
         this.x += 8;
+        this.hitbox = this.getHitBox();
+      }else if(this.hitEnemy == false && otherDirectionCharacter) {
+        this.x -= 8;
         this.hitbox = this.getHitBox();
       } else {
         this.speedY = 0;

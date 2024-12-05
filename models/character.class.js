@@ -144,6 +144,7 @@ class Character extends MovableObject {
         SoundManager.instance.pause('running');
         if(this.canMoveLeft()) {
           this.otherDirection = true;
+          otherDirectionCharacter = true; // for throwing object
           this.moveLeft();
           SoundManager.instance.play('running');
           this.world.level.backgroundObjects.forEach((bg) => bg.moveRight());
@@ -153,6 +154,7 @@ class Character extends MovableObject {
 
         if (this.canMoveRight()) {
           this.otherDirection = false;
+          otherDirectionCharacter = false;
           this.moveRight();
           SoundManager.instance.play('running');
           

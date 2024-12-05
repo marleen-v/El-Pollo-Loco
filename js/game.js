@@ -7,10 +7,12 @@ const btnContainerMobile = document.getElementById('mobileBtn-container')
 const buttons = document.querySelectorAll('button');
 
 let intervalIds = [];
+otherDirectionCharacter = false;
 
 let characterMetEndboss = false;
 let fullscreen_on = false;
 let gameStarted = false;
+
 
 let canvas;
 let world;
