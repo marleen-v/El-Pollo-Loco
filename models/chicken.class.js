@@ -33,9 +33,9 @@ class Chicken extends MovableObject {
 
   animate() {
     setStoppableInterval(() => {
-      if (this.x <= 500) {
+      if (this.x <= this.xStart) {
         this.otherDirection = true; 
-      } else if (this.x >= 900) {
+      } else if (this.x >= this.xEnd) {
         this.otherDirection = false; 
       }
 

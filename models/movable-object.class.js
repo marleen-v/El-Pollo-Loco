@@ -12,6 +12,9 @@ class MovableObject extends DrawableObject {
   isSleeping = false;
   countForBounce = 0;
 
+  xStart = 10;
+  xEnd = 2500;
+
   offset = {
     top: 0,
     left: 0,

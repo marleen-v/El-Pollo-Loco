@@ -64,7 +64,8 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_WALKING);
-    this.x = 2800;
+    this.x = 800;
+    /* this.applyGravity(); */
     this.hitbox = this.getHitBox();
     this.animate();
   }
@@ -120,21 +121,13 @@ endbossMoves(){
 }
 
  jump() {
-  this.speedY = 50;
+  this.speedY = 20;
 }
 
 isAboveGround() {
   return this.y < 470;
 }
 
-applyGravity() {
-  setStoppableInterval(() => {
-    if (this.isAboveGround() || this.speedY > 0) {
-      this.y -= this.speedY;
-      this.speedY -= this.acceleration;
-    }
-  }, 1000 / 25);
-} 
 
 
 }

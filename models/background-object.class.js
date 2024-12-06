@@ -12,8 +12,6 @@ class BackgroundObject extends MovableObject {
         0, 9, 7, 0 // speed for single layers when character moves 
     ]
 
-    
-
 
     
     startX = -1439;

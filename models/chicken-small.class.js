@@ -3,6 +3,7 @@ class ChickenSmall extends MovableObject {
   width = 50;
   height = 50;
   energy = 10;
+  i = 0;
 
   offset = {
     top: 0,
@@ -10,6 +11,8 @@ class ChickenSmall extends MovableObject {
     right: 5,
     bottom: 10,
   };
+
+
 
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -29,10 +32,11 @@ class ChickenSmall extends MovableObject {
     this.speed = 0.15 + Math.random() * 0.25;
     this.applyGravity();
     this.animate();
+    this.i = 1 + Math.random() * 10
   }
 
   animate() {
-
+  
     setStoppableInterval(() =>  this.chickenSmallMoves() , 1000 / 60);
     setStoppableInterval(() =>  this.chickenAnimation() , 200);
 
@@ -47,13 +51,31 @@ class ChickenSmall extends MovableObject {
   } 
 
 chickenSmallMoves(){
-  if (this.isDead() && !this.isAboveGround()) {
-        this.speedY = 0
-        this.hitbox = this.getHitBox();
-      } else if (!this.isAboveGround()) {
+  // change directions when it gets to level bounderies
+  if (this.x <= this.xStart) {
+    this.otherDirection = true; 
+  } else if (this.x >= this.xEnd) {
+    this.otherDirection = false; 
+  }
+
+  //changes from jumping to walking to jumping ...
+       if (!this.isAboveGround() && this.i < 2) {
         this.jump();
         this.hitbox = this.getHitBox();
+        this.i++;
+      }  else if (!this.isAboveGround() && this.i >= 2 && !this.otherDirection){
+        this.moveLeft();
+        this.hitbox = this.getHitBox();
+        this.i++;
+      }  else if (!this.isAboveGround() && this.i >= 2 && this.otherDirection){
+        this.moveRight();
+        this.hitbox = this.getHitBox();
+        this.i++;
       }
+      if(this.i > 80){  
+        this.i = 0; // begins jumping again
+      } 
+       
 }
 
   jump() {
@@ -64,12 +86,7 @@ chickenSmallMoves(){
     return this.y < 380;
   }
 
-  applyGravity() {
-    setStoppableInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
-      }
-    }, 1000 / 25);
-  }
+
+
+
 }
