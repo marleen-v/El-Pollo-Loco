@@ -131,7 +131,7 @@ class MovableObject extends DrawableObject {
   attacks(){
     let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
     timePassed = timePassed / 1000; // difference in s
-    return timePassed > 1 && timePassed <= 3; // animation is shown for 1 sec if endboss gets hurt
+    return timePassed > 1 && timePassed <= 6; // animation is shown for 1 sec if endboss gets hurt
   }
 
   isDead() {

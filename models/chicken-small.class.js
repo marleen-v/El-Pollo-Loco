@@ -1,7 +1,7 @@
 class ChickenSmall extends MovableObject {
-  y = 380;
-  width = 50;
-  height = 50;
+  y = 370;
+  width = 60;
+  height = 60;
   energy = 10;
   i = 0;
 
@@ -11,8 +11,6 @@ class ChickenSmall extends MovableObject {
     right: 5,
     bottom: 10,
   };
-
-
 
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -29,64 +27,87 @@ class ChickenSmall extends MovableObject {
 
     this.x = 250 + Math.random() * 500;
     this.hitbox = this.getHitBox();
-    this.speed = 0.15 + Math.random() * 0.25;
+    this.speed = 0.15 + Math.random() * 0.4;
     this.applyGravity();
     this.animate();
-    this.i = 1 + Math.random() * 10
+    this.i = 1 + Math.random() * 10;
   }
 
   animate() {
-  
-    setStoppableInterval(() =>  this.chickenSmallMoves() , 1000 / 60);
-    setStoppableInterval(() =>  this.chickenAnimation() , 200);
-
+    setStoppableInterval(() => this.chickenSmallMoves(), 1000 / 60);
+    setStoppableInterval(() => this.chickenAnimation(), 200);
   }
 
-  chickenAnimation(){
+  chickenAnimation() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
     } else {
       this.playAnimation(this.IMAGES_WALKING);
     }
-  } 
-
-chickenSmallMoves(){
-  // change directions when it gets to level bounderies
-  if (this.x <= this.xStart) {
-    this.otherDirection = true; 
-  } else if (this.x >= this.xEnd) {
-    this.otherDirection = false; 
   }
 
-  //changes from jumping to walking to jumping ...
-       if (!this.isAboveGround() && this.i < 2) {
-        this.jump();
-        this.hitbox = this.getHitBox();
-        this.i++;
-      }  else if (!this.isAboveGround() && this.i >= 2 && !this.otherDirection){
-        this.moveLeft();
-        this.hitbox = this.getHitBox();
-        this.i++;
-      }  else if (!this.isAboveGround() && this.i >= 2 && this.otherDirection){
-        this.moveRight();
-        this.hitbox = this.getHitBox();
-        this.i++;
-      }
-      if(this.i > 80){  
-        this.i = 0; // begins jumping again
-      } 
-       
-}
+  chickenSmallMoves() {
+    // change directions when it gets to level bounderies
+    this.changeDirections();
+    this.walkAndJumpAnimation();
+  }
+
+  walkAndJumpAnimation() {
+    //changes from jumping to walking to jumping ...
+    if (!this.isAboveGround() && this.i < 2) {
+      this.jump();
+      this.hitbox = this.getHitBox();
+      this.i++;
+    } else if (!this.isAboveGround() && this.i >= 2 && this.isMovingLeft()) {
+      this.moveLeft();
+      this.hitbox = this.getHitBox();
+      this.i++;
+    } else if (!this.isAboveGround() && this.i >= 2 && this.isMovingRigt()) {
+      this.moveRight();
+      this.hitbox = this.getHitBox();
+      this.i++;
+    } else if (this.isMovingLeft()) {
+      // moves while isAboveGround (while jumping)
+      this.moveLeft();
+      this.hitbox = this.getHitBox();
+    } else {
+      this.moveRight();
+      this.hitbox = this.getHitBox();
+    }
+
+    if (this.i > 80) {
+      this.i = 0; // begins jumping again
+    }
+  }
+
+  changeDirections() {
+    if (this.atLevelStartPoint()) {
+      this.otherDirection = true;
+    } else if (this.atLevelEndPoint()) {
+      this.otherDirection = false;
+    }
+  }
+
+  atLevelStartPoint() {
+    return this.x <= this.xStart;
+  }
+  atLevelEndPoint() {
+    return this.x >= this.xEnd;
+  }
+
+  isMovingRigt() {
+    return this.otherDirection == true;
+  }
+
+  isMovingLeft() {
+    return this.otherDirection == false;
+  }
 
   jump() {
     this.speedY = 20;
   }
 
   isAboveGround() {
-    return this.y < 380;
+    return this.y < 370;
   }
-
-
-
-
 }

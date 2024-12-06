@@ -27,7 +27,7 @@ class Chicken extends MovableObject {
     this.soundManager = SoundManager.instance;
     this.x = 700; //200 + Math.random() * 500;
     this.hitbox = this.getHitBox();
-    this.speed = 0.15 + Math.random() * 0.25;
+    this.speed = 0.15 + Math.random() * 0.3;
     this.animate();
   }
 
