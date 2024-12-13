@@ -2,9 +2,9 @@ class Endboss extends MovableObject {
   y = 20;
   width = 350;
   height = 450;
-  energy = 50;
+  energy = 10;
   gotHurt = false;
-  speed = 10;
+  speed = 2;
 
   i = 0
   world;
@@ -64,20 +64,18 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_WALKING);
-    this.x = 800;
-    /* this.applyGravity(); */
+    this.x = 3500;
+    this.applyGravity();
     this.hitbox = this.getHitBox();
     this.animate();
   }
 
   animate() {
-
-    setStoppableInterval(() => this.endbossAnimation() ,200);
-    setStoppableInterval(() => this.endbossMoves() ,1000 / 60);
-
+    setStoppableInterval(() => this.endbossAnimation(), 200);
+    setStoppableInterval(() => this.endbossMoves(), 1000 / 60);
   }
 
-  endbossAnimation(){
+/*   endbossAnimation(){
     if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
     } else if(this.isHurt()){
@@ -100,34 +98,84 @@ class Endboss extends MovableObject {
 }
 
 endbossMoves(){
-  if (this.world.character.x > 2200 && !characterMetEndboss) {
+  this.hitbox = this.getHitBox();
+  if (this.world.character.x > 400 && !characterMetEndboss ) { // Zahl noch ändern!
     this.i = 0;
     characterMetEndboss = true;
     this.otherDirection = false;
-    this.speed = 2;
+    this.speed = 40;
     this.moveLeft();
-  }  else if(this.attacks()){
+  }  else  if(!this.isAboveGround() && this.attacks()){ //attacke duaert 3 sekunden (siehe Movable object), solange wird gesprungen
      this.jump();
      this.hitbox = this.getHitBox();
-  }
-    else if (this.gotHurt && this.world.character.x <= this.x){
+  } */
+    /* else if (this.gotHurt && this.world.character.x <= this.x){
     this.otherDirection = false;
     this.moveLeft();
     this.hitbox = this.getHitBox();
-  } /* else if(this.gotHurt && this.world.character.x > this.x){
+  } */ /* else if(this.gotHurt && this.world.character.x > this.x){
     this.otherDirection = true;
     this.moveRight();
   }  */
+//}
+
+
+endbossAnimation(){
+  if (this.isDead()) {
+      this.playAnimation(this.IMAGES_DEAD);
+  } else if(this.isHurt()){
+    this.playAnimation(this.IMAGES_HURT);
+    this.gotHurt = true
+  } else
+  if (this.i < 10) {
+    this.playAnimation(this.IMAGES_WALKING);
+  } else if (characterMetEndboss && !this.gotHurt){
+    this.playAnimation(this.IMAGES_ALERT);
+  }else if (this.isAboveGround()) {
+    this.playAnimation(this.IMAGES_ATTACK);
+  } else {
+    this.playAnimation(this.IMAGES_WALKING);
+  };
+  this.i++
+
 }
 
+endbossMoves(){
+// endboss intro
+this.hitbox = this.getHitBox();
+if (this.world.character.x > 2800 && !characterMetEndboss) { // Zahl noch ändern!
+  this.i = 0;
+  this.speed = 5;
+  characterMetEndboss = true;
+}
+if(this.i < 10){
+  this.moveLeft();
+    this.hitbox = this.getHitBox(); 
+}
+ else  if(!this.isAboveGround() && this.attacks()){ 
+   this.jump();
+   this.hitbox = this.getHitBox();
+} else if(this.isHurt()){
+
+}else if (this.gotHurt && this.world.character.x <= this.x){
+  this.otherDirection = false;
+  this.speed = 2;
+  this.moveLeft();
+  this.hitbox = this.getHitBox();
+} else if(this.gotHurt && this.world.character.x > this.x){
+  this.otherDirection = true;
+  this.moveRight();
+  this.hitbox = this.getHitBox(); 
+} 
+}
+
+
  jump() {
-  this.speedY = 20;
+  this.speedY = 30;
 }
 
 isAboveGround() {
-  return this.y < 470;
+  return this.y < 20;
 }
-
-
 
 }

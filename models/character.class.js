@@ -3,7 +3,7 @@ class Character extends MovableObject {
   width = 120;
   speed = 10;
   y = 80;
-  energy = 100;
+  energy = 200;
   hasPlayedDeadAnimation = false;
 
   offset = {
@@ -78,8 +78,8 @@ class Character extends MovableObject {
   ];
 
   world;
-  endbossModus = false;
-  endBossX = 0
+ /*  endbossModus = false;
+  endBossX = 0 */
 
   constructor() {
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");
@@ -147,9 +147,17 @@ class Character extends MovableObject {
           otherDirectionCharacter = true; // for throwing object
           this.moveLeft();
           SoundManager.instance.play('running');
+
           this.world.level.backgroundObjects.forEach((bg) => bg.moveRight());
           this.world.level.clouds.forEach((cloud) => cloud.moveLeftWithCamera());
-          this.world.camera_x = -this.x + 100;
+          this.world.camera_x = -this.x + 200;
+          if(this.world.thoughtBubble.length != undefined){
+            this.world.thoughtBubble.forEach((bubble) => {
+              this.otherDirection = true;
+              bubble.x = this.x - 80;
+              bubble.y = this.y + 20;
+            })
+          }
         }
 
         if (this.canMoveRight()) {
@@ -161,16 +169,31 @@ class Character extends MovableObject {
 
           this.world.level.backgroundObjects.forEach((bg) =>bg.moveLeft());
           this.world.level.clouds.forEach((cloud) => cloud.moveRightWithCamera());
-          this.world.camera_x = -this.x + 100;
+          this.world.camera_x = -this.x + 200;
+          if(this.world.thoughtBubble.length != undefined){
+            this.world.thoughtBubble.forEach((bubble) => {
+              
+              bubble.x = this.x - 80;
+              bubble.y = this.y + 20;
+            })
+          }
+          
         }
        
 
         if (this.canJump()) {
           this.jump();
-          this.world.camera_x = -this.x + 100;
+          this.world.camera_x = -this.x + 200;
           this.world.keyboard.jumpButtonPressed = false;
         }
-        this.world.camera_x = -this.x + 100;
+        this.world.camera_x = -this.x + 200;
+        if(this.world.thoughtBubble.length != undefined){
+          this.world.thoughtBubble.forEach((bubble) => {
+            
+            bubble.x = this.x - 80;
+            bubble.y = this.y + 20;
+          })
+        }
       }
   }
 

@@ -5,6 +5,8 @@ class ChickenSmall extends MovableObject {
   energy = 10;
   i = 0;
 
+  soundManager;
+
   offset = {
     top: 0,
     left: 5,
@@ -25,12 +27,15 @@ class ChickenSmall extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
 
-    this.x = 250 + Math.random() * 500;
+    this.x = 400 + Math.random() * 5100;
     this.hitbox = this.getHitBox();
     this.speed = 0.15 + Math.random() * 0.4;
     this.applyGravity();
     this.animate();
     this.i = 1 + Math.random() * 10;
+    this.soundManager = SoundManager.instance;
+   
+
   }
 
   animate() {
@@ -43,6 +48,7 @@ class ChickenSmall extends MovableObject {
       this.playAnimation(this.IMAGES_DEAD);
     } else {
       this.playAnimation(this.IMAGES_WALKING);
+      /* this.soundManager.play('running'); */
     }
   }
 

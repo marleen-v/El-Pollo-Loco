@@ -335,7 +335,7 @@ dialog::-webkit-scrollbar, .dialog-container::-webkit-scrollbar{
 
 @media only screen and (max-height:480px) {
     canvas{
-        height:100vh;
+        height:100dvh;
     }
 }
 

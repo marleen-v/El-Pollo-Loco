@@ -15,6 +15,8 @@ class World {
   statusbar_bottle = new Statusbar("bottle");
   statusbar_endboss = new Statusbar("endboss");
   throwableObject = [];
+  thoughtBubble = [];
+
   
 
   endscreen = new Endscreen(0); 
@@ -49,13 +51,19 @@ class World {
 
     setStoppableInterval(() => {
       this.checkThrowObjects();
-    }, 80);
+    }, 100);
   }
 
   checkIfYouWon(){
+    
     if(this.level.enemies.length == 0 && this.level.coins.length == 0) {
       stopGame();
       showWinningScreen();
+    } else if(this.level.enemies.length == 0 && this.level.coins.length != 0 && this.thoughtBubble.length != 0){
+      this.thoughtBubble.push(new ThoughtBubble(1, this.character.x + 10, this.character.y + 100));
+    } else if(this.level.enemies.length != 0 && this.level.coins.length == 0 && this.thoughtBubble.length == 0){
+      this.thoughtBubble.push(new ThoughtBubble(0, this.character.x + 10, this.character.y + 100));
+
     }
   }
 
@@ -197,6 +205,8 @@ class World {
 
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObject);
+    this.addObjectsToMap(this.thoughtBubble); 
+
 
     this.ctx.translate(-this.camera_x, 0);
 

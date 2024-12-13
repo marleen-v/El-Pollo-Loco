@@ -28,6 +28,8 @@ class SoundManager {
       bottle_break: { audio: new Audio("audio/bottle-break.mp3"), volume: 0.05 },
       gameOver: { audio: new Audio("audio/game-over.mp3"), volume: 1.0 },
       win: { audio: new Audio("audio/winning.mp3"), volume: 1.0 },
+      chicken: { audio: new Audio("audio/chicken.mp3"), volume: 1.0 },
+      chicken_small: { audio: new Audio("audio/chickenSmall.mp3"), volume: 1.0 },
     };
 
     // background music
