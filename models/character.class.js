@@ -154,8 +154,8 @@ class Character extends MovableObject {
           if(this.world.thoughtBubble.length != undefined){
             this.world.thoughtBubble.forEach((bubble) => {
               this.otherDirection = true;
-              bubble.x = this.x - 80;
-              bubble.y = this.y + 20;
+              bubble.x = this.x ;
+              bubble.y = this.y;
             })
           }
         }
@@ -173,8 +173,8 @@ class Character extends MovableObject {
           if(this.world.thoughtBubble.length != undefined){
             this.world.thoughtBubble.forEach((bubble) => {
               
-              bubble.x = this.x - 80;
-              bubble.y = this.y + 20;
+              bubble.x = this.x ;
+              bubble.y = this.y ;
             })
           }
           

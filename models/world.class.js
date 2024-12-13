@@ -15,8 +15,10 @@ class World {
   statusbar_bottle = new Statusbar("bottle");
   statusbar_endboss = new Statusbar("endboss");
   throwableObject = [];
-  thoughtBubble = [];
+   thoughtBubble = []; 
+   thoughtBubbleActive = false;
 
+ 
   
 
   endscreen = new Endscreen(0); 
@@ -28,6 +30,7 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.soundManager = SoundManager.instance;
+    /* this.thoughtBubble.push(new ThoughtBubble(1))  */
 
     this.draw();
     this.setWorld();
@@ -59,12 +62,21 @@ class World {
     if(this.level.enemies.length == 0 && this.level.coins.length == 0) {
       stopGame();
       showWinningScreen();
-    } else if(this.level.enemies.length == 0 && this.level.coins.length != 0 && this.thoughtBubble.length != 0){
+    } else if(this.level.enemies.length == 0 && this.level.coins.length != 0 && !this.thoughtBubbleActive){
       this.thoughtBubble.push(new ThoughtBubble(1, this.character.x + 10, this.character.y + 100));
-    } else if(this.level.enemies.length != 0 && this.level.coins.length == 0 && this.thoughtBubble.length == 0){
+      this.deleteThoughtBubble();
+      this.thoughtBubbleActive = true;
+    } else if(this.level.enemies.length != 0 && this.level.coins.length == 0 && !this.thoughtBubbleActive){
       this.thoughtBubble.push(new ThoughtBubble(0, this.character.x + 10, this.character.y + 100));
-
+      this.deleteThoughtBubble();
+      this.thoughtBubbleActive = true;
     }
+  }
+
+  deleteThoughtBubble(){
+    setTimeout(() => {
+      this.thoughtBubble.splice(0, 1);
+    }, 4000);
   }
 
   checkThrowObjects() {
