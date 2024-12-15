@@ -100,13 +100,13 @@ class Character extends MovableObject {
   }
 
   CharacterAnimation() {
-    if (this.isDead()) {
-      if (!this.hasPlayedDeadAnimation) {
+    if (this.isDead() && !this.hasPlayedDeadAnimation) {
         this.playAnimation(this.IMAGES_DEAD);
         this.hasPlayedDeadAnimation = true;
+        SoundManager.instance.pause('running');
         stopGame();
         showGameoverScreen();  
-      }
+      
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
       this.resetLastAction();
@@ -118,8 +118,10 @@ class Character extends MovableObject {
       this.resetLastAction();
     } else if (this.isAsleep()) {
       this.playAnimation(this.IMAGES_SLEEPING);
+      SoundManager.instance.play('snoring');
     } else if (this.idle()) {
       this.playAnimation(this.IMAGES_IDLE);
+      
     }
   }
 
@@ -142,6 +144,7 @@ class Character extends MovableObject {
      this.hitbox = this.getHitBox();
       if (!this.hasPlayedDeadAnimation) {
         SoundManager.instance.pause('running');
+        SoundManager.instance.pause('snoring');
         if(this.canMoveLeft()) {
           this.otherDirection = true;
           otherDirectionCharacter = true; // for throwing object

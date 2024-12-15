@@ -34,7 +34,7 @@ class ChickenSmall extends MovableObject {
     this.animate();
     this.i = 1 + Math.random() * 10;
     this.soundManager = SoundManager.instance;
-   
+
 
   }
 
@@ -48,7 +48,7 @@ class ChickenSmall extends MovableObject {
       this.playAnimation(this.IMAGES_DEAD);
     } else {
       this.playAnimation(this.IMAGES_WALKING);
-      /* this.soundManager.play('running'); */
+     
     }
   }
 

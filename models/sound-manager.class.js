@@ -16,7 +16,7 @@ class SoundManager {
         audio: new Audio(
           "audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3"
         ),
-        volume: 1.0,
+        volume: 0.6,
       },
       coin: { audio: new Audio("audio/collect-coin-2.mp3"), volume: 0.03 },
       running: { audio: new Audio("audio/running.mp3"), volume: 1.0 },
@@ -30,21 +30,24 @@ class SoundManager {
       win: { audio: new Audio("audio/winning.mp3"), volume: 1.0 },
       chicken: { audio: new Audio("audio/chicken.mp3"), volume: 1.0 },
       chicken_small: { audio: new Audio("audio/chickenSmall.mp3"), volume: 1.0 },
+      snoring: { audio: new Audio("audio/snoring.mp3"), volume: 1.0 },
+      suspense:{audio: new Audio("audio/endboss-music.mp3"), volume: 1.0},
     };
 
     // background music
     this.sounds.background.audio.loop = true;
-    /* this.sounds.background.audio.volume = this.sounds.background.volume;
-    this.sounds.background.audio.play(); */
+    this.sounds.background.audio.volume = this.sounds.background.volume;
+    this.sounds.background.audio.play();
+    // background-music endboss
+    this.sounds.suspense.audio.loop = true;
   }
 
-  play(soundName) {
+   playBackground(soundName) {
     const sound = this.sounds[soundName];
     if (sound && !this.isMuted) {
-      sound.audio.currentTime = 0;
       sound.audio.play();
     }
-  }
+  } 
 
   pause(soundName) {
     const sound = this.sounds[soundName];
@@ -79,6 +82,8 @@ class SoundManager {
 
     if (this.isMuted) {
       this.pauseAll();
-    } 
+    } else {
+      this.playBackground("background")
+    }
   }
 }

@@ -64,6 +64,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_WALKING);
+    this.soundManager = SoundManager.instance;
     this.x = 3500;
     this.applyGravity();
     this.hitbox = this.getHitBox();
@@ -123,6 +124,12 @@ endbossMoves(){
 endbossAnimation(){
   if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
+      setTimeout(() => {
+        SoundManager.instance.playBackground('background');
+        SoundManager.instance.pause('suspense');
+      }, 1000);
+     
+  
   } else if(this.isHurt()){
     this.playAnimation(this.IMAGES_HURT);
     this.gotHurt = true
@@ -147,6 +154,8 @@ if (this.world.character.x > 2800 && !characterMetEndboss) { // Zahl noch änder
   this.i = 0;
   this.speed = 5;
   characterMetEndboss = true;
+  SoundManager.instance.pause('background');
+  SoundManager.instance.play('suspense');
 }
 if(this.i < 10){
   this.moveLeft();

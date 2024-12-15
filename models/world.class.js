@@ -223,17 +223,6 @@ class World {
     this.ctx.translate(-this.camera_x, 0);
 
 
-/*     // ---------- game-over
-    if(this.character.isDead()){
-      this.addToMap(this.endscreen);
-    }
-    if(this.character.wealth == (this.coinAmount*10) && this.level.enemies.length == 0){
-      this.addToMap(this.endscreen_win);
-      // this.soundManager.play("win"); 
-    } */
-   
- 
-
     //Draw() is called again and again
     let self = this;
     requestAnimationFrame(function () {

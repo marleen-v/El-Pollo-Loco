@@ -190,6 +190,7 @@ function showStartScreen(){
 function showGameoverScreen(){ 
   toggleVisibility("game-over-screen", true);
   soundManager.play("gameOver");
+  soundManager.pause("background");
 }
 
 function hideGameOverScreen(){
@@ -199,12 +200,11 @@ function hideGameOverScreen(){
 function showWinningScreen(){ 
   toggleVisibility("win-screen", true);
   soundManager.play("win");
+  soundManager.pause("background");
 }
 function hideWinningScreen(){ 
   toggleVisibility("win-screen", false);
 }
-
-
 
 
 //------------------------------------------ Check Orientaion------------------------
