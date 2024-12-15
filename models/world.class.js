@@ -42,6 +42,10 @@ class World {
     this.character.world = this;
     this.level.enemies[0].world = this; //endboss
     this.throwableObject.world = this;
+    this.soundManager.world = this;
+    this.level.enemies.forEach((enemy) => {
+      enemy.world = this;
+    });
   }
 
   run() {
@@ -102,6 +106,7 @@ class World {
       // check collision with enemy
       enemiesSnapshot.forEach((enemy) => {
         if (bottle.isColliding(enemy) && !bottle.hitEnemy) {
+          this.soundManager.play('bottle_break');
           bottle.hitEnemy = true;
           enemy.takeDamage();
           this.updateEndbossHealth(enemy);

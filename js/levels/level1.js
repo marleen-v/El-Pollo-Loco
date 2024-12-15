@@ -3,20 +3,22 @@ let level1;
 function initLevel(){
     level1 = new Level(
         [    new Endboss(),  
-            new ChickenSmall(2),
+            new ChickenSmall(),
+            new ChickenSmall(),
+         
            /*   new Chicken(), 
-            new ChickenSmall(1),
-            new ChickenSmall(2),
+            new ChickenSmall(),
+            new ChickenSmall(),
               
             new Chicken(), 
             new Chicken(),  
-            new ChickenSmall(1),
-            new ChickenSmall(2),
+            new ChickenSmall(),
+            new ChickenSmall(),
               
             new Chicken(), 
             new Chicken(),  
-            new ChickenSmall(1),
-            new ChickenSmall(2),
+            new ChickenSmall(),
+            new ChickenSmall(),
               
             new Chicken(), 
             new Chicken(),  

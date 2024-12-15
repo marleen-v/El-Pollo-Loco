@@ -5,7 +5,9 @@ class ChickenSmall extends MovableObject {
   energy = 10;
   i = 0;
 
-  soundManager;
+  world;
+
+  isMuted = false;
 
   offset = {
     top: 0,
@@ -33,22 +35,54 @@ class ChickenSmall extends MovableObject {
     this.applyGravity();
     this.animate();
     this.i = 1 + Math.random() * 10;
-    this.soundManager = SoundManager.instance;
+    /* this.soundManager = new SoundManager(); */
+    this.sound = new Audio("audio/chickenSmall.mp3");
+    /* this.playSound();  */
+  }
 
+  playSound() {
+    // this.soundManager.play("chicken_small");
+    this.sound.loop = true;
+    this.sound.currentTime = 0 + Math.random() * 1;
+    this.sound.volume = 0.05;
+    this.sound.play();
+  }
 
+  pauseSound() {
+    /* SoundManager.instance.pause("chicken_small");  */
+    this.sound.pause();
+  }
+
+  toggleMute() {
+    this.isMuted = !this.isMuted;
+    this.playChickenSound();
+  }
+
+  nearCharacter() {
+    return Math.abs(this.world.character.x - this.x) <= 500;
+  }
+
+  playChickenSound() {
+    // check if one or more enemies are near character
+    if (this.nearCharacter() && !this.isMuted) {
+      this.playSound();
+    } else {
+      this.pauseSound();
+    }
   }
 
   animate() {
     setStoppableInterval(() => this.chickenSmallMoves(), 1000 / 60);
     setStoppableInterval(() => this.chickenAnimation(), 200);
+    setStoppableInterval(() => this.playChickenSound(), 200);
   }
 
   chickenAnimation() {
     if (this.isDead()) {
+      this.pauseSound();
       this.playAnimation(this.IMAGES_DEAD);
     } else {
       this.playAnimation(this.IMAGES_WALKING);
-     
     }
   }
 
@@ -110,7 +144,9 @@ class ChickenSmall extends MovableObject {
   }
 
   jump() {
-    this.speedY = 20;
+    if (!this.isDead()) {
+      this.speedY = 20;
+    }
   }
 
   isAboveGround() {

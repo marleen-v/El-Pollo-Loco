@@ -3,6 +3,8 @@ class SoundManager {
 
   sounds = {}; // Enthält alle Audio-Objekte
   isMuted = false;
+  world;
+
 
   constructor() {
     if (SoundManager.instance) {
@@ -25,22 +27,26 @@ class SoundManager {
       jump: { audio: new Audio("audio/jump-2.mp3"), volume: 0.03 },
       throw: { audio: new Audio("audio/throw.mp3"), volume: 0.03 },
       bottle: { audio: new Audio("audio/collect-bottle-1.mp3"), volume: 0.05 },
-      bottle_break: { audio: new Audio("audio/bottle-break.mp3"), volume: 0.05 },
+      bottle_break: { audio: new Audio("audio/bottle-break.mp3"), volume: 0.5 },
       gameOver: { audio: new Audio("audio/game-over.mp3"), volume: 1.0 },
       win: { audio: new Audio("audio/winning.mp3"), volume: 1.0 },
       chicken: { audio: new Audio("audio/chicken.mp3"), volume: 1.0 },
       chicken_small: { audio: new Audio("audio/chickenSmall.mp3"), volume: 1.0 },
-      snoring: { audio: new Audio("audio/snoring.mp3"), volume: 1.0 },
+      snoring: { audio: new Audio("audio/snoring.mp3"), volume: 0.1 },
       suspense:{audio: new Audio("audio/endboss-music.mp3"), volume: 1.0},
     };
 
     // background music
     this.sounds.background.audio.loop = true;
-    this.sounds.background.audio.volume = this.sounds.background.volume;
-    this.sounds.background.audio.play();
+    /* this.sounds.background.audio.volume = this.sounds.background.volume;
+    this.sounds.background.audio.play(); */
     // background-music endboss
     this.sounds.suspense.audio.loop = true;
+    this.sounds.chicken_small.audio.loop = true;
+
+ 
   }
+
 
    playBackground(soundName) {
     const sound = this.sounds[soundName];
@@ -56,14 +62,29 @@ class SoundManager {
     }
   }
 
-  play(soundName) {
+/*   play(soundName) {
     const sound = this.sounds[soundName];
     if (sound && !this.isMuted) {
       sound.audio.volume = sound.volume; // Set the volume from the `sounds` object
       sound.audio.currentTime = 0; // plays sound from the beginning
       sound.audio.play();
     }
-  }
+  } */
+
+
+
+    play(soundName) {
+      const sound = this.sounds[soundName];
+      if (sound && !this.isMuted) {
+        if (!sound.audio.paused) {
+          sound.audio.currentTime = 0; // Neustart, wenn Sound bereits spielt
+        }
+        sound.audio.volume = sound.volume;
+        sound.audio.play().catch((error) => {
+          console.error(`Error playing sound: ${soundName}`, error);
+        });
+      }
+    }
 
   pauseAll() {
     Object.values(this.sounds).forEach((sound) => sound.audio.pause());

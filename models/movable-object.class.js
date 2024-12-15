@@ -53,6 +53,7 @@ class MovableObject extends DrawableObject {
   resetLastAction() {
     this.lastActive = Date.now();
     this.isSleeping = false; // Charakter wakes up
+    SoundManager.instance.pause('snoring');
   }
 
   moveRight() {
@@ -145,6 +146,7 @@ class MovableObject extends DrawableObject {
       this.isSleeping = true; // Setze isSleeping auf true, wenn 15 Sekunden vergangen sind
       return true;
     } else {
+
       return false;
     }
   }

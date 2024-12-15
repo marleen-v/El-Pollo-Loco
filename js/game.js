@@ -50,7 +50,6 @@ function resetIntervals(){
 function restartGame(){
   resetIntervals();
   startGame();
-  
 }
 
 function showLoadingSpinner() {
@@ -104,6 +103,11 @@ function dialogClose() {
  */
 function toggleSounds(){
   soundManager.toggleMute();
+  world.level.enemies.forEach((enemy) => {
+    if (enemy instanceof ChickenSmall  /* || enemy instanceof Chicken */ ){
+      enemy.toggleMute();
+    }
+  })
 };
 
 
@@ -190,7 +194,6 @@ function showStartScreen(){
 function showGameoverScreen(){ 
   toggleVisibility("game-over-screen", true);
   soundManager.play("gameOver");
-  soundManager.pause("background");
 }
 
 function hideGameOverScreen(){
@@ -200,7 +203,6 @@ function hideGameOverScreen(){
 function showWinningScreen(){ 
   toggleVisibility("win-screen", true);
   soundManager.play("win");
-  soundManager.pause("background");
 }
 function hideWinningScreen(){ 
   toggleVisibility("win-screen", false);
