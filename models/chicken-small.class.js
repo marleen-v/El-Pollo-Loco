@@ -40,8 +40,7 @@ class ChickenSmall extends MovableObject {
     /* this.playSound();  */
   }
 
-  playSound() {
-    // this.soundManager.play("chicken_small");
+/*   playSound() {
     this.sound.loop = true;
     this.sound.currentTime = 0 + Math.random() * 1;
     this.sound.volume = 0.05;
@@ -49,7 +48,6 @@ class ChickenSmall extends MovableObject {
   }
 
   pauseSound() {
-    /* SoundManager.instance.pause("chicken_small");  */
     this.sound.pause();
   }
 
@@ -70,7 +68,7 @@ class ChickenSmall extends MovableObject {
       this.pauseSound();
     }
   }
-
+ */
   animate() {
     setStoppableInterval(() => this.chickenSmallMoves(), 1000 / 60);
     setStoppableInterval(() => this.chickenAnimation(), 200);

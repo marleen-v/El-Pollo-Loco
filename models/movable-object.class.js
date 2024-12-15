@@ -180,4 +180,38 @@ class MovableObject extends DrawableObject {
     }
     } 
   }
+
+
+
+// enemies sounds
+
+playSound() {
+  this.sound.loop = true;
+  this.sound.currentTime = 0 + Math.random() * 1;
+  this.sound.volume = 0.05;
+  this.sound.play();
+}
+
+pauseSound() {
+  this.sound.pause();
+}
+
+toggleMute() {
+  this.isMuted = !this.isMuted;
+  this.playChickenSound();
+}
+
+nearCharacter() {
+  return Math.abs(this.world.character.x - this.x) <= 500;
+}
+
+playChickenSound() {
+  // check if one or more enemies are near character
+  if (this.nearCharacter() && !this.isMuted) {
+    this.playSound();
+  } else {
+    this.pauseSound();
+  }
+}
+
 }

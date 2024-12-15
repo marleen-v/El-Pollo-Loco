@@ -32,31 +32,8 @@ class Chicken extends MovableObject {
     this.speed = 0.15 + Math.random() * 0.3;
     this.animate();
     this.sound = new Audio("audio/chicken.mp3"); 
-     this.playSound();  
   }
 
-  playSound() {
-    // this.soundManager.play("chicken_small"); 
-    this.sound.loop = true;
-    this.sound.currentTime = 0 + Math.random() * 1;
-    this.sound.volume = 0.6;
-    this.sound.play();
-   }
- 
-   pauseSound(){
-     /* SoundManager.instance.pause("chicken_small");  */
-      this.sound.pause(); 
-   }
-
-   toggleMute() {
-    this.isMuted = !this.isMuted;
-
-    if (this.isMuted) {
-      this.pauseSound();
-    } else{
-      this.playSound()
-    }
-  }
 
   animate() {
     setStoppableInterval(() => {
@@ -83,6 +60,8 @@ class Chicken extends MovableObject {
         this.playAnimation(this.IMAGES_WALKING);
       }
     }, 80);
+
+    setStoppableInterval(() => this.playChickenSound(), 200);
 
 
   }

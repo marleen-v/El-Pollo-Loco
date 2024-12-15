@@ -6,8 +6,8 @@ function initLevel(){
             new ChickenSmall(),
             new ChickenSmall(),
          
-           /*   new Chicken(), 
-            new ChickenSmall(),
+             new Chicken(), 
+           /*  new ChickenSmall(),
             new ChickenSmall(),
               
             new Chicken(), 
