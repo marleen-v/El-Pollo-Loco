@@ -68,14 +68,13 @@ function hideLoadingSpinner() {
 }
 
 async function startGame() {
-  /* showLoadingSpinner();  */
   initLevel();
-  /* hideLoadingSpinner(); */
   canvas = document.getElementById("canvas");
   soundManager = new SoundManager();
   world = new World(canvas, keyboard);
   showGameScreen();
   gameStarted = true; // for button mobile eventlistener
+  toggleButtonContainer()
 }
 
 /**
@@ -149,6 +148,20 @@ function exitFullscreen() {
   }
 }
 
+
+/**
+ * controls the visibility of an element
+ * @param {Number} elementId 
+ * @param {Boolean} isVisible 
+ */
+function toggleVisibility(elementId, isVisible) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.style.display = isVisible ? "flex" : "none";
+  }
+}
+
+
 function showGameScreen() {
   toggleVisibility("fullscreen", true);
   toggleVisibility("start", false);
@@ -180,20 +193,9 @@ function hideWinningScreen() {
   toggleVisibility("win-screen", false);
 }
 
-/**
- * controls the visibility of an element
- * @param {Number} elementId 
- * @param {Boolean} isVisible 
- */
-function toggleVisibility(elementId, isVisible) {
-  const element = document.getElementById(elementId);
-  if (element) {
-    element.style.display = isVisible ? "flex" : "none";
-  }
-}
+
 
 //------------------------------------------ Check Orientaion------------------------
-
 
 /**
  * shows message and hides Content
