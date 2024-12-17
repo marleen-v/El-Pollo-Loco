@@ -186,7 +186,9 @@ class MovableObject extends DrawableObject {
     this.sound.loop = true;
     this.sound.currentTime = 0 + Math.random() * 1;
     this.sound.volume = 0.05;
-    this.sound.play();
+    this.sound.play().catch((error) => {
+      console.error(`Error playing sound: ${this.sound}`, error);
+    });
   }
 
   pauseSound() {
