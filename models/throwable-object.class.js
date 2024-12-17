@@ -25,7 +25,8 @@ class ThrowableObject extends MovableObject {
 
   hitEnemy = false;
   world;
-
+  
+  
   constructor(x, y) {
     super().loadImage(
       "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png"
@@ -38,21 +39,21 @@ class ThrowableObject extends MovableObject {
     this.height = 100;
     this.throw();
     this.animate();
+    this.applyGravity(); 
+    this.direction = otherDirectionCharacter ? -1 : 1; 
   }
 
   throw() {
-    this.speedY = 30;
+    this.speedY = 25;
     this.hitbox = this.getHitBox();
-    this.applyGravity();
+   
     setStoppableInterval(() => {
-      if (this.hitEnemy == false && !otherDirectionCharacter) {
-        this.x += 8;
-        this.hitbox = this.getHitBox();
-      } else if (this.hitEnemy == false && otherDirectionCharacter) {
-        this.x -= 8;
+      if (this.hitEnemy == false ) {
+        this.x += 7 *this.direction;
         this.hitbox = this.getHitBox();
       } else {
         this.speedY = 0;
+        
       }
     }, 1000 / 60);
   }

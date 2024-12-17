@@ -166,7 +166,7 @@ class Endboss extends MovableObject {
   }
 
   jump() {
-    this.speedY = 30;
+    this.speedY = 40;
   }
 
   isAboveGround() {

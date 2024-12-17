@@ -34,9 +34,12 @@ class World {
 
   setWorld() {
     this.character.world = this;
-    this.throwableObject.world = this;
+    /* this.throwableObject.world = this; */
     this.soundManager.world = this;
     this.statusbar_endboss.world = this;
+    this.throwableObject.forEach((tO) => {
+      tO.world = this;
+    });
     this.level.enemies.forEach((enemy) => {
       enemy.world = this;
     });
