@@ -96,7 +96,6 @@ class Endboss extends MovableObject {
   }
 
   endbossMoves() {
-    // endboss intro
     this.hitbox = this.getHitBox();
     if (this.meetsCharacter()) {
       this.i = 0;
@@ -113,53 +112,53 @@ class Endboss extends MovableObject {
     } else if (this.canMoveLeft()) {
       this.otherDirection = false;
       this.speed = 2;
-      this.movingLeft()
+      this.movingLeft();
     } else if (this.canMoveRight()) {
       this.otherDirection = true;
       this.movingRight();
     }
   }
 
-  playSuspenseMusic(){
+  playSuspenseMusic() {
     SoundManager.instance.pause("background");
     SoundManager.instance.play("suspense");
   }
 
-  playBackgroundMusic(){
+  playBackgroundMusic() {
     setTimeout(() => {
       SoundManager.instance.playBackground("background");
       SoundManager.instance.pause("suspense");
     }, 1000);
   }
 
-  movingLeft(){
+  movingLeft() {
     this.moveLeft();
     this.hitbox = this.getHitBox();
   }
 
-  movingRight(){
+  movingRight() {
     this.moveRight();
     this.hitbox = this.getHitBox();
   }
 
-  canIntroMoving(){
-    return this.i < 10
+  canIntroMoving() {
+    return this.i < 10;
   }
 
-  meetsCharacter(){
-    return this.world.character.x > 2800 && !characterMetEndboss
+  meetsCharacter() {
+    return this.world.character.x > 2800 && !characterMetEndboss;
   }
 
-  canJump(){
-    return !this.isAboveGround() && this.attacks()
+  canJump() {
+    return !this.isAboveGround() && this.attacks();
   }
 
-  canMoveLeft(){
-    return this.gotHurt && this.world.character.x <= this.x
+  canMoveLeft() {
+    return this.gotHurt && this.world.character.x <= this.x;
   }
 
-  canMoveRight(){
-    return this.gotHurt && this.world.character.x > this.x
+  canMoveRight() {
+    return this.gotHurt && this.world.character.x > this.x;
   }
 
   jump() {

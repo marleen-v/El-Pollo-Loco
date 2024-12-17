@@ -6,20 +6,19 @@ class BackgroundObject extends MovableObject {
     "img/5_background/layers/1_first_layer/full.png",
   ];
 
+  // speed for single layers when character moves
   speeds = [
     0,
     9,
     7,
-    0, // speed for single layers when character moves
+    0, 
   ];
-
-  startX = -1439;
 
   speed;
   i; //Rest
 
   height = 480;
-  width = 1440; // 720 for single pictures
+  width = 1440;
 
   constructor(index, x) {
     super();

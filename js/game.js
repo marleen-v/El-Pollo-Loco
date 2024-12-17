@@ -2,9 +2,9 @@ const imgRef = document.querySelectorAll(".key");
 const startScreenRef = document.getElementById("start");
 const dialog = document.querySelector("dialog");
 const closeBtn = document.getElementById("close-btn");
-const btnContainer = document.getElementById('btn-container')
-const btnContainerMobile = document.getElementById('mobileBtn-container')
-const buttons = document.querySelectorAll('button');
+const btnContainer = document.getElementById("btn-container");
+const btnContainerMobile = document.getElementById("mobileBtn-container");
+const buttons = document.querySelectorAll("button");
 
 let intervalIds = [];
 otherDirectionCharacter = false;
@@ -18,11 +18,12 @@ let world;
 let keyboard = new Keyboard();
 let soundManager;
 
-
-// Start the app when the page is fully loaded  ------ in onload rein?----------------
+// Start the app when the page is fully loaded
 document.addEventListener("DOMContentLoaded", initializeApp);
 
-// Initializing the app when loading the page
+/**
+ * Initializing the app when loading the page
+ */
 function initializeApp() {
   initializeMobileControls();
   initializeKeyboardControls();
@@ -40,12 +41,12 @@ function stopGame() {
   soundManager.pauseAll();
 }
 
-function resetIntervals(){
+function resetIntervals() {
   intervalIds.forEach(clearInterval);
   intervalIds = [];
 }
 
-function restartGame(){
+function restartGame() {
   resetIntervals();
   startGame();
 }
@@ -58,21 +59,16 @@ function hideLoadingSpinner() {
   toggleVisibility("spinner", false);
 }
 
-
-
 async function startGame() {
   /* showLoadingSpinner();  */
-  initLevel(); 
+  initLevel();
   /* hideLoadingSpinner(); */
   canvas = document.getElementById("canvas");
   soundManager = new SoundManager();
   world = new World(canvas, keyboard);
   showGameScreen();
   gameStarted = true; // for button mobile eventlistener
-} 
-
-
-
+}
 
 /**
  * opens dialog of button "need help" on the startscreen
@@ -90,19 +86,17 @@ function dialogClose() {
   dialog.classList.remove("bg");
 }
 
-
 /**
  * mutes or unmutes  all sounds
  */
-function toggleSounds(){
+function toggleSounds() {
   soundManager.toggleMute(); // all sounds besides enemies
   world.level.enemies.forEach((enemy) => {
-    if (enemy instanceof ChickenSmall  /* || enemy instanceof Chicken */ ){
+    if (enemy instanceof ChickenSmall /* || enemy instanceof Chicken */) {
       enemy.toggleMute();
     }
-  })
-};
-
+  });
+}
 
 /**
  * changes images of keyboard keys, if clicked
@@ -114,22 +108,18 @@ function toggleDisplay(img, img_active) {
   imgRef[img_active].classList.remove("d_none");
 }
 
-//--------- fullscreen
-
-function toggleFullscreen(){
-    const fullscreen = document.getElementById('fullscreen');
-      if(!fullscreen_on){
-     /*  resizeCanvas(fullscreen, 1.5); */  
-      enterFullscreen(fullscreen);
-      this.src = 'img/SVG/resize-1.svg'
-      fullscreen_on = true;
+function toggleFullscreen() {
+  const fullscreen = document.getElementById("fullscreen");
+  if (!fullscreen_on) {
+    enterFullscreen(fullscreen);
+    this.src = "img/SVG/resize-1.svg";
+    fullscreen_on = true;
   } else {
-      exitFullscreen(fullscreen);
-      this.src = 'img/SVG/resize-2.svg'
-      fullscreen_on = false; 
-     /*   resizeCanvas(fullscreen, 0.25);  */
+    exitFullscreen(fullscreen);
+    this.src = "img/SVG/resize-2.svg";
+    fullscreen_on = false;
   }
-};
+}
 
 function enterFullscreen(element) {
   if (element.requestFullscreen) {
@@ -151,56 +141,36 @@ function exitFullscreen() {
   }
 }
 
-
-/* function resizeCanvas(fullscreen, scaleFactor) {
-  canvas.width = fullscreen.clientWidth * scaleFactor;
-  canvas.height = fullscreen.clientHeight * scaleFactor;
-
-  const context = world.ctx;
-  context.scale(scaleFactor, scaleFactor);
-} 
-
-function resizeCanvasS() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-} */
-
-
-
-
-//------------------------------------------ StartGame------------------------
-
-function showGameScreen(){ 
+function showGameScreen() {
   toggleVisibility("fullscreen", true);
   toggleVisibility("start", false);
   toggleVisibility("game-over-screen", false);
   toggleVisibility("win-screen", false);
 }
 
-function showStartScreen(){
+function showStartScreen() {
   toggleVisibility("start", true);
   toggleVisibility("fullscreen", false);
   toggleVisibility("game-over-screen", false);
   toggleVisibility("win-screen", false);
 }
 
-function showGameoverScreen(){ 
+function showGameoverScreen() {
   toggleVisibility("game-over-screen", true);
   soundManager.play("gameOver");
 }
 
-function hideGameOverScreen(){
+function hideGameOverScreen() {
   toggleVisibility("game-over-screen", false);
 }
 
-function showWinningScreen(){ 
+function showWinningScreen() {
   toggleVisibility("win-screen", true);
   soundManager.play("win");
 }
-function hideWinningScreen(){ 
+function hideWinningScreen() {
   toggleVisibility("win-screen", false);
 }
-
 
 //------------------------------------------ Check Orientaion------------------------
 
@@ -227,12 +197,13 @@ function showMainContent() {
 
 // checks orientation
 function checkOrientation() {
-  window.innerHeight > window.innerWidth ? showRotateMessage() : showMainContent();
+  window.innerHeight > window.innerWidth
+    ? showRotateMessage()
+    : showMainContent();
 }
 
 function addOrientationListeners() {
-  checkOrientation(); 
+  checkOrientation();
   window.addEventListener("resize", checkOrientation);
   window.addEventListener("orientationchange", checkOrientation);
 }
-

@@ -13,7 +13,7 @@ class MovableObject extends DrawableObject {
   countForBounce = 0;
 
   xStart = 10;
-  xEnd = 2500;
+  xEnd = 4000;
 
   offset = {
     top: 0,
@@ -142,7 +142,7 @@ class MovableObject extends DrawableObject {
     let timePassed = new Date().getTime() - this.lastActive;
 
     if (timePassed >= this.sleepTime) {
-      this.isSleeping = true; // Setze isSleeping auf true, wenn 15 Sekunden vergangen sind
+      this.isSleeping = true; // Set isSleeping to true when 15 seconds have passed
       return true;
     } else {
       return false;
