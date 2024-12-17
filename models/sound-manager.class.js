@@ -42,7 +42,6 @@ class SoundManager {
     this.sounds.background.audio.play();
     // background-music endboss
     this.sounds.suspense.audio.loop = true;
-   /*  this.sounds.chicken_small.audio.loop = true; */
   }
 
   playBackground(soundName) {

@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
   energy = 100;
   gotHurt = false;
   speed = 2;
+  characterMetEndboss = false;
 
   i = 0;
   world;
@@ -80,12 +81,15 @@ class Endboss extends MovableObject {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
       this.playBackgroundMusic();
+      setTimeout(() => {
+        this.world.en
+      }, timeout);
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
       this.gotHurt = true;
     } else if (this.i < 10) {
       this.playAnimation(this.IMAGES_WALKING);
-    } else if (characterMetEndboss && !this.gotHurt) {
+    } else if (this.characterMetEndboss && !this.gotHurt) {
       this.playAnimation(this.IMAGES_ALERT);
     } else if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_ATTACK);
@@ -100,7 +104,7 @@ class Endboss extends MovableObject {
     if (this.meetsCharacter()) {
       this.i = 0;
       this.speed = 5;
-      characterMetEndboss = true;
+      this.characterMetEndboss = true;
       this.playSuspenseMusic();
     }
     if (this.canIntroMoving()) {
@@ -146,7 +150,7 @@ class Endboss extends MovableObject {
   }
 
   meetsCharacter() {
-    return this.world.character.x > 2800 && !characterMetEndboss;
+    return this.world.character.x > 2800 && !this.characterMetEndboss;
   }
 
   canJump() {

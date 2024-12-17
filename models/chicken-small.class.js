@@ -35,7 +35,7 @@ class ChickenSmall extends MovableObject {
     this.applyGravity();
     this.animate();
     this.i = 1 + Math.random() * 10;
-    this.sound = new Audio("audio/chickenSmall.mp3");
+    this.sound = new Audio("audio/chickenSmall.mp3"); 
     this.movingDirection();
   }
 

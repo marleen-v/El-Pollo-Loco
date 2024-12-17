@@ -89,9 +89,9 @@ const mobileControls = {
   
   function initializeMobileControls() {
     const buttons = document.querySelectorAll("#mobileBtn-container button");
-    buttons.forEach(button => addTouchListeners(button)); // Touch-Listener für Buttons hinzufügen
+    buttons.forEach(button => addTouchListeners(button)); // adds Touch-Listener for buttons
   
-    toggleButtonContainer(); // Initiale Überprüfung beim Laden
-    window.addEventListener("resize", toggleButtonContainer); // Überprüfung bei Fensteränderung
+    toggleButtonContainer(); // Initial check when loading
+    window.addEventListener("resize", toggleButtonContainer); // Check when changing windows
   }
   

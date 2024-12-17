@@ -9,7 +9,6 @@ const buttons = document.querySelectorAll("button");
 let intervalIds = [];
 otherDirectionCharacter = false;
 
-let characterMetEndboss = false;
 let fullscreen_on = false;
 let gameStarted = false;
 
@@ -38,7 +37,16 @@ function setStoppableInterval(fn, time) {
 function stopGame() {
   gameStarted = false;
   resetIntervals();
-  soundManager.pauseAll();
+  soundManager.pauseAll(); // besides Chicken and ChickenSmal
+ this.pauseSoundOfEnemies();
+}
+
+function pauseSoundOfEnemies(){
+  world.level.enemies.forEach((enemy) => {
+    if(enemy instanceof Chicken || enemy instanceof ChickenSmall){
+      enemy.pauseSound();
+    }
+  })
 }
 
 function resetIntervals() {
@@ -172,9 +180,11 @@ function hideWinningScreen() {
   toggleVisibility("win-screen", false);
 }
 
-//------------------------------------------ Check Orientaion------------------------
-
-// controls the visibility of an element
+/**
+ * controls the visibility of an element
+ * @param {Number} elementId 
+ * @param {Boolean} isVisible 
+ */
 function toggleVisibility(elementId, isVisible) {
   const element = document.getElementById(elementId);
   if (element) {
@@ -182,20 +192,27 @@ function toggleVisibility(elementId, isVisible) {
   }
 }
 
-// shows message and hides Content
+//------------------------------------------ Check Orientaion------------------------
 
+
+/**
+ * shows message and hides Content
+ */
+// 
 function showRotateMessage() {
   toggleVisibility("orientationMessage", true);
   toggleVisibility("canvas-container", false);
 }
 
-// hides message and shows content
+
+/**
+ * hides message and shows content
+ */
 function showMainContent() {
   toggleVisibility("orientationMessage", false);
   toggleVisibility("canvas-container", true);
 }
 
-// checks orientation
 function checkOrientation() {
   window.innerHeight > window.innerWidth
     ? showRotateMessage()
