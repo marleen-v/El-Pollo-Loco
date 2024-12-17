@@ -79,7 +79,6 @@ class Character extends MovableObject {
 
   world;
 
-
   constructor() {
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_WALKING);
@@ -93,110 +92,132 @@ class Character extends MovableObject {
   }
 
   animate() {
-
-   setStoppableInterval(() =>  this.characterMoves() , 1000 / 60);
-   setStoppableInterval(() => this.CharacterAnimation(), 90);
+    setStoppableInterval(() => this.characterMoves(), 1000 / 60);
+    setStoppableInterval(() => this.CharacterAnimation(), 90);
   }
 
   CharacterAnimation() {
     if (this.isDead() && !this.hasPlayedDeadAnimation) {
-        this.playAnimation(this.IMAGES_DEAD);
-        this.hasPlayedDeadAnimation = true;
-        stopGame();
-        showGameoverScreen();  
-      
+      this.playAnimation(this.IMAGES_DEAD);
+      this.hasPlayedDeadAnimation = true;
+      stopGame();
+      showGameoverScreen();
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
       this.resetLastAction();
     } else if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_JUMPING);
       this.resetLastAction();
-    } else if ((this.world.keyboard.RIGHT || this.world.keyboard.rightButtonPressed) || (this.world.keyboard.LEFT || this.world.keyboard.leftButtonPressed)) {
+    } else if (this.canPlayWalkingAnimation()) {
       this.playAnimation(this.IMAGES_WALKING);
       this.resetLastAction();
     } else if (this.isAsleep()) {
       this.playAnimation(this.IMAGES_SLEEPING);
     } else if (this.idle()) {
       this.playAnimation(this.IMAGES_IDLE);
-      SoundManager.instance.play('snoring');
+      SoundManager.instance.play("snoring");
     }
   }
 
-  canMoveRight(){
-    return (this.world.keyboard.RIGHT || this.world.keyboard.rightButtonPressed) &&
-    this.x <= this.world.level.level_end_x
+  canPlayWalkingAnimation() {
+    return (
+      this.world.keyboard.RIGHT ||
+      this.world.keyboard.rightButtonPressed ||
+      this.world.keyboard.LEFT ||
+      this.world.keyboard.leftButtonPressed
+    );
   }
 
-  canJump(){
-    return (this.world.keyboard.UP || this.world.keyboard.jumpButtonPressed)&& !this.isAboveGround()
-  }
-  
-
-  canMoveLeft(){
-    return (this.world.keyboard.LEFT || this.world.keyboard.leftButtonPressed) && this.x >= 0
+  canMoveRight() {
+    return (
+      (this.world.keyboard.RIGHT || this.world.keyboard.rightButtonPressed) &&
+      this.x <= this.world.level.level_end_x
+    );
   }
 
+  canJump() {
+    return (
+      (this.world.keyboard.UP || this.world.keyboard.jumpButtonPressed) &&
+      !this.isAboveGround()
+    );
+  }
 
-  characterMoves(){
-    
-     this.hitbox = this.getHitBox();
-      if (!this.hasPlayedDeadAnimation) {
-        SoundManager.instance.pause('running');
-      
-        if(this.canMoveLeft()) {
-          this.otherDirection = true;
-          otherDirectionCharacter = true; // for throwing object
-          this.moveLeft();
-          SoundManager.instance.play('running');
+  canMoveLeft() {
+    return (
+      (this.world.keyboard.LEFT || this.world.keyboard.leftButtonPressed) &&
+      this.x >= 0
+    );
+  }
 
-          this.world.level.backgroundObjects.forEach((bg) => bg.moveRight());
-          this.world.level.clouds.forEach((cloud) => cloud.moveLeftWithCamera());
-          this.world.camera_x = -this.x + 200;
-          if(this.world.thoughtBubble.length != undefined){
-            this.world.thoughtBubble.forEach((bubble) => {
-              this.otherDirection = true;
-              bubble.x = this.x ;
-              bubble.y = this.y;
-            })
-          }
-        }
+  characterMoves() {
+    this.hitbox = this.getHitBox();
+    if (!this.hasPlayedDeadAnimation) {
+      SoundManager.instance.pause("running");
 
-        if (this.canMoveRight()) {
-          this.otherDirection = false;
-          otherDirectionCharacter = false;
-          this.moveRight();
-          SoundManager.instance.play('running');
-          
-
-          this.world.level.backgroundObjects.forEach((bg) =>bg.moveLeft());
-          this.world.level.clouds.forEach((cloud) => cloud.moveRightWithCamera());
-          this.world.camera_x = -this.x + 200;
-          if(this.world.thoughtBubble.length != undefined){
-            this.world.thoughtBubble.forEach((bubble) => {
-              
-              bubble.x = this.x ;
-              bubble.y = this.y ;
-            })
-          }
-          
-        }
-       
-
-        if (this.canJump()) {
-          this.jump();
-          this.world.camera_x = -this.x + 200;
-          this.world.keyboard.jumpButtonPressed = false;
-        }
+      if (this.canMoveLeft()) {
+        this.movesLeft();
+        this.backgroundMovesLeft();
         this.world.camera_x = -this.x + 200;
-        if(this.world.thoughtBubble.length != undefined){
-          this.world.thoughtBubble.forEach((bubble) => {
-            
-            bubble.x = this.x - 80;
-            bubble.y = this.y + 20;
-          })
-        }
       }
+
+      if (this.canMoveRight()) {
+        this.movesRight();
+        this.backgroundMovesRight();
+        this.world.camera_x = -this.x + 200;
+      }
+
+      if (this.canJump()) {
+        this.jumps();
+      }
+      this.world.camera_x = -this.x + 200;
+      this.thoughtBubbleAnimation();
+    }
   }
 
+  movesRight() {
+    this.otherDirection = false;
+    otherDirectionCharacter = false;
+    this.moveRight();
+    SoundManager.instance.play("running");
+  }
 
+  movesLeft() {
+    this.otherDirection = true;
+    otherDirectionCharacter = true; // for throwing object
+    this.moveLeft();
+    SoundManager.instance.play("running");
+  }
+
+  backgroundMovesRight() {
+    this.world.level.backgroundObjects.forEach((bg) => bg.moveLeft());
+    this.world.level.clouds.forEach((cloud) => cloud.moveRightWithCamera());
+  }
+
+  backgroundMovesLeft() {
+    this.world.level.backgroundObjects.forEach((bg) => bg.moveRight());
+    this.world.level.clouds.forEach((cloud) => cloud.moveLeftWithCamera());
+  }
+
+  thoughtBubbleAnimation() {
+    if (this.thoughtBubbleVisible()) {
+      this.thoughtBubbleMoves();
+    }
+  }
+
+  thoughtBubbleVisible() {
+    return this.world.thoughtBubble.length != undefined;
+  }
+
+  thoughtBubbleMoves() {
+    this.world.thoughtBubble.forEach((bubble) => {
+      bubble.x = this.x - 80;
+      bubble.y = this.y;
+    });
+  }
+
+  jumps() {
+    this.jump();
+    this.world.camera_x = -this.x + 200;
+    this.world.keyboard.jumpButtonPressed = false;
+  }
 }
