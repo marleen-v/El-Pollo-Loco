@@ -34,12 +34,9 @@ class World {
 
   setWorld() {
     this.character.world = this;
-    /* this.throwableObject.world = this; */
+    this.throwableObject.world = this;
     this.soundManager.world = this;
     this.statusbar_endboss.world = this;
-    this.throwableObject.forEach((tO) => {
-      tO.world = this;
-    });
     this.level.enemies.forEach((enemy) => {
       enemy.world = this;
     });
@@ -73,6 +70,7 @@ class World {
       this.thoughtBubbleActive = true;
     }
   }
+
 
   deleteThoughtBubble(){
     setTimeout(() => {
@@ -113,17 +111,17 @@ class World {
           } else{
             SoundManager.instance.play('endboss_hit'); 
           }
-          this.removeBottle(bottle);
+          this.removeBottle(bottle, bottleRemoved);
         }
       });
       // remove bottle, if it did not collide with enemy
       if (!bottleRemoved && bottle.y >= 400) {
-        this.removeBottle(bottle);
+        this.removeBottle(bottle, bottleRemoved);
       }
     });
   }
 
-  removeBottle(bottle){
+  removeBottle(bottle, bottleRemoved){
     setTimeout(() => {
       const bottleIndex = this.throwableObject.indexOf(bottle);
       if (bottleIndex !== -1) {

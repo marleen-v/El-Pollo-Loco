@@ -6,6 +6,7 @@ class Endboss extends MovableObject {
   gotHurt = false;
   speed = 2;
   characterMetEndboss = false;
+  onGroundY = 20;
 
   i = 0;
   world;
@@ -169,7 +170,6 @@ class Endboss extends MovableObject {
     this.speedY = 40;
   }
 
-  isAboveGround() {
-    return this.y < 20;
-  }
+
+  
 }

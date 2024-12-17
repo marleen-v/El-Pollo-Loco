@@ -4,6 +4,7 @@ class ChickenSmall extends MovableObject {
   height = 60;
   energy = 10;
   i = 0;
+  onGroundY = 370;
 
   world;
 
@@ -123,7 +124,6 @@ class ChickenSmall extends MovableObject {
     }
   }
 
-  isAboveGround() {
-    return this.y < 370;
-  }
+ 
+
 }

@@ -5,6 +5,7 @@ class Character extends MovableObject {
   y = 80;
   energy = 100;
   hasPlayedDeadAnimation = false;
+  onGroundY = 190;
 
   offset = {
     // to adjust the image dimensions

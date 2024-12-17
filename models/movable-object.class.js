@@ -11,6 +11,7 @@ class MovableObject extends DrawableObject {
   sleepTime = 15000;
   isSleeping = false;
   countForBounce = 0;
+  onGroundY;
 
   xStart = 10;
   xEnd = 4000;
@@ -33,13 +34,14 @@ class MovableObject extends DrawableObject {
     setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
+        this.y = Math.min(this.y, this.onGroundY);
         this.speedY -= this.acceleration;
       }
     }, 1000 / 25);
   }
 
   isAboveGround() {
-    return this.y < 190;
+    return this.y < this.onGroundY;
   }
 
   playAnimation(images) {

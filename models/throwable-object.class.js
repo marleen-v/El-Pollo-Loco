@@ -25,6 +25,7 @@ class ThrowableObject extends MovableObject {
 
   hitEnemy = false;
   world;
+
   
   
   constructor(x, y) {
@@ -72,5 +73,14 @@ class ThrowableObject extends MovableObject {
 
   isAboveGround() {
     return true;
+  }
+
+  applyGravity() {
+    setStoppableInterval(() => {
+      if (this.isAboveGround() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+      }
+    }, 1000 / 25);
   }
 }
