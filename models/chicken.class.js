@@ -40,33 +40,41 @@ class Chicken extends MovableObject {
     }
   }
 
-
   animate() {
-    setStoppableInterval(() => {
-      if (this.x <= this.xStart) {
-        this.otherDirection = true;
-      } else if (this.x >= this.xEnd) {
-        this.otherDirection = false;
-      }
-
-      if (this.otherDirection) {
-        this.moveRight();
-        this.hitbox = this.getHitBox();
-      } else {
-        this.moveLeft();
-        this.hitbox = this.getHitBox();
-      }
-    }, 1000 / 60);
-
-    setStoppableInterval(() => {
-      if (this.isDead()) {
-        this.pauseSound();
-        this.playAnimation(this.IMAGES_DEAD);
-      } else {
-        this.playAnimation(this.IMAGES_WALKING);
-      }
-    }, 80);
-
+    setStoppableInterval(() => this.chickenMoves(), 1000 / 60);
+    setStoppableInterval(() => this.chickenAnimation(), 80);
     setStoppableInterval(() => this.playChickenSound(), 200);
+  }
+
+  chickenMoves() {
+    if (this.atLevelStart()) {
+      this.otherDirection = true;
+    } else if (this.atLevelEnd()) {
+      this.otherDirection = false;
+    }
+    if (this.otherDirection) {
+      this.moveRight();
+      this.hitbox = this.getHitBox();
+    } else {
+      this.moveLeft();
+      this.hitbox = this.getHitBox();
+    }
+  }
+
+  atLevelStart() {
+    return this.x <= this.xStart;
+  }
+
+  atLevelEnd() {
+    return this.x >= this.xEnd;
+  }
+
+  chickenAnimation() {
+    if (this.isDead()) {
+      this.pauseSound();
+      this.playAnimation(this.IMAGES_DEAD);
+    } else {
+      this.playAnimation(this.IMAGES_WALKING);
+    }
   }
 }
