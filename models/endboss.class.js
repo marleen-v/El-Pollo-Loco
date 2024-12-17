@@ -2,11 +2,11 @@ class Endboss extends MovableObject {
   y = 20;
   width = 350;
   height = 450;
-  energy = 30;
+  energy = 100;
   gotHurt = false;
   speed = 2;
 
-  i = 0
+  i = 0;
   world;
 
   offset = {
@@ -76,115 +76,63 @@ class Endboss extends MovableObject {
     setStoppableInterval(() => this.endbossMoves(), 1000 / 60);
   }
 
-/*   endbossAnimation(){
+  endbossAnimation() {
     if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-    } else if(this.isHurt()){
+      this.playAnimation(this.IMAGES_DEAD);
+      setTimeout(() => {
+        SoundManager.instance.playBackground("background");
+        SoundManager.instance.pause("suspense");
+      }, 1000);
+    } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
-      this.gotHurt = true
-    } else
-    if (this.i < 10) {
-      this.moveLeft();
-      this.hitbox = this.getHitBox(); 
+      this.gotHurt = true;
+    } else if (this.i < 10) {
       this.playAnimation(this.IMAGES_WALKING);
-    } else if (characterMetEndboss && !this.gotHurt){
+    } else if (characterMetEndboss && !this.gotHurt) {
       this.playAnimation(this.IMAGES_ALERT);
-    }else if (this.isAboveGround()) {
+    } else if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_ATTACK);
     } else {
       this.playAnimation(this.IMAGES_WALKING);
-    };
-    this.i++
+    }
+    this.i++;
+  }
 
-}
-
-endbossMoves(){
-  this.hitbox = this.getHitBox();
-  if (this.world.character.x > 400 && !characterMetEndboss ) { // Zahl noch ändern!
-    this.i = 0;
-    characterMetEndboss = true;
-    this.otherDirection = false;
-    this.speed = 40;
-    this.moveLeft();
-  }  else  if(!this.isAboveGround() && this.attacks()){ //attacke duaert 3 sekunden (siehe Movable object), solange wird gesprungen
-     this.jump();
-     this.hitbox = this.getHitBox();
-  } */
-    /* else if (this.gotHurt && this.world.character.x <= this.x){
-    this.otherDirection = false;
-    this.moveLeft();
+  endbossMoves() {
+    // endboss intro
     this.hitbox = this.getHitBox();
-  } */ /* else if(this.gotHurt && this.world.character.x > this.x){
-    this.otherDirection = true;
-    this.moveRight();
-  }  */
-//}
+    if (this.world.character.x > 2800 && !characterMetEndboss) {
+      // Zahl noch ändern!
+      this.i = 0;
+      this.speed = 5;
+      characterMetEndboss = true;
+      SoundManager.instance.pause("background");
+      SoundManager.instance.play("suspense");
+    }
+    if (this.i < 10) {
+      this.moveLeft();
+      this.hitbox = this.getHitBox();
+    } else if (!this.isAboveGround() && this.attacks()) {
+      this.jump();
+      this.hitbox = this.getHitBox();
+    } else if (this.isHurt()) {
+    } else if (this.gotHurt && this.world.character.x <= this.x) {
+      this.otherDirection = false;
+      this.speed = 2;
+      this.moveLeft();
+      this.hitbox = this.getHitBox();
+    } else if (this.gotHurt && this.world.character.x > this.x) {
+      this.otherDirection = true;
+      this.moveRight();
+      this.hitbox = this.getHitBox();
+    }
+  }
 
+  jump() {
+    this.speedY = 30;
+  }
 
-endbossAnimation(){
-  if (this.isDead()) {
-      this.playAnimation(this.IMAGES_DEAD);
-      setTimeout(() => {
-        SoundManager.instance.playBackground('background');
-        SoundManager.instance.pause('suspense');
-      }, 1000);
-     
-  
-  } else if(this.isHurt()){
-    this.playAnimation(this.IMAGES_HURT);
-    this.gotHurt = true
-  } else
-  if (this.i < 10) {
-    this.playAnimation(this.IMAGES_WALKING);
-  } else if (characterMetEndboss && !this.gotHurt){
-    this.playAnimation(this.IMAGES_ALERT);
-  }else if (this.isAboveGround()) {
-    this.playAnimation(this.IMAGES_ATTACK);
-  } else {
-    this.playAnimation(this.IMAGES_WALKING);
-  };
-  this.i++
-
-}
-
-endbossMoves(){
-// endboss intro
-this.hitbox = this.getHitBox();
-if (this.world.character.x > 2800 && !characterMetEndboss) { // Zahl noch ändern!
-  this.i = 0;
-  this.speed = 5;
-  characterMetEndboss = true;
-  SoundManager.instance.pause('background');
-  SoundManager.instance.play('suspense');
-}
-if(this.i < 10){
-  this.moveLeft();
-    this.hitbox = this.getHitBox(); 
-}
- else  if(!this.isAboveGround() && this.attacks()){ 
-   this.jump();
-   this.hitbox = this.getHitBox();
-} else if(this.isHurt()){
-
-}else if (this.gotHurt && this.world.character.x <= this.x){
-  this.otherDirection = false;
-  this.speed = 2;
-  this.moveLeft();
-  this.hitbox = this.getHitBox();
-} else if(this.gotHurt && this.world.character.x > this.x){
-  this.otherDirection = true;
-  this.moveRight();
-  this.hitbox = this.getHitBox(); 
-} 
-}
-
-
- jump() {
-  this.speedY = 30;
-}
-
-isAboveGround() {
-  return this.y < 20;
-}
-
+  isAboveGround() {
+    return this.y < 20;
+  }
 }

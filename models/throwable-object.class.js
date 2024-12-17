@@ -48,7 +48,7 @@ class ThrowableObject extends MovableObject {
       if (this.hitEnemy == false && !otherDirectionCharacter) {
         this.x += 8;
         this.hitbox = this.getHitBox();
-      }else if(this.hitEnemy == false && otherDirectionCharacter) {
+      } else if (this.hitEnemy == false && otherDirectionCharacter) {
         this.x -= 8;
         this.hitbox = this.getHitBox();
       } else {
@@ -56,8 +56,6 @@ class ThrowableObject extends MovableObject {
       }
     }, 1000 / 60);
   }
-
-
 
   animate() {
     let i = 0;
@@ -72,6 +70,6 @@ class ThrowableObject extends MovableObject {
   }
 
   isAboveGround() {
-      return true;
+    return true;
   }
 }

@@ -6,7 +6,6 @@ class Chicken extends MovableObject {
 
   isMuted = false;
 
-
   offset = {
     top: 20,
     left: 15,
@@ -27,20 +26,27 @@ class Chicken extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
     this.soundManager = SoundManager.instance;
-    this.x = 700  + Math.random() * 4800;
+    this.x = 700 + Math.random() * 4800;
     this.hitbox = this.getHitBox();
     this.speed = 0.15 + Math.random() * 0.3;
     this.animate();
-    this.sound = new Audio("audio/chicken.mp3"); 
+    this.sound = new Audio("audio/chicken.mp3");
+    this.movingDirection();
+  }
+
+  movingDirection() {
+    if (Math.random() < 0.5) {
+      this.otherDirection = true;
+    }
   }
 
 
   animate() {
     setStoppableInterval(() => {
       if (this.x <= this.xStart) {
-        this.otherDirection = true; 
+        this.otherDirection = true;
       } else if (this.x >= this.xEnd) {
-        this.otherDirection = false; 
+        this.otherDirection = false;
       }
 
       if (this.otherDirection) {
@@ -62,8 +68,5 @@ class Chicken extends MovableObject {
     }, 80);
 
     setStoppableInterval(() => this.playChickenSound(), 200);
-
-
   }
-
 }

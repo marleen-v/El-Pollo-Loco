@@ -35,40 +35,16 @@ class ChickenSmall extends MovableObject {
     this.applyGravity();
     this.animate();
     this.i = 1 + Math.random() * 10;
-    /* this.soundManager = new SoundManager(); */
     this.sound = new Audio("audio/chickenSmall.mp3");
-    /* this.playSound();  */
+    this.movingDirection();
   }
 
-/*   playSound() {
-    this.sound.loop = true;
-    this.sound.currentTime = 0 + Math.random() * 1;
-    this.sound.volume = 0.05;
-    this.sound.play();
-  }
-
-  pauseSound() {
-    this.sound.pause();
-  }
-
-  toggleMute() {
-    this.isMuted = !this.isMuted;
-    this.playChickenSound();
-  }
-
-  nearCharacter() {
-    return Math.abs(this.world.character.x - this.x) <= 500;
-  }
-
-  playChickenSound() {
-    // check if one or more enemies are near character
-    if (this.nearCharacter() && !this.isMuted) {
-      this.playSound();
-    } else {
-      this.pauseSound();
+  movingDirection() {
+    if (Math.random() < 0.5) {
+      this.otherDirection = true;
     }
   }
- */
+
   animate() {
     setStoppableInterval(() => this.chickenSmallMoves(), 1000 / 60);
     setStoppableInterval(() => this.chickenAnimation(), 200);

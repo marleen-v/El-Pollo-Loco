@@ -3,7 +3,7 @@ class Character extends MovableObject {
   width = 120;
   speed = 10;
   y = 80;
-  energy = 200;
+  energy = 100;
   hasPlayedDeadAnimation = false;
 
   offset = {
@@ -78,8 +78,7 @@ class Character extends MovableObject {
   ];
 
   world;
- /*  endbossModus = false;
-  endBossX = 0 */
+
 
   constructor() {
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");

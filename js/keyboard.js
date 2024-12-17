@@ -54,14 +54,11 @@ function initializeKeyboardControls() {
   };
 
 
-
 // mobile Touchbuttons
 
 const mobileControls = {
     startJumping: () => (world.keyboard.jumpButtonPressed = true),
-   /*  stopJumping: () => (world.keyboard.jumpButtonPressed = false), */
     startThrowing: () => (world.keyboard.throwButtonPressed = true),
-   /*  stopThrowing: () => (world.keyboard.throwButtonPressed = false), */
     startMovingLeft: () => (world.keyboard.leftButtonPressed = true),
     stopMovingLeft: () => (world.keyboard.leftButtonPressed = false),
     startMovingRight: () => (world.keyboard.rightButtonPressed = true),

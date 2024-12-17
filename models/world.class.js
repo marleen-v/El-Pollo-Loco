@@ -18,9 +18,6 @@ class World {
    thoughtBubble = []; 
    thoughtBubbleActive = false;
 
- 
-  
-
   endscreen = new Endscreen(0); 
   endscreen_win = new Endscreen(1);
 
@@ -30,13 +27,10 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.soundManager = SoundManager.instance;
-    /* this.thoughtBubble.push(new ThoughtBubble(1))  */
-
     this.draw();
     this.setWorld();
     this.run();
   }
-
 
   setWorld() {
     this.character.world = this;
@@ -80,7 +74,7 @@ class World {
   deleteThoughtBubble(){
     setTimeout(() => {
       this.thoughtBubble.splice(0, 1);
-    }, 4000);
+    }, 3000);
   }
 
   checkThrowObjects() {
@@ -135,9 +129,6 @@ class World {
   }    
 
   removeEnemy(enemy, bottle) {
-   /*  if(bottle != undefined){ 
-      this.soundManager.play('bottle_break');
-     }  */
     this.soundManager.play('damage');
     setTimeout(() => {
       const originalIndex = this.level.enemies.indexOf(enemy);

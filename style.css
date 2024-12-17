@@ -337,6 +337,9 @@ dialog::-webkit-scrollbar, .dialog-container::-webkit-scrollbar{
     canvas{
         height:100dvh;
     }
+    #impressum{
+        display:none;
+    }
 }
 
 @media only screen and (max-height:480px) {
@@ -346,10 +349,7 @@ dialog::-webkit-scrollbar, .dialog-container::-webkit-scrollbar{
     body {
         justify-content: center;
     }
-}
-
-@media only screen and (max-width:1025px) {
-    .keyboard-container{
+    #impressum{
         display:none;
     }
    
@@ -359,6 +359,18 @@ dialog::-webkit-scrollbar, .dialog-container::-webkit-scrollbar{
     .keyboard-container{
         display:none;
     }
+    #impressum{
+        display:none;
+    }
    
 }
+@media only screen and (max-height:700px) {
+    
+    #impressum{
+        display:none;
+    }
+   
+}
+
+
 

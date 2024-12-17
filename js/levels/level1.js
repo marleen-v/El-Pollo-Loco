@@ -2,12 +2,12 @@ let level1;
 
 function initLevel(){
     level1 = new Level(
-        [    new Endboss(),  
+        [   new Endboss(),  
             new ChickenSmall(),
             new ChickenSmall(),
          
              new Chicken(), 
-           /*  new ChickenSmall(),
+           new ChickenSmall(),
             new ChickenSmall(),
               
             new Chicken(), 
@@ -24,7 +24,7 @@ function initLevel(){
             new Chicken(),  
                
             new ChickenSmall(),
-            new Chicken(),  */   
+            new Chicken(),  
         ],
         [   
             new Cloud("1"), 
@@ -78,6 +78,12 @@ function initLevel(){
             new Coin(1700, 210),
             new Coin(1780, 150),
             new Coin(1860, 210),
+
+            new Coin(3000, 260),
+            new Coin(3080, 210),
+            new Coin(3160, 150),
+            new Coin(3240, 210),
+            new Coin(4020, 260),
     
          ],
          [

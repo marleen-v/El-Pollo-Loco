@@ -13,7 +13,6 @@ let characterMetEndboss = false;
 let fullscreen_on = false;
 let gameStarted = false;
 
-
 let canvas;
 let world;
 let keyboard = new Keyboard();
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", initializeApp);
 
 // Initializing the app when loading the page
 function initializeApp() {
-
   initializeMobileControls();
   initializeKeyboardControls();
   addOrientationListeners();
@@ -63,17 +61,12 @@ function hideLoadingSpinner() {
 
 
 async function startGame() {
- 
-  showLoadingSpinner(); 
-
+  /* showLoadingSpinner();  */
   initLevel(); 
-  
-  hideLoadingSpinner();
+  /* hideLoadingSpinner(); */
   canvas = document.getElementById("canvas");
-
   soundManager = new SoundManager();
   world = new World(canvas, keyboard);
-
   showGameScreen();
   gameStarted = true; // for button mobile eventlistener
 } 
@@ -102,7 +95,7 @@ function dialogClose() {
  * mutes or unmutes  all sounds
  */
 function toggleSounds(){
-  soundManager.toggleMute();
+  soundManager.toggleMute(); // all sounds besides enemies
   world.level.enemies.forEach((enemy) => {
     if (enemy instanceof ChickenSmall  /* || enemy instanceof Chicken */ ){
       enemy.toggleMute();
@@ -126,7 +119,7 @@ function toggleDisplay(img, img_active) {
 function toggleFullscreen(){
     const fullscreen = document.getElementById('fullscreen');
       if(!fullscreen_on){
-    /*  resizeCanvas(fullscreen, 1.5);  */
+     /*  resizeCanvas(fullscreen, 1.5); */  
       enterFullscreen(fullscreen);
       this.src = 'img/SVG/resize-1.svg'
       fullscreen_on = true;
@@ -134,7 +127,7 @@ function toggleFullscreen(){
       exitFullscreen(fullscreen);
       this.src = 'img/SVG/resize-2.svg'
       fullscreen_on = false; 
-     /*  resizeCanvas(fullscreen, 1); */
+     /*   resizeCanvas(fullscreen, 0.25);  */
   }
 };
 
@@ -159,7 +152,7 @@ function exitFullscreen() {
 }
 
 
-function resizeCanvas(fullscreen, scaleFactor) {
+/* function resizeCanvas(fullscreen, scaleFactor) {
   canvas.width = fullscreen.clientWidth * scaleFactor;
   canvas.height = fullscreen.clientHeight * scaleFactor;
 
@@ -170,7 +163,7 @@ function resizeCanvas(fullscreen, scaleFactor) {
 function resizeCanvasS() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-}
+} */
 
 
 

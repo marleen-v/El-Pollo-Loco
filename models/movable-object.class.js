@@ -27,7 +27,6 @@ class MovableObject extends DrawableObject {
     super();
     this.soundManager = SoundManager.instance;
     this.hitbox = this.getHitBox();
-    
   }
 
   applyGravity() {
@@ -40,11 +39,11 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-      return this.y < 190;
+    return this.y < 190;
   }
 
   playAnimation(images) {
-    let i = this.currentImage % images.length; 
+    let i = this.currentImage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
@@ -53,7 +52,7 @@ class MovableObject extends DrawableObject {
   resetLastAction() {
     this.lastActive = Date.now();
     this.isSleeping = false; // Charakter wakes up
-    SoundManager.instance.pause('snoring');
+    SoundManager.instance.pause("snoring");
   }
 
   moveRight() {
@@ -66,7 +65,7 @@ class MovableObject extends DrawableObject {
 
   jump() {
     this.speedY = 30;
-    this.soundManager.play('jump');
+    this.soundManager.play("jump");
   }
 
   getHitBox() {
@@ -103,7 +102,7 @@ class MovableObject extends DrawableObject {
   }
 
   hit() {
-    this.soundManager.play('hit');
+    this.soundManager.play("hit");
     this.energy -= 10;
     this.bounceBack();
     this.countForBounce = 0;
@@ -129,7 +128,7 @@ class MovableObject extends DrawableObject {
     return timePassed < 1; // animation is shown for 1 sec if character gets hurt
   }
 
-  attacks(){
+  attacks() {
     let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
     timePassed = timePassed / 1000; // difference in s
     return timePassed > 1 && timePassed <= 2; // animation is shown for 1 sec if endboss gets hurt
@@ -146,7 +145,6 @@ class MovableObject extends DrawableObject {
       this.isSleeping = true; // Setze isSleeping auf true, wenn 15 Sekunden vergangen sind
       return true;
     } else {
-
       return false;
     }
   }
@@ -158,60 +156,56 @@ class MovableObject extends DrawableObject {
   collectCoin() {
     if (this.wealth < 100) {
       this.wealth += 10;
-  
     }
-    SoundManager.instance.play('coin');
+    SoundManager.instance.play("coin");
   }
 
   collectBottle() {
     if (this.salsa < 100) {
       this.salsa += 10;
     }
-    SoundManager.instance.play('bottle');
+    SoundManager.instance.play("bottle");
   }
 
   takeDamage() {
     if (!this.isDead()) {
       this.energy -= 10;
-    if (this.energy < 0) {
-      this.energy = 0;
-    } else {
-      this.lastHit = new Date().getTime();
+      if (this.energy < 0) {
+        this.energy = 0;
+      } else {
+        this.lastHit = new Date().getTime();
+      }
     }
-    } 
   }
 
+  // enemies sounds
 
-
-// enemies sounds
-
-playSound() {
-  this.sound.loop = true;
-  this.sound.currentTime = 0 + Math.random() * 1;
-  this.sound.volume = 0.05;
-  this.sound.play();
-}
-
-pauseSound() {
-  this.sound.pause();
-}
-
-toggleMute() {
-  this.isMuted = !this.isMuted;
-  this.playChickenSound();
-}
-
-nearCharacter() {
-  return Math.abs(this.world.character.x - this.x) <= 500;
-}
-
-playChickenSound() {
-  // check if one or more enemies are near character
-  if (this.nearCharacter() && !this.isMuted) {
-    this.playSound();
-  } else {
-    this.pauseSound();
+  playSound() {
+    this.sound.loop = true;
+    this.sound.currentTime = 0 + Math.random() * 1;
+    this.sound.volume = 0.05;
+    this.sound.play();
   }
-}
 
+  pauseSound() {
+    this.sound.pause();
+  }
+
+  toggleMute() {
+    this.isMuted = !this.isMuted;
+    this.playChickenSound();
+  }
+
+  nearCharacter() {
+    return Math.abs(this.world.character.x - this.x) <= 500;
+  }
+
+  playChickenSound() {
+    // check if one or more enemies are near character
+    if (this.nearCharacter() && !this.isMuted) {
+      this.playSound();
+    } else {
+      this.pauseSound();
+    }
+  }
 }
