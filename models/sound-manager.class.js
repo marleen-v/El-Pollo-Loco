@@ -29,8 +29,9 @@ class SoundManager {
       bottle_break: { audio: new Audio("audio/bottle-break.mp3"), volume: 0.5 },
       gameOver: { audio: new Audio("audio/game-over.mp3"), volume: 1.0 },
       win: { audio: new Audio("audio/winning.mp3"), volume: 1.0 },
-      chicken: { audio: new Audio("audio/chicken.mp3"), volume: 1.0 },
-      chicken_small: {audio: new Audio("audio/chickenSmall.mp3"),volume: 1.0,},
+      endboss_hit: { audio: new Audio("audio/chicken-alarm.mp3"), volume: 1.0 },
+    /*   chicken: { audio: new Audio("audio/chicken.mp3"), volume: 1.0 },
+      chicken_small: {audio: new Audio("audio/chickenSmall.mp3"),volume: 1.0,}, */
       snoring: { audio: new Audio("audio/snoring.mp3"), volume: 0.1 },
       suspense: { audio: new Audio("audio/endboss-music.mp3"), volume: 1.0 },
     };
@@ -41,7 +42,7 @@ class SoundManager {
     this.sounds.background.audio.play();
     // background-music endboss
     this.sounds.suspense.audio.loop = true;
-    this.sounds.chicken_small.audio.loop = true;
+   /*  this.sounds.chicken_small.audio.loop = true; */
   }
 
   playBackground(soundName) {

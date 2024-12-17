@@ -107,6 +107,8 @@ class World {
           
           if (enemy.isDead()) {
           this.removeEnemy(enemy, bottle);
+          } else{
+            SoundManager.instance.play('endboss_hit'); 
           }
           this.removeBottle(bottle, bottleRemoved);
         }
