@@ -79,10 +79,7 @@ class Endboss extends MovableObject {
   endbossAnimation() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
-      setTimeout(() => {
-        SoundManager.instance.playBackground("background");
-        SoundManager.instance.pause("suspense");
-      }, 1000);
+      this.playBackgroundMusic();
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
       this.gotHurt = true;
@@ -101,31 +98,68 @@ class Endboss extends MovableObject {
   endbossMoves() {
     // endboss intro
     this.hitbox = this.getHitBox();
-    if (this.world.character.x > 2800 && !characterMetEndboss) {
-      // Zahl noch ändern!
+    if (this.meetsCharacter()) {
       this.i = 0;
       this.speed = 5;
       characterMetEndboss = true;
-      SoundManager.instance.pause("background");
-      SoundManager.instance.play("suspense");
+      this.playSuspenseMusic();
     }
-    if (this.i < 10) {
-      this.moveLeft();
-      this.hitbox = this.getHitBox();
-    } else if (!this.isAboveGround() && this.attacks()) {
+    if (this.canIntroMoving()) {
+      this.movingLeft();
+    } else if (this.canJump()) {
       this.jump();
       this.hitbox = this.getHitBox();
     } else if (this.isHurt()) {
-    } else if (this.gotHurt && this.world.character.x <= this.x) {
+    } else if (this.canMoveLeft()) {
       this.otherDirection = false;
       this.speed = 2;
-      this.moveLeft();
-      this.hitbox = this.getHitBox();
-    } else if (this.gotHurt && this.world.character.x > this.x) {
+      this.movingLeft()
+    } else if (this.canMoveRight()) {
       this.otherDirection = true;
-      this.moveRight();
-      this.hitbox = this.getHitBox();
+      this.movingRight();
     }
+  }
+
+  playSuspenseMusic(){
+    SoundManager.instance.pause("background");
+    SoundManager.instance.play("suspense");
+  }
+
+  playBackgroundMusic(){
+    setTimeout(() => {
+      SoundManager.instance.playBackground("background");
+      SoundManager.instance.pause("suspense");
+    }, 1000);
+  }
+
+  movingLeft(){
+    this.moveLeft();
+    this.hitbox = this.getHitBox();
+  }
+
+  movingRight(){
+    this.moveRight();
+    this.hitbox = this.getHitBox();
+  }
+
+  canIntroMoving(){
+    return this.i < 10
+  }
+
+  meetsCharacter(){
+    return this.world.character.x > 2800 && !characterMetEndboss
+  }
+
+  canJump(){
+    return !this.isAboveGround() && this.attacks()
+  }
+
+  canMoveLeft(){
+    return this.gotHurt && this.world.character.x <= this.x
+  }
+
+  canMoveRight(){
+    return this.gotHurt && this.world.character.x > this.x
   }
 
   jump() {
