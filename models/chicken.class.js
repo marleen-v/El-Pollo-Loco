@@ -32,26 +32,32 @@ class Chicken extends MovableObject {
     this.animate();
     this.sound = new Audio("audio/chicken.mp3");
     this.movingDirection();
+
   }
 
+  /**
+   * sets the moving direction of chicken
+   */
   movingDirection() {
     if (Math.random() < 0.5) {
       this.otherDirection = true;
     }
   }
 
+  /**
+   * sets stoppable intervals for movements, animation and sound of chicken
+   */
   animate() {
     setStoppableInterval(() => this.chickenMoves(), 1000 / 60);
     setStoppableInterval(() => this.chickenAnimation(), 80);
-    setStoppableInterval(() => this.playChickenSound(), 200);
+    setStoppableInterval(() => this.playChickenSound(), 200);  
   }
 
+  /**
+   *  moves the chicken left or right
+   */
   chickenMoves() {
-    if (this.atLevelStart()) {
-      this.otherDirection = true;
-    } else if (this.atLevelEnd()) {
-      this.otherDirection = false;
-    }
+    this.setDirection();
     if (this.otherDirection) {
       this.moveRight();
       this.hitbox = this.getHitBox();
@@ -61,14 +67,36 @@ class Chicken extends MovableObject {
     }
   }
 
+  /**
+   * sets direction of the Chicken
+   */
+  setDirection(){
+    if (this.atLevelStart()) {
+      this.otherDirection = true;
+    } else if (this.atLevelEnd()) {
+      this.otherDirection = false;
+    }
+  }
+
+  /**
+   * checks if the chicken is at starting point
+   * @returns 
+   */
   atLevelStart() {
     return this.x <= this.xStart;
   }
 
+  /**
+   * 
+   * @returns checks if chicken is at end point
+   */
   atLevelEnd() {
     return this.x >= this.xEnd;
   }
 
+  /**
+   * handles animation of chicken 
+   */
   chickenAnimation() {
     if (this.isDead()) {
       this.pauseSound();
@@ -77,4 +105,5 @@ class Chicken extends MovableObject {
       this.playAnimation(this.IMAGES_WALKING);
     }
   }
+
 }

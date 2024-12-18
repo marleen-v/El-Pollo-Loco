@@ -30,6 +30,9 @@ class MovableObject extends DrawableObject {
     this.hitbox = this.getHitBox();
   }
 
+  /**
+   * applies gravity
+   */
   applyGravity() {
     setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -40,10 +43,18 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /**
+   * 
+   * @returns checks if jumping
+   */
   isAboveGround() {
     return this.y < this.onGroundY;
   }
 
+  /**
+   * for playing animation 
+   * @param {Array} images 
+   */
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
@@ -51,25 +62,41 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
+  /**
+   * 
+   */
   resetLastAction() {
     this.lastActive = Date.now();
     this.isSleeping = false; // Charakter wakes up
     SoundManager.instance.pause("snoring");
   }
 
+  /**
+   * mo moves right
+   */
   moveRight() {
     this.x += this.speed;
   }
 
+  /**
+   * mo moves left
+   */
   moveLeft() {
     this.x -= this.speed;
   }
 
+  /**
+   * mo jumps
+   */
   jump() {
     this.speedY = 30;
     this.soundManager.play("jump");
   }
 
+  /**
+   * gets the hitbox from images and offsets
+   * @returns 
+   */
   getHitBox() {
     return {
       x: this.x + this.offset.left,
@@ -83,6 +110,11 @@ class MovableObject extends DrawableObject {
     };
   }
 
+  /**
+   * checks if mo is colliding with st.
+   * @param {String} mo 
+   * @returns 
+   */
   isColliding(mo) {
     return (
       this.hitbox.right > mo.hitbox.left &&
@@ -92,6 +124,11 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**
+   * checks if character jumps on enemy
+   * @param {String} mo 
+   * @returns 
+   */
   isJumpingOn(mo) {
     return (
       this.hitbox.right - mo.hitbox.left > this.hitbox.bottom - mo.hitbox.top &&
@@ -99,10 +136,16 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**
+   * character bounces up when jumping on enemy
+   */
   bounceUp() {
     this.speedY = 25;
   }
 
+  /**
+   * mo gets hit
+   */
   hit() {
     this.soundManager.play("hit");
     this.energy -= 10;
@@ -115,6 +158,9 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * character bounces back if hit from enemy
+   */
   bounceBack() {
     setStoppableInterval(() => {
       if (this.countForBounce <= 10) {
@@ -124,25 +170,40 @@ class MovableObject extends DrawableObject {
     }, 30);
   }
 
+  /**
+   * checks time of mo being hurt
+   * @returns 
+   */
   isHurt() {
     let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
     timePassed = timePassed / 1000; // difference in s
     return timePassed < 1; // animation is shown for 1 sec if character gets hurt
   }
 
+  /**
+   * mo attacks
+   * @returns 
+   */
   attacks() {
     let timePassed = new Date().getTime() - this.lastHit; // diefference in ms
     timePassed = timePassed / 1000; // difference in s
     return timePassed > 1 && timePassed <= 2; // animation is shown for 1 sec if endboss gets hurt
   }
 
+  /**
+   * checks if mo is dead
+   * @returns 
+   */
   isDead() {
     return this.energy == 0;
   }
 
+  /**
+   * character is asleep
+   * @returns 
+   */
   isAsleep() {
     let timePassed = new Date().getTime() - this.lastActive;
-
     if (timePassed >= this.sleepTime) {
       this.isSleeping = true; // Set isSleeping to true when 15 seconds have passed
       return true;
@@ -151,10 +212,17 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * checks if character is sleeping
+   * @returns 
+   */
   idle() {
     return !this.isSleeping;
   }
 
+  /**
+   * character collects coin item
+   */
   collectCoin() {
     if (this.wealth < 100) {
       this.wealth += 10;
@@ -162,6 +230,9 @@ class MovableObject extends DrawableObject {
     SoundManager.instance.play("coin");
   }
 
+  /**
+   * character collects bottle item
+   */
   collectBottle() {
     if (this.salsa < 100) {
       this.salsa += 10;
@@ -169,6 +240,9 @@ class MovableObject extends DrawableObject {
     SoundManager.instance.play("bottle");
   }
 
+  /**
+   * enemy takes damage
+   */
   takeDamage() {
     if (!this.isDead()) {
       this.energy -= 10;
@@ -180,8 +254,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  // enemies sounds
 
+  /**
+   * plays sounds of chicken and chickenSmall
+   */
   playSound() {
     this.sound.loop = true;
     this.sound.currentTime = 0 + Math.random() * 1;
@@ -191,19 +267,32 @@ class MovableObject extends DrawableObject {
     });
   }
 
+  /**
+   * pauses sounds of chicken and chicken Small
+   */
   pauseSound() {
     this.sound.pause();
   }
 
+  /**
+   * mutes sounds of chicken and chicken Small
+   */
   toggleMute() {
     this.isMuted = !this.isMuted;
     this.playChickenSound();
   }
 
+  /**
+   * checks if mo is near character
+   * @returns 
+   */
   nearCharacter() {
     return Math.abs(this.world.character.x - this.x) <= 500;
   }
 
+  /**
+   * plays sounds of chicken and chicken Small when near character
+   */
   playChickenSound() {
     // check if one or more enemies are near character
     if (this.nearCharacter() && !this.isMuted && gameStarted) {

@@ -32,6 +32,9 @@ class World {
     this.run();
   }
 
+  /**
+   * sets the world 
+   */
   setWorld() {
     this.character.world = this;
     this.throwableObject.world = this;
@@ -42,6 +45,9 @@ class World {
     });
   }
 
+  /**
+   * sets stoppable intervals
+   */
   run() {
     setStoppableInterval(() => {
       this.checkCollisions();
@@ -55,73 +61,72 @@ class World {
     }, 150);
   }
 
-  checkIfYouWon(){
-    
-    if(this.level.enemies.length == 0 && this.level.coins.length == 0) {
-      stopGame();
-      showWinningScreen();
-    } else if(this.level.enemies.length == 0 && this.level.coins.length != 0 && !this.thoughtBubbleActive){
-      this.thoughtBubble.push(new ThoughtBubble(1, this.character.x + 10, this.character.y + 100));
-      this.deleteThoughtBubble();
-      this.thoughtBubbleActive = true;
-    } else if(this.level.enemies.length != 0 && this.level.coins.length == 0 && !this.thoughtBubbleActive){
-      this.thoughtBubble.push(new ThoughtBubble(0, this.character.x + 10, this.character.y + 100));
-      this.deleteThoughtBubble();
-      this.thoughtBubbleActive = true;
-    }
-  }
 
-
-  deleteThoughtBubble(){
-    setTimeout(() => {
-      this.thoughtBubble.splice(0, 1);
-    }, 3000);
-  }
-
+  /**
+   * checks if throwing object is available, if it is, it throws one
+   */
   checkThrowObjects() {
-    
     if (this.keyboard.D || this.keyboard.throwButtonPressed) {
       if (this.character.salsa != 0) {
-        this.throwableObject.push(
-          new ThrowableObject(this.character.x + 10, this.character.y + 100)
-        );
-        this.soundManager.play('throw');
-        this.character.salsa -= 10;
-        this.statusbar_bottle.setPercentage(this.character.salsa);
+        this.throwObject();
       }
       this.keyboard.throwButtonPressed = false;
     }
   }
 
+  throwObject(){
+    this.throwableObject.push(
+      new ThrowableObject(this.character.x + 10, this.character.y + 100)
+    );
+    this.soundManager.play('throw');
+    this.character.salsa -= 10;
+    this.statusbar_bottle.setPercentage(this.character.salsa);
+  }
+
+  /**
+   * checks if thrown bottle hits an enemy
+   */
   checkThrowObjectsCollision() {
     const throwableObjectsSnapshot = [...this.throwableObject]; // copy of throwableObject
     const enemiesSnapshot = [...this.level.enemies]; // Copy of enemeies
   
     throwableObjectsSnapshot.forEach((bottle) => {
       let bottleRemoved = false;
-      // check collision with enemy
       enemiesSnapshot.forEach((enemy) => {
         if (bottle.isColliding(enemy) && !bottle.hitEnemy) {
-          this.soundManager.play('bottle_break');
-          bottle.hitEnemy = true;
-          enemy.takeDamage();
-          this.updateEndbossHealth(enemy);
-          
-          if (enemy.isDead()) {
-          this.removeEnemy(enemy, bottle);
-          } else{
-            SoundManager.instance.play('endboss_hit'); 
-          }
-          this.removeBottle(bottle, bottleRemoved);
+          this.bottleHitsEnemy(enemy, bottle, bottleRemoved);
         }
       });
-      // remove bottle, if it did not collide with enemy
       if (!bottleRemoved && bottle.y >= 400) {
         this.removeBottle(bottle, bottleRemoved);
       }
     });
   }
 
+  /**
+   * bottle hits enemy
+   * @param {String} enemy 
+   * @param {String} bottle 
+   * @param {String} bottleRemoved 
+   */
+  bottleHitsEnemy(enemy, bottle, bottleRemoved){
+    this.soundManager.play('bottle_break');
+    bottle.hitEnemy = true;
+    enemy.takeDamage();
+    this.updateEndbossHealth(enemy);
+    if (enemy.isDead()) {
+    this.removeEnemy(enemy, bottle);
+    } else{
+      SoundManager.instance.play('endboss_hit'); 
+    }
+    this.removeBottle(bottle, bottleRemoved);
+  }
+
+  /**
+   * removes a thrown bottle
+   * @param {String} bottle 
+   * @param {String} bottleRemoved 
+   */
   removeBottle(bottle, bottleRemoved){
     setTimeout(() => {
       const bottleIndex = this.throwableObject.indexOf(bottle);
@@ -132,6 +137,11 @@ class World {
     }, 300);
   }    
 
+  /**
+   * removes enemy of canvas if dead
+   * @param {String} enemy 
+   * @param {String} bottle 
+   */
   removeEnemy(enemy, bottle) {
     this.soundManager.play('damage');
     setTimeout(() => {
@@ -144,12 +154,19 @@ class World {
     }, 500); 
   }
 
+  /**
+   * updates the statusbar of endboss
+   * @param {String} enemy 
+   */
   updateEndbossHealth(enemy) {
     if(enemy === this.level.enemies[0]){
       this.statusbar_endboss.setPercentage(this.level.enemies[0].energy);
     }
   }
   
+  /**
+   * checks if character collides with enemy
+   */
   checkCollisions() {
     const enemiesSnapshot = [...this.level.enemies]; // copy of enemies
   
@@ -170,6 +187,9 @@ class World {
     });
   }
 
+   /**
+   * checks if character collides with collectable coin item
+   */
   checkCollectCoin() {
     this.level.coins.forEach((item, index) => {
       if (this.character.isColliding(item)) {
@@ -181,6 +201,9 @@ class World {
     });
   }
 
+    /**
+   * checks if character collides with collectable bottle item
+   */
   checkCollectBottle() {
     this.level.bottles.forEach((item, index) => {
       if (this.character.isColliding(item)) {
@@ -191,6 +214,86 @@ class World {
     });
   }
 
+  
+  /**
+   * checks if character won
+   */
+  checkIfYouWon(){
+    
+    if(this.level.enemies.length == 0 && this.level.coins.length == 0) {
+      stopGame();
+      showWinningScreen();
+    } else if(this.level.enemies.length == 0 && this.level.coins.length != 0 && !this.thoughtBubbleActive){
+      this.thoughtBubble.push(new ThoughtBubble(1, this.character.x + 10, this.character.y + 100));
+      this.deleteThoughtBubble();
+      this.thoughtBubbleActive = true;
+    } else if(this.level.enemies.length != 0 && this.level.coins.length == 0 && !this.thoughtBubbleActive){
+      this.thoughtBubble.push(new ThoughtBubble(0, this.character.x + 10, this.character.y + 100));
+      this.deleteThoughtBubble();
+      this.thoughtBubbleActive = true;
+    }
+  }
+
+/**
+ * deletes thought bubble
+ */
+  deleteThoughtBubble(){
+    setTimeout(() => {
+      this.thoughtBubble.splice(0, 1);
+    }, 3000);
+  }
+
+
+/**
+ * adds objects to map
+ * @param {Array} objects 
+ */
+  addObjectsToMap(objects) {
+    objects.forEach((o) => {
+      this.addToMap(o);
+    });
+  }
+
+  /**
+   * adds object to map
+   * @param {*} mO 
+   */
+  addToMap(mO) {
+    if (mO.otherDirection) {
+      this.flipImage(mO);
+    }
+
+    mO.draw(this.ctx);
+    /* mO.drawFrame(this.ctx); */
+
+    if (mO.otherDirection) {
+      this.flipImageBack(mO);
+    }
+  }
+
+  /**
+   * flips image of mo when moving the other direction
+   * @param {String} mO 
+   */
+  flipImage(mO) {
+    this.ctx.save(); // saves the current state, including position, style and transformations.
+    this.ctx.translate(mO.width, 0);
+    this.ctx.scale(-1, 1);
+    mO.x = mO.x * -1;
+  }
+
+  /**
+   * flips image back to default
+   * @param {String} mO 
+   */
+  flipImageBack(mO) {
+    mO.x = mO.x * -1;
+    this.ctx.restore(); // resets the canvas state to the last saved state, undoing any changes in between.
+  }
+
+  /**
+   * draws all objects on canvas
+   */
   draw() {
     //Clear before drawing new
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -219,7 +322,6 @@ class World {
     this.addObjectsToMap(this.throwableObject);
     this.addObjectsToMap(this.thoughtBubble); 
 
-
     this.ctx.translate(-this.camera_x, 0);
 
 
@@ -228,37 +330,6 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
-  }
-
-  addObjectsToMap(objects) {
-    objects.forEach((o) => {
-      this.addToMap(o);
-    });
-  }
-
-  addToMap(mO) {
-    if (mO.otherDirection) {
-      this.flipImage(mO);
-    }
-
-    mO.draw(this.ctx);
-    /* mO.drawFrame(this.ctx); */
-
-    if (mO.otherDirection) {
-      this.flipImageBack(mO);
-    }
-  }
-
-  flipImage(mO) {
-    this.ctx.save(); // saves the current state, including position, style and transformations.
-    this.ctx.translate(mO.width, 0);
-    this.ctx.scale(-1, 1);
-    mO.x = mO.x * -1;
-  }
-
-  flipImageBack(mO) {
-    mO.x = mO.x * -1;
-    this.ctx.restore(); // resets the canvas state to the last saved state, undoing any changes in between.
   }
 
 }

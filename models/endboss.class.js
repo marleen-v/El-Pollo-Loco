@@ -74,11 +74,111 @@ class Endboss extends MovableObject {
     this.animate();
   }
 
+  /**
+   * sets intervals of animatiom and movements
+   */
   animate() {
     setStoppableInterval(() => this.endbossAnimation(), 200);
     setStoppableInterval(() => this.endbossMoves(), 1000 / 60);
   }
 
+  /**
+   * sets first encounter of true and plays suspense music
+   */
+  meetsCharacterMovement() {
+    this.i = 0;
+    this.speed = 5;
+    this.characterMetEndboss = true;
+    this.playSuspenseMusic();
+  }
+
+  /**
+   * plays Suspense music while enboss alive 
+   */
+  playSuspenseMusic() {
+    SoundManager.instance.pause("background");
+    SoundManager.instance.play("suspense");
+  }
+
+  /**
+   * plays normal Background music again
+   */
+  playBackgroundMusic() {
+    if (!this.musicAlreadyPlayed) {
+      setTimeout(() => {
+        SoundManager.instance.playBackground("background");
+        SoundManager.instance.pause("suspense");
+        this.musicAlreadyPlayed = true;
+      }, 1000);
+    }
+  }
+
+  /**
+   * endboss moves left
+   */
+  movingLeft() {
+    this.moveLeft();
+    this.hitbox = this.getHitBox();
+  }
+
+  /**
+   * endboss moves right
+   */
+  movingRight() {
+    this.moveRight();
+    this.hitbox = this.getHitBox();
+  }
+
+  /**
+   * checks if endboss shall move left for first encounter with character
+   * @returns 
+   */
+  canIntroMoving() {
+    return this.i < 10;
+  }
+
+  /**
+   * 
+   * @returns checks if character met endboss
+   */
+  meetsCharacter() {
+    return this.world.character.x > 2800 && !this.characterMetEndboss;
+  }
+
+  /**
+   * 
+   * @returns checks if endboss can jump
+   */
+  canJump() {
+    return !this.isAboveGround() && this.attacks();
+  }
+
+  /**
+   * 
+   * @returns checks if endboss can move left
+   */
+  canMoveLeft() {
+    return this.gotHurt && this.world.character.x <= this.x;
+  }
+
+  /**
+   * checks if endboss can move right
+   * @returns 
+   */
+  canMoveRight() {
+    return this.gotHurt && this.world.character.x > this.x;
+  }
+
+  /**
+   * enboss jumps
+   */
+  jump() {
+    this.speedY = 40;
+  }
+
+  /**
+   * animation of enboss
+   */
   endbossAnimation() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
@@ -98,6 +198,9 @@ class Endboss extends MovableObject {
     this.i++;
   }
 
+  /**
+   * all movements of enboss
+   */
   endbossMoves() {
     if (this.meetsCharacter()) {
       this.meetsCharacterMovement();
@@ -116,61 +219,5 @@ class Endboss extends MovableObject {
       this.otherDirection = true;
       this.movingRight();
     }
-  }
-
-  meetsCharacterMovement() {
-    this.i = 0;
-    this.speed = 5;
-    this.characterMetEndboss = true;
-    this.playSuspenseMusic();
-  }
-
-  playSuspenseMusic() {
-    SoundManager.instance.pause("background");
-    SoundManager.instance.play("suspense");
-  }
-
-  playBackgroundMusic() {
-    if (!this.musicAlreadyPlayed) {
-      setTimeout(() => {
-        SoundManager.instance.playBackground("background");
-        SoundManager.instance.pause("suspense");
-        this.musicAlreadyPlayed = true;
-      }, 1000);
-    }
-  }
-
-  movingLeft() {
-    this.moveLeft();
-    this.hitbox = this.getHitBox();
-  }
-
-  movingRight() {
-    this.moveRight();
-    this.hitbox = this.getHitBox();
-  }
-
-  canIntroMoving() {
-    return this.i < 10;
-  }
-
-  meetsCharacter() {
-    return this.world.character.x > 2800 && !this.characterMetEndboss;
-  }
-
-  canJump() {
-    return !this.isAboveGround() && this.attacks();
-  }
-
-  canMoveLeft() {
-    return this.gotHurt && this.world.character.x <= this.x;
-  }
-
-  canMoveRight() {
-    return this.gotHurt && this.world.character.x > this.x;
-  }
-
-  jump() {
-    this.speedY = 40;
   }
 }

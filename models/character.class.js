@@ -92,11 +92,17 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /**
+   * animates and moves Character, sets intervals
+   */
   animate() {
     setStoppableInterval(() => this.characterMoves(), 1000 / 60);
     setStoppableInterval(() => this.CharacterAnimation(), 90);
   }
 
+  /**
+   * animates character
+   */
   CharacterAnimation() {
     if (this.isDead()) {
       this.handleDeath();
@@ -113,7 +119,9 @@ class Character extends MovableObject {
     }
   }
 
-  // Hilfsfunktionen für einzelne Zustände
+  /**
+   * animates characters death, as well as end of game
+   */
   handleDeath() {
     if (!this.hasPlayedDeadAnimation) {
       this.playAnimation(this.IMAGES_DEAD);
@@ -123,53 +131,49 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * hurt animation of character
+   */
   handleHurt() {
     this.playAnimation(this.IMAGES_HURT);
     this.resetLastAction();
   }
 
+  /**
+   * jump animation of character
+   */
   handleJumping() {
     this.playAnimation(this.IMAGES_JUMPING);
     this.resetLastAction();
   }
 
+  /**
+   * walking animation of character
+   */
   handleWalking() {
     this.playAnimation(this.IMAGES_WALKING);
     this.resetLastAction();
   }
 
+  /**
+   * sleeping animation of character
+   */
   handleSleeping() {
     this.playAnimation(this.IMAGES_SLEEPING);
   }
 
+  /**
+   * idle animation of character
+   */
   handleIdle() {
     this.playAnimation(this.IMAGES_IDLE);
     SoundManager.instance.play("snoring");
   }
 
-  /*   CharacterAnimation() {
-    if (this.isDead() && !this.hasPlayedDeadAnimation) {
-      this.playAnimation(this.IMAGES_DEAD);
-      this.hasPlayedDeadAnimation = true;
-      stopGame();
-      showGameoverScreen();
-    } else if (this.isHurt()) {
-      this.playAnimation(this.IMAGES_HURT);
-      this.resetLastAction();
-    } else if (this.isAboveGround()) {
-      this.playAnimation(this.IMAGES_JUMPING);
-      this.resetLastAction();
-    } else if (this.canPlayWalkingAnimation()) {
-      this.playAnimation(this.IMAGES_WALKING);
-      this.resetLastAction();
-    } else if (this.isAsleep()) {
-      this.playAnimation(this.IMAGES_SLEEPING);
-    } else if (this.idle()) {
-      this.playAnimation(this.IMAGES_IDLE);
-      SoundManager.instance.play("snoring");
-    }
-  } */
-
+  /**
+   * condition for walking animation
+   * @returns 
+   */
   canPlayWalkingAnimation() {
     return (
       this.world.keyboard.RIGHT ||
@@ -179,6 +183,10 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * condition for moving character right
+   * @returns 
+   */
   canMoveRight() {
     return (
       (this.world.keyboard.RIGHT || this.world.keyboard.rightButtonPressed) &&
@@ -186,6 +194,10 @@ class Character extends MovableObject {
     );
   }
 
+    /**
+   * condition for charcter jumping
+   * @returns 
+   */
   canJump() {
     return (
       (this.world.keyboard.UP || this.world.keyboard.jumpButtonPressed) &&
@@ -193,6 +205,10 @@ class Character extends MovableObject {
     );
   }
 
+   /**
+   * condition for moving character left
+   * @returns 
+   */
   canMoveLeft() {
     return (
       (this.world.keyboard.LEFT || this.world.keyboard.leftButtonPressed) &&
@@ -200,23 +216,19 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * handles character movements
+   */
   characterMoves() {
     this.hitbox = this.getHitBox();
     if (!this.hasPlayedDeadAnimation) {
       SoundManager.instance.pause("running");
-
       if (this.canMoveLeft()) {
         this.movesLeft();
-        this.backgroundMovesLeft();
-        this.world.camera_x = -this.x + 200;
       }
-
       if (this.canMoveRight()) {
         this.movesRight();
-        this.backgroundMovesRight();
-        this.world.camera_x = -this.x + 200;
       }
-
       if (this.canJump()) {
         this.jumps();
       }
@@ -225,40 +237,64 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * moves the character right
+   */
   movesRight() {
     this.otherDirection = false;
     otherDirectionCharacter = false;
     this.moveRight();
+    this.backgroundMovesRight();
     SoundManager.instance.play("running");
   }
 
+   /**
+   * moves the character left
+   */
   movesLeft() {
     this.otherDirection = true;
     otherDirectionCharacter = true; // for throwing object
     this.moveLeft();
+    this.backgroundMovesLeft();
     SoundManager.instance.play("running");
   }
 
+   /**
+   * moves background to the right when Character walks
+   */
   backgroundMovesRight() {
     this.world.level.backgroundObjects.forEach((bg) => bg.moveLeft());
     this.world.level.clouds.forEach((cloud) => cloud.moveRightWithCamera());
   }
 
+  /**
+   * moves background to the left when Character walks
+   */
   backgroundMovesLeft() {
     this.world.level.backgroundObjects.forEach((bg) => bg.moveRight());
     this.world.level.clouds.forEach((cloud) => cloud.moveLeftWithCamera());
   }
 
+  /**
+   * animation of thoughtBubble if visible
+   */
   thoughtBubbleAnimation() {
     if (this.thoughtBubbleVisible()) {
       this.thoughtBubbleMoves();
     }
   }
 
+  /**
+   * checks if the thoughtBubble is visible
+   * @returns 
+   */
   thoughtBubbleVisible() {
     return this.world.thoughtBubble.length != undefined;
   }
 
+  /**
+   * moves thought bubble
+   */
   thoughtBubbleMoves() {
     this.world.thoughtBubble.forEach((bubble) => {
       bubble.x = this.x - 80;
@@ -266,6 +302,9 @@ class Character extends MovableObject {
     });
   }
 
+  /**
+   * character jumps
+   */
   jumps() {
     this.jump();
     this.world.camera_x = -this.x + 200;

@@ -49,6 +49,10 @@ class Statusbar extends DrawableObject {
     this.setPercentage(this.percentageStartValue());
   }
 
+  /**
+   * returns start value of each statusbar
+   * @returns 
+   */
   percentageStartValue() {
     if (this.images === this.IMAGES || this.images === this.IMAGES_ENDBOSS) {
       return 100;
@@ -57,6 +61,10 @@ class Statusbar extends DrawableObject {
     }
   }
 
+  /**
+   * assigns images to percentage
+   * @param {Array} images 
+   */
   assignImages(images) {
     if (images === "health") {
       this.images = this.IMAGES;
@@ -78,12 +86,20 @@ class Statusbar extends DrawableObject {
     }
   }
 
+  /**
+   * sets percentage for image ebing shown 
+   * @param {*} percentage 
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * returns the index current  image of each statusbar
+   * @returns 
+   */
   resolveImageIndex() {
     if (this.percentage > 80) {
       return 5;
@@ -100,10 +116,16 @@ class Statusbar extends DrawableObject {
     }
   }
 
+  /**
+   * animates the statusbar from endboss
+   */
   animateEndbossStatusbar() {
     setStoppableInterval(() => this.moveToPosition(), 1000 / 60);
   }
 
+  /**
+   * displays endboss statusbar when character meets endboss
+   */
   moveToPosition() {
     if(this.world.level.enemies[0].characterMetEndboss != undefined){
       if (this.world.level.enemies[0].characterMetEndboss && this.x >= 550) {
@@ -116,6 +138,9 @@ class Statusbar extends DrawableObject {
    
   }
 
+  /**
+   * statusbar endboss moves left
+   */
   moveLeft() {
     this.x -= this.speed;
   }

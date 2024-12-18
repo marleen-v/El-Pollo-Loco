@@ -21,6 +21,9 @@ class CollectibleItem extends MovableObject {
     this.animate();
   }
 
+  /**
+   * set Stoppable interval for animation
+   */
   animate() {
     setStoppableInterval(() => {
       this.playAnimation(this.images);

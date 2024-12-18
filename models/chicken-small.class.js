@@ -40,18 +40,27 @@ class ChickenSmall extends MovableObject {
     this.movingDirection();
   }
 
+  /**
+   * sets the moving direction
+   */
   movingDirection() {
     if (Math.random() < 0.5) {
       this.otherDirection = true;
     }
   }
 
+  /**
+   * animates the chicken, sets stoppable intervals
+   */
   animate() {
     setStoppableInterval(() => this.chickenSmallMoves(), 1000 / 60);
     setStoppableInterval(() => this.chickenAnimation(), 200);
     setStoppableInterval(() => this.playChickenSound(), 200);
   }
 
+  /**
+   * animates the chicken
+   */
   chickenAnimation() {
     if (this.isDead()) {
       this.pauseSound();
@@ -61,40 +70,82 @@ class ChickenSmall extends MovableObject {
     }
   }
 
+  /**
+   * handles all movements of chicken
+   */
   chickenSmallMoves() {
     // change directions when it gets to level bounderies
     this.changeDirections();
     this.walkAndJumpAnimation();
   }
 
+  /**
+   * movements of chicken, jumping and walking
+   */
   walkAndJumpAnimation() {
     //changes from jumping to walking to jumping ...
     if (!this.isAboveGround() && this.i < 2) {
       this.jump();
-      this.hitbox = this.getHitBox();
+      this.updateHitbox();
       this.i++;
     } else if (!this.isAboveGround() && this.i >= 2 && this.isMovingLeft()) {
-      this.moveLeft();
-      this.hitbox = this.getHitBox();
-      this.i++;
+      this.handleMovingLeft();
     } else if (!this.isAboveGround() && this.i >= 2 && this.isMovingRigt()) {
-      this.moveRight();
-      this.hitbox = this.getHitBox();
-      this.i++;
-    } else if (this.isMovingLeft()) {
-      // moves while isAboveGround (while jumping)
-      this.moveLeft();
-      this.hitbox = this.getHitBox();
+      this.handleMovingRight();
+    } else if (this.isMovingLeft()) {       // moves while isAboveGround (while jumping)
+      this.leftJump();
     } else {
-      this.moveRight();
-      this.hitbox = this.getHitBox();
+      this.rightJump();
     }
+    this.beginNewCircle();
+  }
 
+  /**
+   * chicken jumps to the right
+   */
+  rightJump(){
+    this.moveRight();
+      this.updateHitbox();
+  }
+
+  /**
+   * chicken jumps to the left
+   */
+  leftJump(){
+    this.moveLeft();
+      this.updateHitbox();
+  }
+
+  /**
+   * sets a new jumping circle
+   */
+  beginNewCircle(){
     if (this.i > 80) {
       this.i = 0; // begins jumping again
     }
   }
 
+  /**
+   * chicken walks to the right
+   */
+  handleMovingRight(){
+    this.moveRight();
+    this.updateHitbox();
+    this.i++;
+  }
+
+  /**
+   * chicken walks to the left
+   */
+  handleMovingLeft(){
+  this.moveLeft();
+      this.updateHitbox();
+      this.i++;
+  }
+
+  /**
+   * changes the moving direction of chicken, when it gets to the beginning or end of the level
+   */
   changeDirections() {
     if (this.atLevelStartPoint()) {
       this.otherDirection = true;
@@ -103,27 +154,52 @@ class ChickenSmall extends MovableObject {
     }
   }
 
+  /**
+   * updates the hitbox
+   */
+  updateHitbox(){
+    this.hitbox = this.getHitBox();
+  }
+
+  /**
+   * checks if chicken is at the starting point 
+   * @returns 
+   */
   atLevelStartPoint() {
     return this.x <= this.xStart;
   }
+
+  /**
+   * checks if chicken is at the end point 
+   * @returns 
+   */
   atLevelEndPoint() {
     return this.x >= this.xEnd;
   }
 
+  /**
+   * checks if chicken can move right
+   * @returns 
+   */
   isMovingRigt() {
     return this.otherDirection == true;
   }
 
+  /**
+   * checks if the chicken can move left
+   * @returns 
+   */
   isMovingLeft() {
     return this.otherDirection == false;
   }
 
+  /**
+   * chicken jumps
+   */
   jump() {
     if (!this.isDead()) {
       this.speedY = 20;
     }
   }
-
- 
 
 }

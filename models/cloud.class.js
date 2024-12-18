@@ -11,13 +11,23 @@ class Cloud extends MovableObject {
     this.animate();
   }
 
+  /**
+   * sets stoppable interval
+   */
   animate() {
     setStoppableInterval(() => this.moveLeft(), 1000 / 60);
   }
 
+  /**
+   * moves left when camera moves left
+   */
   moveLeftWithCamera() {
     this.x -= this.cameraSpeed;
   }
+
+  /**
+   * moves right when camera moves right
+   */
   moveRightWithCamera() {
     this.x += this.cameraSpeed;
   }

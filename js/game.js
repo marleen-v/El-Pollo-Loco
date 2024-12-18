@@ -125,7 +125,7 @@ function dialogClose() {
 function toggleSounds() {
   soundManager.toggleMute(); // all sounds besides enemies
   world.level.enemies.forEach((enemy) => {
-    if (enemy instanceof ChickenSmall /* || enemy instanceof Chicken */) {
+    if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
       enemy.toggleMute();
     }
   });

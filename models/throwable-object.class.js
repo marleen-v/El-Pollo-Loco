@@ -26,8 +26,6 @@ class ThrowableObject extends MovableObject {
   hitEnemy = false;
   world;
 
-  
-  
   constructor(x, y) {
     super().loadImage(
       "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png"
@@ -44,6 +42,9 @@ class ThrowableObject extends MovableObject {
     this.direction = otherDirectionCharacter ? -1 : 1; 
   }
 
+  /**
+   * object animation
+   */
   throw() {
     this.speedY = 25;
     this.hitbox = this.getHitBox();
@@ -54,11 +55,13 @@ class ThrowableObject extends MovableObject {
         this.hitbox = this.getHitBox();
       } else {
         this.speedY = 0;
-        
       }
     }, 1000 / 60);
   }
 
+  /**
+   * animates thrown bottle
+   */
   animate() {
     let i = 0;
     setStoppableInterval(() => {
@@ -71,10 +74,17 @@ class ThrowableObject extends MovableObject {
     }, 80);
   }
 
+  /**
+   * if bottle does not hit st. than it falls and falls
+   * @returns 
+   */
   isAboveGround() {
     return true;
   }
 
+  /**
+   * applies gravity to thown bottle
+   */
   applyGravity() {
     setStoppableInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
