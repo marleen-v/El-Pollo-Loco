@@ -8,8 +8,6 @@ class ChickenSmall extends MovableObject {
 
   world;
 
-  isMuted = false;
-
   offset = {
     top: 0,
     left: 5,
@@ -36,7 +34,6 @@ class ChickenSmall extends MovableObject {
     this.applyGravity();
     this.animate();
     this.i = 1 + Math.random() * 10;
-    this.sound = new Audio("audio/chickenSmall.mp3"); 
     this.movingDirection();
   }
 
@@ -55,7 +52,7 @@ class ChickenSmall extends MovableObject {
   animate() {
     setStoppableInterval(() => this.chickenSmallMoves(), 1000 / 60);
     setStoppableInterval(() => this.chickenAnimation(), 200);
-    setStoppableInterval(() => this.playChickenSound(), 200);
+  
   }
 
   /**
@@ -63,7 +60,6 @@ class ChickenSmall extends MovableObject {
    */
   chickenAnimation() {
     if (this.isDead()) {
-      this.pauseSound();
       this.playAnimation(this.IMAGES_DEAD);
     } else {
       this.playAnimation(this.IMAGES_WALKING);

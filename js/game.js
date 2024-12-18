@@ -124,11 +124,11 @@ function dialogClose() {
  */
 function toggleSounds() {
   soundManager.toggleMute(); // all sounds besides enemies
-  world.level.enemies.forEach((enemy) => {
+ /*  world.level.enemies.forEach((enemy) => {
     if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
       enemy.toggleMute();
     }
-  });
+  }); */
 }
 
 /**

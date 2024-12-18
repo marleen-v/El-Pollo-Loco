@@ -30,6 +30,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.playSoundsOfEnemies()
   }
 
   /**
@@ -54,6 +55,7 @@ class World {
       this.checkCollectCoin();
       this.checkCollectBottle();
       this.checkThrowObjectsCollision();
+      this.checkSoundsOfEnemies();
     }, 1000 / 60);
 
     setStoppableInterval(() => {
@@ -61,6 +63,35 @@ class World {
     }, 150);
   }
 
+  hasChickenEnemiesLeft() {
+    return this.level.enemies.some(enemy => 
+        enemy instanceof Chicken
+    );
+}
+hasChickenSmallEnemiesLeft() {
+    return this.level.enemies.some(enemy => 
+      enemy instanceof ChickenSmall
+    );
+}
+
+  checkSoundsOfEnemies(){
+    if(!this.hasChickenEnemiesLeft()){
+      this.soundManager.pause('chicken');
+    } 
+    if(!this.hasChickenSmallEnemiesLeft()){
+      this.soundManager.pause('chicken_small');
+    } 
+  }
+
+  playSoundsOfEnemies(){
+      if (this.hasChickenEnemiesLeft()) {
+        this.soundManager.play('chicken');
+      }
+       if (this.hasChickenSmallEnemiesLeft()){
+        this.soundManager.play('chicken_small');
+      }
+   
+  }
 
   /**
    * checks if throwing object is available, if it is, it throws one
