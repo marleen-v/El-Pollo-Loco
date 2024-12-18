@@ -10,8 +10,8 @@ class Character extends MovableObject {
   offset = {
     // to adjust the image dimensions
     top: 120,
-    left: 35,
-    right: 35,
+    left: 40,
+    right: 40,
     bottom: 20,
   };
 
@@ -98,6 +98,56 @@ class Character extends MovableObject {
   }
 
   CharacterAnimation() {
+    if (this.isDead()) {
+      this.handleDeath();
+    } else if (this.isHurt()) {
+      this.handleHurt();
+    } else if (this.isAboveGround()) {
+      this.handleJumping();
+    } else if (this.canPlayWalkingAnimation()) {
+      this.handleWalking();
+    } else if (this.isAsleep()) {
+      this.handleSleeping();
+    } else if (this.idle()) {
+      this.handleIdle();
+    }
+  }
+
+  // Hilfsfunktionen für einzelne Zustände
+  handleDeath() {
+    if (!this.hasPlayedDeadAnimation) {
+      this.playAnimation(this.IMAGES_DEAD);
+      this.hasPlayedDeadAnimation = true;
+      stopGame();
+      showGameoverScreen();
+    }
+  }
+
+  handleHurt() {
+    this.playAnimation(this.IMAGES_HURT);
+    this.resetLastAction();
+  }
+
+  handleJumping() {
+    this.playAnimation(this.IMAGES_JUMPING);
+    this.resetLastAction();
+  }
+
+  handleWalking() {
+    this.playAnimation(this.IMAGES_WALKING);
+    this.resetLastAction();
+  }
+
+  handleSleeping() {
+    this.playAnimation(this.IMAGES_SLEEPING);
+  }
+
+  handleIdle() {
+    this.playAnimation(this.IMAGES_IDLE);
+    SoundManager.instance.play("snoring");
+  }
+
+  /*   CharacterAnimation() {
     if (this.isDead() && !this.hasPlayedDeadAnimation) {
       this.playAnimation(this.IMAGES_DEAD);
       this.hasPlayedDeadAnimation = true;
@@ -118,7 +168,7 @@ class Character extends MovableObject {
       this.playAnimation(this.IMAGES_IDLE);
       SoundManager.instance.play("snoring");
     }
-  }
+  } */
 
   canPlayWalkingAnimation() {
     return (

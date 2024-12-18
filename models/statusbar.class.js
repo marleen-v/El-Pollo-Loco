@@ -105,12 +105,15 @@ class Statusbar extends DrawableObject {
   }
 
   moveToPosition() {
-    if (this.world.level.enemies[0].characterMetEndboss && this.x >= 550) {
-      this.moveLeft();
-      if (this.x >= 550) {
+    if(this.world.level.enemies[0].characterMetEndboss != undefined){
+      if (this.world.level.enemies[0].characterMetEndboss && this.x >= 550) {
         this.moveLeft();
+        if (this.x >= 550) {
+          this.moveLeft();
+        }
       }
     }
+   
   }
 
   moveLeft() {

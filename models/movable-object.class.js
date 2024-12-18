@@ -206,7 +206,7 @@ class MovableObject extends DrawableObject {
 
   playChickenSound() {
     // check if one or more enemies are near character
-    if (this.nearCharacter() && !this.isMuted) {
+    if (this.nearCharacter() && !this.isMuted && gameStarted) {
       this.playSound();
     } else {
       this.pauseSound();

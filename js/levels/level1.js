@@ -1,23 +1,23 @@
 let level1; 
 
+/**
+ * initializes the level with all enemies, coins, background objects and collectable bottles
+ */
 function initLevel(){
     level1 = new Level(
         [   new Endboss(),  
 
-           /*  new ChickenSmall(),
+             new ChickenSmall(),
             new ChickenSmall(),
             new ChickenSmall(),
             new ChickenSmall(),
-            new ChickenSmall(),
-            new ChickenSmall(),
+        
 
             new Chicken(), 
             new Chicken(),  
             new Chicken(), 
             new Chicken(),  
-            new Chicken(), 
-            new Chicken(),   */
-         
+          
         ],
         [   
             new Cloud("1"), 

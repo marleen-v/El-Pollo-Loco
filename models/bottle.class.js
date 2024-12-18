@@ -15,7 +15,6 @@ class Bottle extends MovableObject {
   constructor(index, x) {
     super();
     this.loadImage(this.IMAGES[index]);
-
     this.x = x;
     this.y = 365;
     this.width = 40;

@@ -29,18 +29,29 @@ function initializeApp() {
   addOrientationListeners();
 }
 
+/**
+ * sets an interval and combines all intervals in an array
+ * @param {Function} fn 
+ * @param {Number} time 
+ */
 function setStoppableInterval(fn, time) {
   let id = setInterval(fn, time);
   intervalIds.push(id);
 }
 
+/**
+ * stops the game, resets all intervals and stopps Sounds
+ */
 function stopGame() {
   gameStarted = false;
   resetIntervals();
-  soundManager.pauseAll(); // besides Chicken and ChickenSmal
- this.pauseSoundOfEnemies();
+  soundManager.pauseAll(); // besides Chicken and ChickenSmall
+  this.pauseSoundOfEnemies();
 }
 
+/**
+ * sounds of enemies Chicken and cChicken Small are paused for stopGame()
+ */
 function pauseSoundOfEnemies(){
   world.level.enemies.forEach((enemy) => {
     if(enemy instanceof Chicken || enemy instanceof ChickenSmall){
@@ -49,24 +60,39 @@ function pauseSoundOfEnemies(){
   })
 }
 
+/**
+ * resets all Intervals
+ */
 function resetIntervals() {
   intervalIds.forEach(clearInterval);
   intervalIds = [];
 }
 
+/**
+ * restarts game
+ */
 function restartGame() {
   resetIntervals();
   startGame();
 }
 
+/**
+ * shows loading spinner before game
+ */
 function showLoadingSpinner() {
   toggleVisibility("spinner", true);
 }
 
+/**
+ * hides loading spinner 
+ */
 function hideLoadingSpinner() {
   toggleVisibility("spinner", false);
 }
 
+/**
+ * starts the game
+ */
 async function startGame() {
   initLevel();
   canvas = document.getElementById("canvas");
@@ -115,6 +141,9 @@ function toggleDisplay(img, img_active) {
   imgRef[img_active].classList.remove("d_none");
 }
 
+/**
+ * toggles the fullscreen
+ */
 function toggleFullscreen() {
   const fullscreen = document.getElementById("fullscreen");
   if (!fullscreen_on) {
@@ -161,7 +190,9 @@ function toggleVisibility(elementId, isVisible) {
   }
 }
 
-
+/**
+ * shows game screen
+ */
 function showGameScreen() {
   toggleVisibility("fullscreen", true);
   toggleVisibility("start", false);
@@ -169,6 +200,9 @@ function showGameScreen() {
   toggleVisibility("win-screen", false);
 }
 
+/**
+ * shows start screen
+ */
 function showStartScreen() {
   toggleVisibility("start", true);
   toggleVisibility("fullscreen", false);
@@ -176,24 +210,35 @@ function showStartScreen() {
   toggleVisibility("win-screen", false);
 }
 
+/**
+ * show game-over-screen
+ */
 function showGameoverScreen() {
   toggleVisibility("game-over-screen", true);
   soundManager.play("gameOver");
 }
 
+/**
+ * hides game-over-screen
+ */
 function hideGameOverScreen() {
   toggleVisibility("game-over-screen", false);
 }
 
+/**
+ * shows winning-screen
+ */
 function showWinningScreen() {
   toggleVisibility("win-screen", true);
   soundManager.play("win");
 }
+
+/**
+ * hides winning screen
+ */
 function hideWinningScreen() {
   toggleVisibility("win-screen", false);
 }
-
-
 
 //------------------------------------------ Check Orientaion------------------------
 
@@ -215,12 +260,18 @@ function showMainContent() {
   toggleVisibility("canvas-container", true);
 }
 
+/**
+ * checks orientation of device
+ */
 function checkOrientation() {
   window.innerHeight > window.innerWidth
     ? showRotateMessage()
     : showMainContent();
 }
 
+/**
+ * adds Listeners for orientation
+ */
 function addOrientationListeners() {
   checkOrientation();
   window.addEventListener("resize", checkOrientation);
