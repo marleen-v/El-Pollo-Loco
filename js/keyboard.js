@@ -84,13 +84,12 @@ const mobileControls = {
     const container = document.getElementById("mobileBtn-container");
   
     if (!gameStarted) return;
-    container.style.display = window.innerWidth < 1000 ? "flex" : "none";
+    container.style.display = window.innerWidth < 1400 ? "flex" : "none";
   }
   
   function initializeMobileControls() {
     const buttons = document.querySelectorAll("#mobileBtn-container button");
     buttons.forEach(button => addTouchListeners(button)); // adds Touch-Listener for buttons
-  
     toggleButtonContainer(); // Initial check when loading
     window.addEventListener("resize", toggleButtonContainer); // Check when changing windows
   }

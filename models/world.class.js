@@ -79,6 +79,7 @@ class World {
   }
 
   checkThrowObjects() {
+    
     if (this.keyboard.D || this.keyboard.throwButtonPressed) {
       if (this.character.salsa != 0) {
         this.throwableObject.push(
@@ -241,7 +242,7 @@ class World {
     }
 
     mO.draw(this.ctx);
-   /*  mO.drawFrame(this.ctx); */
+    mO.drawFrame(this.ctx);
 
     if (mO.otherDirection) {
       this.flipImageBack(mO);

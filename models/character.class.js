@@ -10,8 +10,8 @@ class Character extends MovableObject {
   offset = {
     // to adjust the image dimensions
     top: 120,
-    left: 40,
-    right: 40,
+    left: 35,
+    right: 35,
     bottom: 20,
   };
 

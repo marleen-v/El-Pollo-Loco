@@ -2,11 +2,12 @@ class Endboss extends MovableObject {
   y = 20;
   width = 350;
   height = 450;
-  energy = 100;
+  energy = 50;
   gotHurt = false;
   speed = 2;
   characterMetEndboss = false;
   onGroundY = 20;
+  musicAlreadyPlayed = false;
 
   i = 0;
   world;
@@ -82,9 +83,6 @@ class Endboss extends MovableObject {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
       this.playBackgroundMusic();
-      setTimeout(() => {
-        this.world.en
-      }, timeout);
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
       this.gotHurt = true;
@@ -101,12 +99,8 @@ class Endboss extends MovableObject {
   }
 
   endbossMoves() {
-    this.hitbox = this.getHitBox();
     if (this.meetsCharacter()) {
-      this.i = 0;
-      this.speed = 5;
-      this.characterMetEndboss = true;
-      this.playSuspenseMusic();
+      this.meetsCharacterMovement();
     }
     if (this.canIntroMoving()) {
       this.movingLeft();
@@ -124,16 +118,26 @@ class Endboss extends MovableObject {
     }
   }
 
+  meetsCharacterMovement() {
+    this.i = 0;
+    this.speed = 5;
+    this.characterMetEndboss = true;
+    this.playSuspenseMusic();
+  }
+
   playSuspenseMusic() {
     SoundManager.instance.pause("background");
     SoundManager.instance.play("suspense");
   }
 
   playBackgroundMusic() {
-    setTimeout(() => {
-      SoundManager.instance.playBackground("background");
-      SoundManager.instance.pause("suspense");
-    }, 1000);
+    if (!this.musicAlreadyPlayed) {
+      setTimeout(() => {
+        SoundManager.instance.playBackground("background");
+        SoundManager.instance.pause("suspense");
+        this.musicAlreadyPlayed = true;
+      }, 1000);
+    }
   }
 
   movingLeft() {
@@ -169,7 +173,4 @@ class Endboss extends MovableObject {
   jump() {
     this.speedY = 40;
   }
-
-
-  
 }
