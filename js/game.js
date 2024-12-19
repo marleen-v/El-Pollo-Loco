@@ -45,20 +45,9 @@ function setStoppableInterval(fn, time) {
 function stopGame() {
   gameStarted = false;
   resetIntervals();
-  soundManager.pauseAll(); // besides Chicken and ChickenSmall
-  this.pauseSoundOfEnemies();
+  soundManager.pauseAll(); 
 }
 
-/**
- * sounds of enemies Chicken and cChicken Small are paused for stopGame()
- */
-function pauseSoundOfEnemies(){
-  world.level.enemies.forEach((enemy) => {
-    if(enemy instanceof Chicken || enemy instanceof ChickenSmall){
-      enemy.pauseSound();
-    }
-  })
-}
 
 /**
  * resets all Intervals
@@ -123,12 +112,10 @@ function dialogClose() {
  * mutes or unmutes  all sounds
  */
 function toggleSounds() {
-  soundManager.toggleMute(); // all sounds besides enemies
- /*  world.level.enemies.forEach((enemy) => {
-    if (enemy instanceof Chicken || enemy instanceof ChickenSmall) {
-      enemy.toggleMute();
-    }
-  }); */
+  soundManager.toggleMute(); 
+  if(!soundManager.isMuted){
+    world.playSoundsOfEnemies();
+  } 
 }
 
 /**

@@ -63,34 +63,49 @@ class World {
     }, 150);
   }
 
+  /**
+   * checks if there are still Chickens
+   * @returns 
+   */
   hasChickenEnemiesLeft() {
     return this.level.enemies.some(enemy => 
         enemy instanceof Chicken
     );
 }
-hasChickenSmallEnemiesLeft() {
-    return this.level.enemies.some(enemy => 
-      enemy instanceof ChickenSmall
-    );
-}
 
-  checkSoundsOfEnemies(){
-    if(!this.hasChickenEnemiesLeft()){
-      this.soundManager.pause('chicken');
-    } 
-    if(!this.hasChickenSmallEnemiesLeft()){
-      this.soundManager.pause('chicken_small');
-    } 
+  /**
+   * checks if there are still small Chickens
+   * @returns 
+   */
+  hasChickenSmallEnemiesLeft() {
+      return this.level.enemies.some(enemy => 
+        enemy instanceof ChickenSmall
+      );
   }
 
-  playSoundsOfEnemies(){
-      if (this.hasChickenEnemiesLeft()) {
-        this.soundManager.play('chicken');
-      }
-       if (this.hasChickenSmallEnemiesLeft()){
-        this.soundManager.play('chicken_small');
-      }
-   
+  /**
+   * pauses Sounds of enemies
+   */
+    checkSoundsOfEnemies(){
+      if(!this.hasChickenEnemiesLeft()){
+        this.soundManager.pause('chicken');
+      } 
+      if(!this.hasChickenSmallEnemiesLeft()){
+        this.soundManager.pause('chicken_small');
+      } 
+    }
+
+    /**
+     * plays sounds of enemies
+     */
+    playSoundsOfEnemies(){
+    if (this.hasChickenEnemiesLeft()) {
+      this.soundManager.play('chicken');
+    }
+      if (this.hasChickenSmallEnemiesLeft()){
+      this.soundManager.play('chicken_small');
+    }
+  
   }
 
   /**

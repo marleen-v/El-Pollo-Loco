@@ -14,7 +14,7 @@ class SoundManager {
     // sounds and volumes
     this.sounds = {
       background: { audio: new Audio("audio/2021-10-11_-_Country_Fireside_-_www.FesliyanStudios.com.mp3" ),volume: 0.6,},
-      coin: { audio: new Audio("audio/collect-coin-2.mp3"), volume: 0.03 },
+      coin: { audio: new Audio("audio/collect-coin-2.mp3"), volume: 0.1 },
       running: { audio: new Audio("audio/running.mp3"), volume: 1.0 },
       hit: { audio: new Audio("audio/hit.mp3"), volume: 0.2 },
       damage: { audio: new Audio("audio/damage-2.mp3"), volume: 0.02 },
@@ -25,8 +25,8 @@ class SoundManager {
       gameOver: { audio: new Audio("audio/game-over.mp3"), volume: 1.0 },
       win: { audio: new Audio("audio/winning.mp3"), volume: 1.0 },
       endboss_hit: { audio: new Audio("audio/chicken-alarm.mp3"), volume: 1.0 },
-      chicken: { audio: new Audio("audio/chicken.mp3"), volume: 1.0 },
-      chicken_small: {audio: new Audio("audio/chickenSmall.mp3"),volume: 1.0,}, 
+      chicken: { audio: new Audio("audio/chicken.mp3"), volume: 0.05 },
+      chicken_small: {audio: new Audio("audio/chickenSmall.mp3"),volume: 0.05,}, 
       snoring: { audio: new Audio("audio/snoring.mp3"), volume: 0.1 },
       suspense: { audio: new Audio("audio/endboss-music.mp3"), volume: 1.0 },
     };
@@ -38,6 +38,7 @@ class SoundManager {
     // background-music endboss
     this.sounds.suspense.audio.loop = true;
     this.sounds.chicken.audio.loop = true;
+   
     this.sounds.chicken_small.audio.loop = true;
   }
 
@@ -51,6 +52,9 @@ class SoundManager {
       sound.audio.play();
     }
   }
+
+
+
 
   /**
    * pauses a sound
